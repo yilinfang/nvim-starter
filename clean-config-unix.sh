@@ -10,4 +10,5 @@ echo "Cleaning up Neovim configuration...done"
 # Cleanup Ohmytmux configuration
 echo "Cleaning up Ohmytmux configuration..."
 rm ~/.tmux.conf ~/.tmux.conf.local
+rm -rf ~/.tmux
 echo "Cleaning up Ohmytmux configuration...done"
