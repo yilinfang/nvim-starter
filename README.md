@@ -9,8 +9,8 @@ The following tools will be installed:
 - [Neovim](https://neovim.io/)
 - [Node.js](https://nodejs.org/)
 - [Zellij](https://zellij.dev/)
-- [fd]()
-- [ripgrep]()
+- [fd](https://github.com/sharkdp/fd)
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [fzf](https://github.com/junegunn/fzf)
 - [Lazygit](https://github.com/jesseduffield/lazygit)
 
