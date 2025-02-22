@@ -7,7 +7,8 @@ rm -rf ~/.local/state/nvim
 rm -rf ~/.local/share/nvim
 echo "Cleaning up Neovim configuration...done"
 
-# Cleanup zellij configuration
-echo "Cleaning up Zellij configuration..."
-rm -rf ~/.config/zellij
-echo "Cleaning up Zellij configuration...done"
+# Cleanup Ohmytmux configuration
+echo "Cleaning up Ohmytmux configuration..."
+rm ~/.tmux.conf ~/.tmux.conf.local
+rm -rf ~/.tmux
+echo "Cleaning up Ohmytmux configuration...done"
