@@ -51,9 +51,9 @@ echo "Extracting fd..."
 tar -xzf "$TEMP_DIR/fd.tar.gz" -C "$TEMP_DIR"
 FD_BINARY=$(find "$TEMP_DIR" -type f -name "fd" | head -n 1)
 if [ -n "$FD_BINARY" ]; then
-    mv "$FD_BINARY" "$INSTALL_DIR/fd"
+  mv "$FD_BINARY" "$INSTALL_DIR/fd"
 else
-    echo "Error: fd binary not found in the extracted files."
+  echo "Error: fd binary not found in the extracted files."
 fi
 
 # Download and install ripgrep
@@ -63,9 +63,9 @@ echo "Extracting ripgrep..."
 tar -xzf "$TEMP_DIR/rg.tar.gz" -C "$TEMP_DIR"
 RG_BINARY=$(find "$TEMP_DIR" -type f -name "rg" | head -n 1)
 if [ -n "$RG_BINARY" ]; then
-    mv "$RG_BINARY" "$INSTALL_DIR/rg"
+  mv "$RG_BINARY" "$INSTALL_DIR/rg"
 else
-    echo "Error: ripgrep binary not found in the extracted files."
+  echo "Error: ripgrep binary not found in the extracted files."
 fi
 
 # Download and install fzf
@@ -84,34 +84,34 @@ mv "$TEMP_DIR/lazygit" "$INSTALL_DIR/lazygit"
 
 # Clone or update Neovim configuration
 if [ -d "$NVIM_CONFIG_DIR" ]; then
-    if [ -d "$NVIM_CONFIG_DIR/.git" ]; then
-        echo "Updating existing Neovim configuration..."
-        git -C "$NVIM_CONFIG_DIR" pull --ff-only || echo "Failed to update Neovim configuration. Resolve conflicts manually."
-    else
-        echo "Directory $NVIM_CONFIG_DIR exists but is not a Git repository. Backing it up..."
-        mv "$NVIM_CONFIG_DIR" "$NVIM_CONFIG_DIR.bak.$(date +%s)"
-        echo "Cloning Neovim configuration..."
-        git clone "$NVIM_CONFIG_REPO" "$NVIM_CONFIG_DIR"
-    fi
-else
+  if [ -d "$NVIM_CONFIG_DIR/.git" ]; then
+    echo "Updating existing Neovim configuration..."
+    git -C "$NVIM_CONFIG_DIR" pull --ff-only || echo "Failed to update Neovim configuration. Resolve conflicts manually."
+  else
+    echo "Directory $NVIM_CONFIG_DIR exists but is not a Git repository. Backing it up..."
+    mv "$NVIM_CONFIG_DIR" "$NVIM_CONFIG_DIR.bak.$(date +%s)"
     echo "Cloning Neovim configuration..."
     git clone "$NVIM_CONFIG_REPO" "$NVIM_CONFIG_DIR"
+  fi
+else
+  echo "Cloning Neovim configuration..."
+  git clone "$NVIM_CONFIG_REPO" "$NVIM_CONFIG_DIR"
 fi
 
 # Clone or update Oh My Tmux configuration
 if [ -d "$TMUX_CONFIG_DIR" ]; then
-    if [ -d "$TMUX_CONFIG_DIR/.git" ]; then
-        echo "Updating existing Tmux configuration..."
-        git -C "$TMUX_CONFIG_DIR" pull --ff-only || echo "Failed to update Tmux configuration. Resolve conflicts manually."
-    else
-        echo "Directory $TMUX_CONFIG_DIR exists but is not a Git repository. Backing it up..."
-        mv "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_DIR.bak.$(date +%s)"
-        echo "Cloning Tmux configuration..."
-        git clone "$OHMYTMUX_REPO" "$TMUX_CONFIG_DIR"
-    fi
-else
+  if [ -d "$TMUX_CONFIG_DIR/.git" ]; then
+    echo "Updating existing Tmux configuration..."
+    git -C "$TMUX_CONFIG_DIR" pull --ff-only || echo "Failed to update Tmux configuration. Resolve conflicts manually."
+  else
+    echo "Directory $TMUX_CONFIG_DIR exists but is not a Git repository. Backing it up..."
+    mv "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_DIR.bak.$(date +%s)"
     echo "Cloning Tmux configuration..."
     git clone "$OHMYTMUX_REPO" "$TMUX_CONFIG_DIR"
+  fi
+else
+  echo "Cloning Tmux configuration..."
+  git clone "$OHMYTMUX_REPO" "$TMUX_CONFIG_DIR"
 fi
 
 # Create symbolic links for Tmux configuration
@@ -119,25 +119,28 @@ echo "Creating symbolic links for Tmux configuration..."
 
 # Handle .tmux.conf
 if [ -L "$TMUX_CONF" ]; then
-    rm "$TMUX_CONF"
+  rm "$TMUX_CONF"
 elif [ -f "$TMUX_CONF" ]; then
-    mv "$TMUX_CONF" "$TMUX_CONF.bak.$(date +%s)"
+  mv "$TMUX_CONF" "$TMUX_CONF.bak.$(date +%s)"
 fi
 ln -s "$TMUX_CONFIG_DIR/.tmux.conf" "$TMUX_CONF"
 
 # Handle .tmux.conf.local
 if [ -L "$TMUX_CONF_LOCAL" ]; then
-    rm "$TMUX_CONF_LOCAL"
+  rm "$TMUX_CONF_LOCAL"
 elif [ -f "$TMUX_CONF_LOCAL" ]; then
-    mv "$TMUX_CONF_LOCAL" "$TMUX_CONF_LOCAL.bak.$(date +%s)"
+  mv "$TMUX_CONF_LOCAL" "$TMUX_CONF_LOCAL.bak.$(date +%s)"
 fi
 ln -s "$TMUX_CONFIG_DIR/.tmux.conf.local" "$TMUX_CONF_LOCAL"
 
 # Add local bin directory to PATH
 if [ -f "$HOME/.bashrc" ]; then
-    if ! grep -q "export PATH=\$HOME/bin:\$PATH" "$HOME/.bashrc"; then
-        echo 'export PATH=$HOME/bin:$PATH' >> "$HOME/.bashrc"
-    fi
+  if ! grep -q "export PATH=\$HOME/bin:\$PATH" "$HOME/.bashrc"; then
+    echo 'export PATH=$HOME/bin:$PATH' >>"$HOME/.bashrc"
+  fi
+  if ! grep -q "eval \"\$(fzf --bash)\"" "$HOME/.bashrc"; then
+    echo 'eval "$(fzf --bash)"' >>"$HOME/.bashrc"
+  fi
 fi
 
 # Clean up temporary files
