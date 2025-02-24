@@ -23,145 +23,222 @@ LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.47.1/
 NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
 ZELLIJ_CONFIG_REPO="https://github.com/yilinfang/zellij.git"
 
-# Create necessary directories if they do not exist
-mkdir -p "$INSTALL_DIR"
-mkdir -p "$TEMP_DIR"
-mkdir -p "$NEOVIM_DIR"
-mkdir -p "$NODEJS_DIR"
+# Installation tracking variables
+INSTALLED_ZOXIDE=0
+INSTALLED_FZF=0
+INSTALLED_ANY_TOOL=0
 
-# Download and install Neovim
-echo "Downloading Neovim..."
-curl -L "$NEOVIM_URL" -o "$TEMP_DIR/nvim.tar.gz"
-echo "Extracting Neovim..."
-tar -xzf "$TEMP_DIR/nvim.tar.gz" -C "$NEOVIM_DIR" --strip-components=1
-ln -sf "$NEOVIM_DIR/bin/nvim" "$INSTALL_DIR/nvim"
+# Function to display menu and get user selection
+show_menu() {
+  echo "Select tools to install (enter numbers separated by space, or 'a' for all):"
+  echo "1. Neovim"
+  echo "2. Node.js"
+  echo "3. Zellij"
+  echo "4. fd"
+  echo "5. ripgrep"
+  echo "6. bat"
+  echo "7. zoxide"
+  echo "8. fzf"
+  echo "9. lazygit"
+  echo "10. Neovim config"
+  echo "11. Zellij config"
+  echo "a. Install all"
 
-# Download and install Node.js
-echo "Downloading Node.js..."
-curl -L "$NODEJS_URL" -o "$TEMP_DIR/node.tar.gz"
-echo "Extracting Node.js..."
-tar -xzf "$TEMP_DIR/node.tar.gz" -C "$NODEJS_DIR" --strip-components=1
-ln -sf "$NODEJS_DIR/bin/node" "$INSTALL_DIR/node"
-ln -sf "$NODEJS_DIR/bin/npm" "$INSTALL_DIR/npm"
-ln -sf "$NODEJS_DIR/bin/npx" "$INSTALL_DIR/npx"
+  read -p "Your choice: " CHOICE
+}
 
-# Download and install Zellij
-echo "Downloading Zellij..."
-curl -L "$ZELLIJ_URL" -o "$TEMP_DIR/zellij.tar.gz"
-echo "Extracting Zellij..."
-tar -xzf "$TEMP_DIR/zellij.tar.gz" -C "$TEMP_DIR"
-mv "$TEMP_DIR/zellij" "$INSTALL_DIR/zellij"
+# Installation functions
+install_neovim() {
+  echo "Installing Neovim..."
+  rm -rf "$NEOVIM_DIR"
+  mkdir -p "$NEOVIM_DIR"
+  curl -L "$NEOVIM_URL" -o "$TEMP_DIR/nvim.tar.gz"
+  tar -xzf "$TEMP_DIR/nvim.tar.gz" -C "$NEOVIM_DIR" --strip-components=1
+  ln -sf "$NEOVIM_DIR/bin/nvim" "$INSTALL_DIR/nvim"
+  INSTALLED_ANY_TOOL=1
+}
 
-# Download and install fd
-echo "Downloading fd..."
-curl -L "$FD_URL" -o "$TEMP_DIR/fd.tar.gz"
-echo "Extracting fd..."
-tar -xzf "$TEMP_DIR/fd.tar.gz" -C "$TEMP_DIR"
-FD_BINARY=$(find "$TEMP_DIR" -type f -name "fd" | head -n 1)
-if [ -n "$FD_BINARY" ]; then
-  mv "$FD_BINARY" "$INSTALL_DIR/fd"
-else
-  echo "Error: fd binary not found in the extracted files."
-fi
+install_nodejs() {
+  echo "Installing Node.js..."
+  rm -rf "$NODEJS_DIR"
+  mkdir -p "$NODEJS_DIR"
+  curl -L "$NODEJS_URL" -o "$TEMP_DIR/node.tar.xz"
+  tar -xf "$TEMP_DIR/node.tar.xz" -C "$NODEJS_DIR" --strip-components=1
+  ln -sf "$NODEJS_DIR/bin/node" "$INSTALL_DIR/node"
+  ln -sf "$NODEJS_DIR/bin/npm" "$INSTALL_DIR/npm"
+  ln -sf "$NODEJS_DIR/bin/npx" "$INSTALL_DIR/npx"
+  INSTALLED_ANY_TOOL=1
+}
 
-# Download and install ripgrep
-echo "Downloading ripgrep..."
-curl -L "$RG_URL" -o "$TEMP_DIR/rg.tar.gz"
-echo "Extracting ripgrep..."
-tar -xzf "$TEMP_DIR/rg.tar.gz" -C "$TEMP_DIR"
-RG_BINARY=$(find "$TEMP_DIR" -type f -name "rg" | head -n 1)
-if [ -n "$RG_BINARY" ]; then
-  mv "$RG_BINARY" "$INSTALL_DIR/rg"
-else
-  echo "Error: ripgrep binary not found in the extracted files."
-fi
+install_zellij() {
+  echo "Installing Zellij..."
+  curl -L "$ZELLIJ_URL" -o "$TEMP_DIR/zellij.tar.gz"
+  tar -xzf "$TEMP_DIR/zellij.tar.gz" -C "$TEMP_DIR"
+  mv "$TEMP_DIR/zellij" "$INSTALL_DIR/zellij"
+  INSTALLED_ANY_TOOL=1
+}
 
-# Download and install bat
-echo "Downloading bat..."
-curl -L "$BAT_URL" -o "$TEMP_DIR/bat.tar.gz"
-echo "Extracting bat..."
-tar -xzf "$TEMP_DIR/bat.tar.gz" -C "$TEMP_DIR"
-BAT_BINARY=$(find "$TEMP_DIR" -type f -name "bat" | head -n 1)
-if [ -n "$BAT_BINARY" ]; then
-  mv "$BAT_BINARY" "$INSTALL_DIR/bat"
-else
-  echo "Error: bat binary not found in the extracted files."
-fi
-
-# Download and install zoxide
-echo "Downloading zoxide..."
-curl -L "$ZOXIDE_URL" -o "$TEMP_DIR/zoxide.tar.gz"
-echo "Extracting zoxide..."
-tar -xzf "$TEMP_DIR/zoxide.tar.gz" -C "$TEMP_DIR"
-ZOXIDE_BINARY=$(find "$TEMP_DIR" -type f -name "zoxide" | head -n 1)
-if [ -n "$ZOXIDE_BINARY" ]; then
-  mv "$ZOXIDE_BINARY" "$INSTALL_DIR/zoxide"
-else
-  echo "Error: zoxide binary not found in the extracted files."
-fi
-
-# Download and install fzf
-echo "Downloading fzf..."
-curl -L "$FZF_URL" -o "$TEMP_DIR/fzf.tar.gz"
-echo "Extracting fzf..."
-tar -xzf "$TEMP_DIR/fzf.tar.gz" -C "$TEMP_DIR"
-mv "$TEMP_DIR/fzf" "$INSTALL_DIR/fzf"
-
-# Download and install lazygit
-echo "Downloading lazygit..."
-curl -L "$LAZYGIT_URL" -o "$TEMP_DIR/lazygit.tar.gz"
-echo "Extracting lazygit..."
-tar -xzf "$TEMP_DIR/lazygit.tar.gz" -C "$TEMP_DIR"
-mv "$TEMP_DIR/lazygit" "$INSTALL_DIR/lazygit"
-
-# Clone or update Neovim configuration
-if [ -d "$NVIM_CONFIG_DIR" ]; then
-  if [ -d "$NVIM_CONFIG_DIR/.git" ]; then
-    echo "Updating existing Neovim configuration..."
-    git -C "$NVIM_CONFIG_DIR" pull --ff-only || echo "Failed to update Neovim configuration. Resolve conflicts manually."
+install_fd() {
+  echo "Installing fd..."
+  curl -L "$FD_URL" -o "$TEMP_DIR/fd.tar.gz"
+  tar -xzf "$TEMP_DIR/fd.tar.gz" -C "$TEMP_DIR"
+  FD_BINARY=$(find "$TEMP_DIR" -type f -name "fd" | head -n 1)
+  if [ -n "$FD_BINARY" ]; then
+    mv "$FD_BINARY" "$INSTALL_DIR/fd"
+    INSTALLED_ANY_TOOL=1
   else
-    echo "Directory $NVIM_CONFIG_DIR exists but is not a Git repository. Backing it up..."
-    mv "$NVIM_CONFIG_DIR" "$NVIM_CONFIG_DIR.bak.$(date +%s)"
-    echo "Cloning Neovim configuration..."
-    git clone "$NVIM_CONFIG_REPO" "$NVIM_CONFIG_DIR"
+    echo "Error: fd binary not found in the extracted files."
   fi
-else
-  echo "Cloning Neovim configuration..."
+}
+
+install_ripgrep() {
+  echo "Installing ripgrep..."
+  curl -L "$RG_URL" -o "$TEMP_DIR/rg.tar.gz"
+  tar -xzf "$TEMP_DIR/rg.tar.gz" -C "$TEMP_DIR"
+  RG_BINARY=$(find "$TEMP_DIR" -type f -name "rg" | head -n 1)
+  if [ -n "$RG_BINARY" ]; then
+    mv "$RG_BINARY" "$INSTALL_DIR/rg"
+    INSTALLED_ANY_TOOL=1
+  else
+    echo "Error: ripgrep binary not found in the extracted files."
+  fi
+}
+
+install_bat() {
+  echo "Installing bat..."
+  curl -L "$BAT_URL" -o "$TEMP_DIR/bat.tar.gz"
+  tar -xzf "$TEMP_DIR/bat.tar.gz" -C "$TEMP_DIR"
+  BAT_BINARY=$(find "$TEMP_DIR" -type f -name "bat" | head -n 1)
+  if [ -n "$BAT_BINARY" ]; then
+    mv "$BAT_BINARY" "$INSTALL_DIR/bat"
+    INSTALLED_ANY_TOOL=1
+  else
+    echo "Error: bat binary not found in the extracted files."
+  fi
+}
+
+install_zoxide() {
+  echo "Installing zoxide..."
+  curl -L "$ZOXIDE_URL" -o "$TEMP_DIR/zoxide.tar.gz"
+  tar -xzf "$TEMP_DIR/zoxide.tar.gz" -C "$TEMP_DIR"
+  ZOXIDE_BINARY=$(find "$TEMP_DIR" -type f -name "zoxide" | head -n 1)
+  if [ -n "$ZOXIDE_BINARY" ]; then
+    mv "$ZOXIDE_BINARY" "$INSTALL_DIR/zoxide"
+    INSTALLED_ANY_TOOL=1
+    INSTALLED_ZOXIDE=1
+  else
+    echo "Error: zoxide binary not found in the extracted files."
+  fi
+}
+
+install_fzf() {
+  echo "Installing fzf..."
+  curl -L "$FZF_URL" -o "$TEMP_DIR/fzf.tar.gz"
+  tar -xzf "$TEMP_DIR/fzf.tar.gz" -C "$TEMP_DIR"
+  mv "$TEMP_DIR/fzf" "$INSTALL_DIR/fzf"
+  INSTALLED_ANY_TOOL=1
+  INSTALLED_FZF=1
+}
+
+install_lazygit() {
+  echo "Installing lazygit..."
+  curl -L "$LAZYGIT_URL" -o "$TEMP_DIR/lazygit.tar.gz"
+  tar -xzf "$TEMP_DIR/lazygit.tar.gz" -C "$TEMP_DIR"
+  mv "$TEMP_DIR/lazygit" "$INSTALL_DIR/lazygit"
+  INSTALLED_ANY_TOOL=1
+}
+
+install_nvim_config() {
+  echo "Installing Neovim configuration..."
+  rm -rf "$NVIM_CONFIG_DIR"
   git clone "$NVIM_CONFIG_REPO" "$NVIM_CONFIG_DIR"
-fi
+}
 
-# Clone or update Zellij configuration
-if [ -d "$ZELLIJ_CONFIG_DIR" ]; then
-  if [ -d "$ZELLIJ_CONFIG_DIR/.git" ]; then
-    echo "Updating existing Zellij configuration..."
-    git -C "$ZELLIJ_CONFIG_DIR" pull --ff-only || echo "Failed to update Zellij configuration. Resolve conflicts manually."
-  else
-    echo "Directory $ZELLIJ_CONFIG_DIR exists but is not a Git repository. Backing it up..."
-    mv "$ZELLIJ_CONFIG_DIR" "$ZELLIJ_CONFIG_DIR.bak.$(date +%s)"
-    echo "Cloning Zellij configuration..."
-    git clone "$ZELLIJ_CONFIG_REPO" "$ZELLIJ_CONFIG_DIR"
-  fi
-else
-  echo "Cloning Zellij configuration..."
+install_zellij_config() {
+  echo "Installing Zellij configuration..."
+  rm -rf "$ZELLIJ_CONFIG_DIR"
   git clone "$ZELLIJ_CONFIG_REPO" "$ZELLIJ_CONFIG_DIR"
+}
+
+# Clean up and create fresh directories
+rm -rf "$TEMP_DIR"
+mkdir -p "$INSTALL_DIR" "$TEMP_DIR"
+
+# Show menu and process selection
+show_menu
+
+# Process user selection
+if [[ "$CHOICE" == "a" ]]; then
+  install_neovim
+  install_nodejs
+  install_zellij
+  install_fd
+  install_ripgrep
+  install_bat
+  install_zoxide
+  install_fzf
+  install_lazygit
+  install_nvim_config
+  install_zellij_config
+else
+  for num in $CHOICE; do
+    case $num in
+    1) install_neovim ;;
+    2) install_nodejs ;;
+    3) install_zellij ;;
+    4) install_fd ;;
+    5) install_ripgrep ;;
+    6) install_bat ;;
+    7) install_zoxide ;;
+    8) install_fzf ;;
+    9) install_lazygit ;;
+    10) install_nvim_config ;;
+    11) install_zellij_config ;;
+    *) echo "Invalid option: $num" ;;
+    esac
+  done
 fi
 
-# Modify shell configuration
+# Update shell configuration based on installed components
 if [ -f "$HOME/.zshrc" ]; then
-  if ! grep -q "export PATH=\$HOME/bin:\$PATH" "$HOME/.zshrc"; then
+  # Add PATH only if any tool was installed
+  if [ $INSTALLED_ANY_TOOL -eq 1 ] && ! grep -q "export PATH=\$HOME/bin:\$PATH" "$HOME/.bashrc"; then
+    echo 'export PATH=$HOME/bin:$PATH' >>"$HOME/.bashrc"
+  fi
+
+  # Add zoxide init if installed
+  if [ $INSTALLED_ZOXIDE -eq 1 ] && ! grep -q "eval \"\$(zoxide init bash)\"" "$HOME/.bashrc"; then
+    echo 'eval "$(zoxide init bash)"' >>"$HOME/.bashrc"
+  fi
+
+  # Add fzf init if installed
+  if [ $INSTALLED_FZF -eq 1 ] && ! grep -q "eval \"\$(fzf --bash)\"" "$HOME/.bashrc"; then
+    echo 'eval "$(fzf --bash)"' >>"$HOME/.bashrc"
+  fi
+fi
+
+# Update shell configuration based on installed components
+if [ -f "$HOME/.zshrc" ]; then
+  # Add PATH only if any tool was installed
+  if [ $INSTALLED_ANY_TOOL -eq 1 ] && ! grep -q "export PATH=\$HOME/bin:\$PATH" "$HOME/.zshrc"; then
     echo 'export PATH=$HOME/bin:$PATH' >>"$HOME/.zshrc"
   fi
-  if ! grep -q "eval \"\$(zoxide init zsh)\"" "$HOME/.zshrc"; then
+
+  # Add zoxide init if installed
+  if [ $INSTALLED_ZOXIDE -eq 1 ] && ! grep -q "eval \"\$(zoxide init zsh)\"" "$HOME/.zshrc"; then
     echo 'eval "$(zoxide init zsh)"' >>"$HOME/.zshrc"
   fi
-  if ! grep -q "source <(fzf --zsh)" "$HOME/.zshrc"; then
+
+  # Add fzf init if installed
+  if [ $INSTALLED_FZF -eq 1 ] && ! grep -q "source <(fzf --zsh)" "$HOME/.zshrc"; then
     echo 'source <(fzf --zsh)' >>"$HOME/.zshrc"
   fi
 fi
 
-# Clean up temporary files
+# Clean up
 rm -rf "$TEMP_DIR"
 
-# Inform the user
 echo "Installation complete!"
-echo "Please run 'source ~/.zshrc' or restart your shell to update the PATH."
+if [ $INSTALLED_ANY_TOOL -eq 1 ]; then
+  echo "Please run 'source ~/.zshrc' or restart your shell to update the PATH."
+fi
