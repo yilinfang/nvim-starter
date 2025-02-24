@@ -8,7 +8,7 @@ The following tools will be installed:
 
 - [Neovim](https://neovim.io/)
 - [Node.js](https://nodejs.org/)
-- [Oh my tmux!](https://github.com/gpakosz/.tmux)
+- [Zellij](https://zellij.dev/)
 - [fd](https://github.com/sharkdp/fd)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [fzf](https://github.com/junegunn/fzf)
@@ -21,7 +21,6 @@ Please refer to the scripts for detailed information.
 - Git >= 2.19.0
 - A **C** compiler for _nvim-treesitter_
 - curl
-- tmux >= 2.6 for _Oh my tmux!_ (optional)
 
 ## Motivation
 
@@ -31,4 +30,4 @@ However, I failed to rebuild the development environment on a server where the p
 
 Thus, I started building these scripts. I decided to open source them as I found them quite useful.
 
-_Git, C compiler, curl, and tmux are not provided because I find that they are usually either ready to use or up-to-date on most servers I use. :D_
+_Git, C compiler and curl are not provided because I find that they are usually either ready to use or up-to-date on most servers I use. :D_
