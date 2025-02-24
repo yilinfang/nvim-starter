@@ -16,8 +16,8 @@ FD_URL="https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-aarch
 RG_URL="https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-aarch64-apple-darwin.tar.gz"
 BAT_URL="https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-aarch64-apple-darwin.tar.gz"
 ZOXIDE_URL="https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.7/zoxide-0.9.7-aarch64-apple-darwin.tar.gz"
-FZF_URL="https://github.com/junegunn/fzf/releases/download/v0.60.1/fzf-0.60.1-darwin_amd64.tar.gz"
-LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.46.0/lazygit_0.46.0_Darwin_arm64.tar.gz"
+FZF_URL="https://github.com/junegunn/fzf/releases/download/v0.60.2/fzf-0.60.2-darwin_arm64.tar.gz"
+LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.47.1/lazygit_0.47.1_Darwin_arm64.tar.gz"
 
 # Configuration repositories
 NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
@@ -164,4 +164,4 @@ rm -rf "$TEMP_DIR"
 
 # Inform the user
 echo "Installation complete!"
-echo "Please run 'source ~/.zshrc' (or 'source ~/.bashrc' if using bash) or restart your shell to update the PATH."
+echo "Please run 'source ~/.zshrc' or restart your shell to update the PATH."

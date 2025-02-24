@@ -16,8 +16,8 @@ FD_URL="https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_6
 RG_URL="https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-x86_64-unknown-linux-musl.tar.gz"
 BAT_URL="https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-x86_64-unknown-linux-musl.tar.gz"
 ZOXIDE_URL="https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.7/zoxide-0.9.7-x86_64-unknown-linux-musl.tar.gz"
-FZF_URL="https://github.com/junegunn/fzf/releases/download/v0.60.1/fzf-0.60.1-linux_amd64.tar.gz"
-LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.46.0/lazygit_0.46.0_Linux_x86_64.tar.gz"
+FZF_URL="https://github.com/junegunn/fzf/releases/download/v0.60.2/fzf-0.60.2-linux_amd64.tar.gz"
+LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.47.1/lazygit_0.47.1_Linux_x86_64.tar.gz"
 
 # Configuration repositories
 NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
@@ -146,7 +146,7 @@ else
   git clone "$ZELLIJ_CONFIG_REPO" "$ZELLIJ_CONFIG_DIR"
 fi
 
-# Modify .bashrc
+# Modify shell configuration
 if [ -f "$HOME/.bashrc" ]; then
   if ! grep -q "export PATH=\$HOME/bin:\$PATH" "$HOME/.bashrc"; then
     echo 'export PATH=$HOME/bin:$PATH' >>"$HOME/.bashrc"
