@@ -14,6 +14,8 @@ NODEJS_URL="https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-x64.tar.xz"
 ZELLIJ_URL="https://github.com/zellij-org/zellij/releases/download/v0.41.2/zellij-x86_64-unknown-linux-musl.tar.gz"
 FD_URL="https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-unknown-linux-musl.tar.gz"
 RG_URL="https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-x86_64-unknown-linux-musl.tar.gz"
+BAT_URL="https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-x86_64-unknown-linux-musl.tar.gz"
+ZOXIDE_URL="https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.7/zoxide-0.9.7-x86_64-unknown-linux-musl.tar.gz"
 FZF_URL="https://github.com/junegunn/fzf/releases/download/v0.60.1/fzf-0.60.1-linux_amd64.tar.gz"
 LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.46.0/lazygit_0.46.0_Linux_x86_64.tar.gz"
 
@@ -74,6 +76,30 @@ else
   echo "Error: ripgrep binary not found in the extracted files."
 fi
 
+# Download and install bat
+echo "Downloading bat..."
+curl -L "$BAT_URL" -o "$TEMP_DIR/bat.tar.gz"
+echo "Extracting bat..."
+tar -xzf "$TEMP_DIR/bat.tar.gz" -C "$TEMP_DIR"
+BAT_BINARY=$(find "$TEMP_DIR" -type f -name "bat" | head -n 1)
+if [ -n "$BAT_BINARY" ]; then
+  mv "$BAT_BINARY" "$INSTALL_DIR/bat"
+else
+  echo "Error: bat binary not found in the extracted files."
+fi
+
+# Download and install zoxide
+echo "Downloading zoxide..."
+curl -L "$ZOXIDE_URL" -o "$TEMP_DIR/zoxide.tar.gz"
+echo "Extracting zoxide..."
+tar -xzf "$TEMP_DIR/zoxide.tar.gz" -C "$TEMP_DIR"
+ZOXIDE_BINARY=$(find "$TEMP_DIR" -type f -name "zoxide" | head -n 1)
+if [ -n "$ZOXIDE_BINARY" ]; then
+  mv "$ZOXIDE_BINARY" "$INSTALL_DIR/zoxide"
+else
+  echo "Error: zoxide binary not found in the extracted files."
+fi
+
 # Download and install fzf
 echo "Downloading fzf..."
 curl -L "$FZF_URL" -o "$TEMP_DIR/fzf.tar.gz"
@@ -124,6 +150,9 @@ fi
 if [ -f "$HOME/.bashrc" ]; then
   if ! grep -q "export PATH=\$HOME/bin:\$PATH" "$HOME/.bashrc"; then
     echo 'export PATH=$HOME/bin:$PATH' >>"$HOME/.bashrc"
+  fi
+  if ! grep -q "eval \"\$(zoxide init bash)\"" "$HOME/.bashrc"; then
+    echo 'eval "$(zoxide init bash)"' >>"$HOME/.bashrc"
   fi
   if ! grep -q "eval \"\$(fzf --bash)\"" "$HOME/.bashrc"; then
     echo 'eval "$(fzf --bash)"' >>"$HOME/.bashrc"
