@@ -56,11 +56,12 @@ install_neovim() {
   tar -xzf "$TEMP_DIR/nvim.tar.gz" -C "$NEOVIM_DIR" --strip-components=1
 
   # Create a wrapper script to launch Neovim with the isolated Node.js environment
-  cat >"$INSTALL_DIR/nvim" <<EOF
-#!/bin/bash
+  tee "$INSTALL_DIR/nvim" <<EOF
+#!/bin/zsh
 export PATH=$NODEJS_DIR/bin:\$PATH
 exec $NEOVIM_DIR/bin/nvim "\$@"
 EOF
+
   chmod +x "$INSTALL_DIR/nvim"
   echo "Created wrapper script for Neovim at $INSTALL_DIR/nvim"
   INSTALLED_ANY_TOOL=1
