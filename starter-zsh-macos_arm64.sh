@@ -17,7 +17,7 @@ RG_URL="https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-1
 BAT_URL="https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-aarch64-apple-darwin.tar.gz"
 ZOXIDE_URL="https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.7/zoxide-0.9.7-aarch64-apple-darwin.tar.gz"
 FZF_URL="https://github.com/junegunn/fzf/releases/download/v0.60.2/fzf-0.60.2-darwin_arm64.tar.gz"
-LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.47.1/lazygit_0.47.1_Darwin_arm64.tar.gz"
+LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.47.2/lazygit_0.47.2_Darwin_arm64.tar.gz"
 
 # Configuration repositories
 NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
@@ -54,7 +54,15 @@ install_neovim() {
   mkdir -p "$NEOVIM_DIR"
   curl -L "$NEOVIM_URL" -o "$TEMP_DIR/nvim.tar.gz"
   tar -xzf "$TEMP_DIR/nvim.tar.gz" -C "$NEOVIM_DIR" --strip-components=1
-  ln -sf "$NEOVIM_DIR/bin/nvim" "$INSTALL_DIR/nvim"
+
+  # Create a wrapper script to launch Neovim with the isolated Node.js environment
+  cat >"$INSTALL_DIR/nvim" <<EOF
+#!/bin/bash
+export PATH=$NODEJS_DIR/bin:\$PATH
+exec $NEOVIM_DIR/bin/nvim "\$@"
+EOF
+  chmod +x "$INSTALL_DIR/nvim"
+  echo "Created wrapper script for Neovim at $INSTALL_DIR/nvim"
   INSTALLED_ANY_TOOL=1
 }
 
@@ -64,9 +72,7 @@ install_nodejs() {
   mkdir -p "$NODEJS_DIR"
   curl -L "$NODEJS_URL" -o "$TEMP_DIR/node.tar.xz"
   tar -xf "$TEMP_DIR/node.tar.xz" -C "$NODEJS_DIR" --strip-components=1
-  ln -sf "$NODEJS_DIR/bin/node" "$INSTALL_DIR/node"
-  ln -sf "$NODEJS_DIR/bin/npm" "$INSTALL_DIR/npm"
-  ln -sf "$NODEJS_DIR/bin/npx" "$INSTALL_DIR/npx"
+  echo "Node.js installed in $NODEJS_DIR. It will not be added to the system PATH. You have to do it own, if you need."
   INSTALLED_ANY_TOOL=1
 }
 
@@ -197,24 +203,6 @@ else
     *) echo "Invalid option: $num" ;;
     esac
   done
-fi
-
-# Update shell configuration based on installed components
-if [ -f "$HOME/.zshrc" ]; then
-  # Add PATH only if any tool was installed
-  if [ $INSTALLED_ANY_TOOL -eq 1 ] && ! grep -q "export PATH=\$HOME/bin:\$PATH" "$HOME/.bashrc"; then
-    echo 'export PATH=$HOME/bin:$PATH' >>"$HOME/.bashrc"
-  fi
-
-  # Add zoxide init if installed
-  if [ $INSTALLED_ZOXIDE -eq 1 ] && ! grep -q "eval \"\$(zoxide init bash)\"" "$HOME/.bashrc"; then
-    echo 'eval "$(zoxide init bash)"' >>"$HOME/.bashrc"
-  fi
-
-  # Add fzf init if installed
-  if [ $INSTALLED_FZF -eq 1 ] && ! grep -q "eval \"\$(fzf --bash)\"" "$HOME/.bashrc"; then
-    echo 'eval "$(fzf --bash)"' >>"$HOME/.bashrc"
-  fi
 fi
 
 # Update shell configuration based on installed components
