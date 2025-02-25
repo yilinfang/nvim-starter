@@ -62,7 +62,7 @@ install_neovim() {
 
   # Create a wrapper script to launch Neovim with the isolated Node.js environment
   tee "$INSTALL_DIR/nvim" <<EOF
-#!/bin/zsh
+#!/bin/bash
 export PATH=$NODEJS_DIR/bin:\$PATH
 exec $NEOVIM_DIR/bin/nvim "\$@"
 EOF
