@@ -6,10 +6,10 @@ PREFIX="$HOME/.nvim-starter"
 # Create the prefix directory if it doesn't exist
 mkdir -p "$PREFIX"
 
-INSTALL_DIR="$HOME/bin"
-TEMP_DIR="$HOME/tmp"
-NEOVIM_DIR="$HOME/neovim"
-NODEJS_DIR="$HOME/nodejs"
+INSTALL_DIR="$PREFIX/bin"
+TEMP_DIR="$PREFIX/tmp"
+NEOVIM_DIR="$PREFIX/neovim"
+NODEJS_DIR="$PREFIX/nodejs"
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 ZELLIJ_CONFIG_DIR="$HOME/.config/zellij"
 
