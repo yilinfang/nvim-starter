@@ -1,6 +1,11 @@
 #!/bin/bash
 
 # Set up directories
+PREFIX="$HOME/.nvim-starter"
+
+# Create the prefix directory if it doesn't exist
+mkdir -p "$PREFIX"
+
 INSTALL_DIR="$HOME/bin"
 TEMP_DIR="$HOME/tmp"
 NEOVIM_DIR="$HOME/neovim"
@@ -209,18 +214,18 @@ fi
 # Update shell configuration based on installed components
 if [ -f "$HOME/.bashrc" ]; then
   # Add PATH only if any tool was installed
-  if [ $INSTALLED_ANY_TOOL -eq 1 ] && ! grep -q "export PATH=\$HOME/bin:\$PATH" "$HOME/.bashrc"; then
+  if [ $INSTALLED_ANY_TOOL -eq 1 ] && ! grep -q "export PATH=$INSTALL_DIR:\$PATH" "$HOME/.bashrc"; then
     echo 'export PATH=$HOME/bin:$PATH' >>"$HOME/.bashrc"
   fi
 
   # Add zoxide init if installed
   if [ $INSTALLED_ZOXIDE -eq 1 ] && ! grep -q "eval \"\$(zoxide init bash)\"" "$HOME/.bashrc"; then
-    echo 'eval "$(zoxide init bash)"' >>"$HOME/.bashrc"
+    echo "eval \"\$(zoxide init bash)\"" >>"$HOME/.bashrc"
   fi
 
   # Add fzf init if installed
   if [ $INSTALLED_FZF -eq 1 ] && ! grep -q "eval \"\$(fzf --bash)\"" "$HOME/.bashrc"; then
-    echo 'eval "$(fzf --bash)"' >>"$HOME/.bashrc"
+    echo "eval \"\$(fzf --bash)\"" >>"$HOME/.bashrc"
   fi
 fi
 

@@ -1,10 +1,15 @@
 #!/bin/bash
 
 # Set up directories
-INSTALL_DIR="$HOME/bin"
-TEMP_DIR="$HOME/tmp"
-NEOVIM_DIR="$HOME/neovim"
-NODEJS_DIR="$HOME/nodejs"
+PREFIX="$HOME/.nvim-starter"
+
+# Create the prefix directory if it doesn't exist
+mkdir -p "$PREFIX"
+
+INSTALL_DIR="$PREFIX/bin"
+TEMP_DIR="$PREFIX/tmp"
+NEOVIM_DIR="$PREFIX/neovim"
+NODEJS_DIR="$PREFIX/nodejs"
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 ZELLIJ_CONFIG_DIR="$HOME/.config/zellij"
 
@@ -209,18 +214,18 @@ fi
 # Update shell configuration based on installed components
 if [ -f "$HOME/.zshrc" ]; then
   # Add PATH only if any tool was installed
-  if [ $INSTALLED_ANY_TOOL -eq 1 ] && ! grep -q "export PATH=\$HOME/bin:\$PATH" "$HOME/.zshrc"; then
-    echo 'export PATH=$HOME/bin:$PATH' >>"$HOME/.zshrc"
+  if [ $INSTALLED_ANY_TOOL -eq 1 ] && ! grep -q "export PATH=$INSTALL_DIR:\$PATH" "$HOME/.zshrc"; then
+    echo "export PATH=$INSTALL_DIR:\$PATH" >>"$HOME/.zshrc"
   fi
 
   # Add zoxide init if installed
   if [ $INSTALLED_ZOXIDE -eq 1 ] && ! grep -q "eval \"\$(zoxide init zsh)\"" "$HOME/.zshrc"; then
-    echo 'eval "$(zoxide init zsh)"' >>"$HOME/.zshrc"
+    echo "eval \"\$(zoxide init zsh)\"" >>"$HOME/.zshrc"
   fi
 
   # Add fzf init if installed
   if [ $INSTALLED_FZF -eq 1 ] && ! grep -q "source <(fzf --zsh)" "$HOME/.zshrc"; then
-    echo 'source <(fzf --zsh)' >>"$HOME/.zshrc"
+    echo "source <(fzf --zsh)" >>"$HOME/.zshrc"
   fi
 fi
 
