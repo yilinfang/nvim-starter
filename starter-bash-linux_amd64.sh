@@ -215,7 +215,7 @@ fi
 if [ -f "$HOME/.bashrc" ]; then
   # Add PATH only if any tool was installed
   if [ $INSTALLED_ANY_TOOL -eq 1 ] && ! grep -q "export PATH=$INSTALL_DIR:\$PATH" "$HOME/.bashrc"; then
-    echo 'export PATH=$HOME/bin:$PATH' >>"$HOME/.bashrc"
+    echo "export PATH=$INSTALL_DIR/bin:$PATH" >>"$HOME/.bashrc"
   fi
 
   # Add zoxide init if installed
