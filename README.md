@@ -1,6 +1,6 @@
 # nvim-starter
 
-Scripts used for setting up [Neovim](https://neovim.io/) development environment.
+Scripts used for setting up [Neovim](https://neovim.io/) and [LazyVim](https://www.lazyvim.org/).
 
 **No root permission needed and has very small influence on local dependencies.**
 
@@ -26,7 +26,7 @@ Please refer to the scripts for detailed information.
 
 ## Motivation
 
-I enjoy coding with [Lazyvim](https://www.lazyvim.org/) and some other useful tools (Zellij, zoxide, bat...) on my Mac. Brew can easily manage the dependencies.
+I enjoy coding with [LazyVim](https://www.lazyvim.org/) and some other useful tools (Zellij, zoxide, bat...) on my Mac. Brew can easily manage the dependencies.
 
 However, I failed to rebuild the development environment on a server where the packages in the repository were either outdated or missing.
 
