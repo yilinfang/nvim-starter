@@ -11,6 +11,7 @@ TEMP_DIR="$PREFIX/tmp"
 NEOVIM_DIR="$PREFIX/neovim"
 NODEJS_DIR="$PREFIX/nodejs"
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
+TMUX_CONFIG_DIR="$HOME/.config/tmux"
 ZELLIJ_CONFIG_DIR="$HOME/.config/zellij"
 
 # URLs for tools
@@ -26,6 +27,7 @@ LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.47.2/
 
 # Configuration repositories
 NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
+TMUX_CONFIG_REPO="https://github.com/yilinfang/tmux.git"
 ZELLIJ_CONFIG_REPO="https://github.com/yilinfang/zellij.git"
 
 # Installation tracking variables
@@ -46,7 +48,8 @@ show_menu() {
   echo "8. fzf"
   echo "9. lazygit"
   echo "10. Neovim config"
-  echo "11. Zellij config"
+  echo "11. tmux config"
+  echo "12. Zellij config"
   echo "a. Install all"
 
   read -p "Your choice: " CHOICE
@@ -166,6 +169,14 @@ install_nvim_config() {
   git clone "$NVIM_CONFIG_REPO" "$NVIM_CONFIG_DIR"
 }
 
+install_tmux_config() {
+  echo "Installing tmux configuration..."
+  rm -rf "$TMUX_CONFIG_DIR"
+  git clone "$TMUX_CONFIG_REPO" "$TMUX_CONFIG_DIR"
+  ln -s "$TMUX_CONFIG_DIR/.tmux.conf" "$TMUX_CONFIG_DIR/tmux.conf"
+  ln -s "$TMUX_CONFIG_DIR/.tmux.conf.local" "$TMUX_CONFIG_DIR/tmux.conf.local"
+}
+
 install_zellij_config() {
   echo "Installing Zellij configuration..."
   rm -rf "$ZELLIJ_CONFIG_DIR"
@@ -191,6 +202,7 @@ if [[ "$CHOICE" == "a" ]]; then
   install_fzf
   install_lazygit
   install_nvim_config
+  install_tmux_config
   install_zellij_config
 else
   for num in $CHOICE; do
@@ -205,7 +217,8 @@ else
     8) install_fzf ;;
     9) install_lazygit ;;
     10) install_nvim_config ;;
-    11) install_zellij_config ;;
+    11) install_tmux_config ;;
+    12) install_zellij_config ;;
     *) echo "Invalid option: $num" ;;
     esac
   done
