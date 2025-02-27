@@ -149,5 +149,3 @@ update_config "Zellij" "$ZELLIJ_CONFIG_PATH" "$ZELLIJ_CONFIG_REPO"
 echo
 echo -e "${GREEN}All configurations have been processed.${NC}"
 echo "Please check for any error messages above."
-
-exit 0
