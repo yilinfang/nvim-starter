@@ -13,7 +13,6 @@ The following tools will be installed:
 - [fd](https://github.com/sharkdp/fd)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [bat](https://github.com/sharkdp/bat)
-- [zoxide](https://github.com/ajeetdsouza/zoxide)
 - [fzf](https://github.com/junegunn/fzf)
 - [Lazygit](https://github.com/jesseduffield/lazygit)
 
@@ -30,7 +29,7 @@ Please refer to the scripts for detailed information.
 
 ## Motivation
 
-I enjoy coding with [LazyVim](https://www.lazyvim.org/) and some other useful tools (Zellij, zoxide, bat...) on my Mac. Brew can easily manage the dependencies.
+I enjoy coding with [LazyVim](https://www.lazyvim.org/) and some other useful tools (Zellij, bat, Lazygit...) on my Mac. Brew can easily manage the dependencies.
 
 However, I failed to rebuild the development environment on a server where the packages in the repository were either outdated or missing.
 
