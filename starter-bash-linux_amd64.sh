@@ -46,6 +46,8 @@ show_menu() {
   echo "9. Neovim config"
   echo "10. tmux config"
   echo "11. Zellij config"
+  echo "t. Tool bundle with Oh my tmux!"
+  echo "z. Tool bundle with Zellij"
   echo "a. Install all"
 
   read -p "Your choice: " CHOICE
@@ -184,6 +186,28 @@ if [[ "$CHOICE" == "a" ]]; then
   install_nvim_config
   install_tmux_config
   install_zellij_config
+elif [[ "$CHOICE" == "t" ]]; then
+  install_neovim
+  install_nodejs
+  install_fd
+  install_ripgrep
+  install_bat
+  install_fzf
+  install_lazygit
+  install_nvim_config
+  install_tmux_config
+elif [[ "$CHOICE" == "z" ]]; then
+  install_neovim
+  install_nodejs
+  install_zellij
+  install_fd
+  install_ripgrep
+  install_bat
+  install_fzf
+  install_lazygit
+  install_nvim_config
+  install_zellij_config
+
 else
   for num in $CHOICE; do
     case $num in
