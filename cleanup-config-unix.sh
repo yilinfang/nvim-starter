@@ -31,7 +31,6 @@ while true; do
   echo "2. tmux"
   echo "3. Zellij"
   echo "4. All"
-  echo "5. Exit"
   read -p "Enter your choice(s) [1-5]: " choices
 
   for choice in $choices; do
@@ -50,10 +49,6 @@ while true; do
       clean_tmux
       clean_zellij
       break 2
-      ;;
-    5)
-      echo "Exiting..."
-      exit 0
       ;;
     *)
       echo "Invalid choice: $choice. Please enter a number between 1 and 5."
