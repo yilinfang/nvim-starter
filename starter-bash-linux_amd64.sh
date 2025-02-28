@@ -198,15 +198,6 @@ fi
 # Initialize fzf if installed
 if [ -f "$INSTALL_DIR/fzf" ]; then
   eval "\$(fzf --bash)"
-  # FZF key bindings and completion
-  [ -f "$PREFIX/fzf/shell/key-bindings.bash" ] && source "$PREFIX/fzf/shell/key-bindings.bash"
-  [ -f "$PREFIX/fzf/shell/completion.bash" ] && source "$PREFIX/fzf/shell/completion.bash"
-  
-  # Set FZF default command to use fd if available
-  if [ -f "$INSTALL_DIR/fd" ]; then
-    export FZF_DEFAULT_COMMAND="$INSTALL_DIR/fd --type f --hidden --follow --exclude .git"
-    export FZF_CTRL_T_COMMAND="\$FZF_DEFAULT_COMMAND"
-  fi
 fi
 EOF
 
