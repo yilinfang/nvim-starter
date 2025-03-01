@@ -22,7 +22,7 @@ FD_URL="https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-aarch
 RG_URL="https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-aarch64-apple-darwin.tar.gz"
 BAT_URL="https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-aarch64-apple-darwin.tar.gz"
 FZF_URL="https://github.com/junegunn/fzf/releases/download/v0.60.2/fzf-0.60.2-darwin_arm64.tar.gz"
-LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.47.2/lazygit_0.47.2_Darwin_arm64.tar.gz"
+LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.48.0/lazygit_0.48.0_Darwin_arm64.tar.gz"
 ZOXIDE_URL="https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.7/zoxide-0.9.7-aarch64-apple-darwin.tar.gz"
 
 # Configuration repositories
@@ -268,9 +268,9 @@ fi
 
 # Update shell configuration to source our init script
 if [ $INSTALLED_TOOL -eq 1 ] && [ -f "$HOME/.zshrc" ]; then
-  
+
   create_shell_init_script
- 
+
   if ! grep -q "source $PREFIX/init.zsh" "$HOME/.zshrc"; then
     echo "[ -f $PREFIX/init.zsh ] && source $PREFIX/init.zsh" >>"$HOME/.zshrc"
     echo "Added reference to shell initialization script in ~/.zshrc"
