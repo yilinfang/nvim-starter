@@ -31,7 +31,7 @@ TMUX_CONFIG_REPO="https://github.com/yilinfang/tmux.git"
 ZELLIJ_CONFIG_REPO="https://github.com/yilinfang/zellij.git"
 
 # Installation tracking variables
-INSTALLED_TOOL=0
+UPDATE_SHELL_CONFIGURATION=0
 
 # Function to display menu and get user selection
 show_menu() {
@@ -51,6 +51,7 @@ show_menu() {
   echo "t. Tool bundle with Oh my tmux!"
   echo "z. Tool bundle with Zellij"
   echo "a. Install all"
+  echo "i. Initialize shell configuration"
 
   read -p "Your choice: " CHOICE
 }
@@ -72,7 +73,7 @@ EOF
 
   chmod +x "$INSTALL_DIR/nvim"
   echo "Created wrapper script for Neovim at $INSTALL_DIR/nvim"
-  INSTALLED_TOOL=1
+  UPDATE_SHELL_CONFIGURATION=1
 }
 
 install_nodejs() {
@@ -82,7 +83,7 @@ install_nodejs() {
   curl -L "$NODEJS_URL" -o "$TEMP_DIR/node.tar.xz"
   tar -xf "$TEMP_DIR/node.tar.xz" -C "$NODEJS_DIR" --strip-components=1
   echo "Node.js installed in $NODEJS_DIR. It will not be added to the system PATH. You have to do it own, if you need."
-  INSTALLED_TOOL=1
+  UPDATE_SHELL_CONFIGURATION=1
 }
 
 install_zellij() {
@@ -90,7 +91,7 @@ install_zellij() {
   curl -L "$ZELLIJ_URL" -o "$TEMP_DIR/zellij.tar.gz"
   tar -xzf "$TEMP_DIR/zellij.tar.gz" -C "$TEMP_DIR"
   mv "$TEMP_DIR/zellij" "$INSTALL_DIR/zellij"
-  INSTALLED_TOOL=1
+  UPDATE_SHELL_CONFIGURATION=1
 }
 
 install_fd() {
@@ -100,7 +101,7 @@ install_fd() {
   FD_BINARY=$(find "$TEMP_DIR" -type f -name "fd" | head -n 1)
   if [ -n "$FD_BINARY" ]; then
     mv "$FD_BINARY" "$INSTALL_DIR/fd"
-    INSTALLED_TOOL=1
+    UPDATE_SHELL_CONFIGURATION=1
   else
     echo "Error: fd binary not found in the extracted files."
   fi
@@ -113,7 +114,7 @@ install_ripgrep() {
   RG_BINARY=$(find "$TEMP_DIR" -type f -name "rg" | head -n 1)
   if [ -n "$RG_BINARY" ]; then
     mv "$RG_BINARY" "$INSTALL_DIR/rg"
-    INSTALLED_TOOL=1
+    UPDATE_SHELL_CONFIGURATION=1
   else
     echo "Error: ripgrep binary not found in the extracted files."
   fi
@@ -126,7 +127,7 @@ install_bat() {
   BAT_BINARY=$(find "$TEMP_DIR" -type f -name "bat" | head -n 1)
   if [ -n "$BAT_BINARY" ]; then
     mv "$BAT_BINARY" "$INSTALL_DIR/bat"
-    INSTALLED_TOOL=1
+    UPDATE_SHELL_CONFIGURATION=1
   else
     echo "Error: bat binary not found in the extracted files."
   fi
@@ -137,7 +138,7 @@ install_fzf() {
   curl -L "$FZF_URL" -o "$TEMP_DIR/fzf.tar.gz"
   tar -xzf "$TEMP_DIR/fzf.tar.gz" -C "$TEMP_DIR"
   mv "$TEMP_DIR/fzf" "$INSTALL_DIR/fzf"
-  INSTALLED_TOOL=1
+  UPDATE_SHELL_CONFIGURATION=1
 }
 
 install_lazygit() {
@@ -145,7 +146,7 @@ install_lazygit() {
   curl -L "$LAZYGIT_URL" -o "$TEMP_DIR/lazygit.tar.gz"
   tar -xzf "$TEMP_DIR/lazygit.tar.gz" -C "$TEMP_DIR"
   mv "$TEMP_DIR/lazygit" "$INSTALL_DIR/lazygit"
-  INSTALLED_TOOL=1
+  UPDATE_SHELL_CONFIGURATION=1
 }
 
 install_zoxide() {
@@ -153,7 +154,7 @@ install_zoxide() {
   curl -L "$ZOXIDE_URL" -o "$TEMP_DIR/zoxide.tar.gz"
   tar -xzf "$TEMP_DIR/zoxide.tar.gz" -C "$TEMP_DIR"
   mv "$TEMP_DIR/zoxide" "$INSTALL_DIR/zoxide"
-  INSTALLED_TOOL=1
+  UPDATE_SHELL_CONFIGURATION=1
 }
 
 install_nvim_config() {
@@ -269,7 +270,7 @@ else
 fi
 
 # Update shell configuration to source our init script
-if [ $INSTALLED_TOOL -eq 1 ] && [ -f "$HOME/.bashrc" ]; then
+if [ $UPDATE_SHELL_CONFIGURATION -eq 1 ] && [ -f "$HOME/.bashrc" ]; then
 
   create_shell_init_script
 
@@ -283,6 +284,6 @@ fi
 rm -rf "$TEMP_DIR"
 
 echo "Installation complete!"
-if [ $INSTALLED_TOOL -eq 1 ]; then
+if [ $UPDATE_SHELL_CONFIGURATION -eq 1 ]; then
   echo "Please run 'source ~/.bashrc' or restart your shell to update the PATH."
 fi
