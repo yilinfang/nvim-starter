@@ -189,8 +189,8 @@ create_shell_init_script() {
 # Add binaries to PATH using set -x instead of fish_add_path
 set -x PATH "$INSTALL_DIR" \$PATH
 
-# Configure fzf to use fd when available
-if test -f "$INSTALL_DIR/fd" && test -f "$INSTALL_DIR/fzf"
+# Initialize fzf if installed
+if test -f "$INSTALL_DIR/fzf"
   fzf --fish | source
 end
 
