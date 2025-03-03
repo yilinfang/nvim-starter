@@ -189,14 +189,14 @@ create_shell_init_script() {
 # Add binaries to PATH
 export PATH="$INSTALL_DIR:\$PATH"
 
-# Initialize zoxide if installed
-if [ -f "$INSTALL_DIR/zoxide" ]; then
-  eval "\$(zoxide init zsh)"
-fi
-
 # Initialize fzf if installed
 if [ -f "$INSTALL_DIR/fzf" ]; then
   source <(fzf --zsh)
+fi
+
+# Initialize zoxide if installed
+if [ -f "$INSTALL_DIR/zoxide" ]; then
+  eval "\$(zoxide init zsh)"
 fi
 EOF
 

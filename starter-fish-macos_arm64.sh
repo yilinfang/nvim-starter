@@ -189,14 +189,14 @@ create_shell_init_script() {
 # Add binaries to PATH using set -x instead of fish_add_path
 set -x PATH "$INSTALL_DIR" \$PATH
 
-# Initialize zoxide if installed
-if test -f "$INSTALL_DIR/zoxide"
-  zoxide init fish | source
-end
-
 # Configure fzf to use fd when available
 if test -f "$INSTALL_DIR/fd" && test -f "$INSTALL_DIR/fzf"
   fzf --fish | source
+end
+
+# Initialize zoxide if installed
+if test -f "$INSTALL_DIR/zoxide"
+  zoxide init fish | source
 end
 EOF
 
@@ -272,19 +272,19 @@ fi
 # Update fish shell configuration
 if [ $UPDATE_SHELL_CONFIGURATION -eq 1 ]; then
   create_shell_init_script
-  
+
   # Create config.fish if it doesn't exist
   FISH_CONFIG_FILE="$HOME/.config/fish/config.fish"
   mkdir -p "$(dirname "$FISH_CONFIG_FILE")"
   touch "$FISH_CONFIG_FILE"
-  
+
   # Add source line if not already present
   if ! grep -q "source $PREFIX/init.fish" "$FISH_CONFIG_FILE"; then
-    echo "" >> "$FISH_CONFIG_FILE"
-    echo "# nvim-starter configuration" >> "$FISH_CONFIG_FILE"
-    echo "if test -f $PREFIX/init.fish" >> "$FISH_CONFIG_FILE"
-    echo "    source $PREFIX/init.fish" >> "$FISH_CONFIG_FILE"
-    echo "end" >> "$FISH_CONFIG_FILE"
+    echo "" >>"$FISH_CONFIG_FILE"
+    echo "# nvim-starter configuration" >>"$FISH_CONFIG_FILE"
+    echo "if test -f $PREFIX/init.fish" >>"$FISH_CONFIG_FILE"
+    echo "    source $PREFIX/init.fish" >>"$FISH_CONFIG_FILE"
+    echo "end" >>"$FISH_CONFIG_FILE"
   fi
 fi
 
