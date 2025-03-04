@@ -15,6 +15,7 @@ The following tools will be installed:
 - [bat](https://github.com/sharkdp/bat)
 - [fzf](https://github.com/junegunn/fzf)
 - [Lazygit](https://github.com/jesseduffield/lazygit)
+- [Yazi](https://github.com/sxyazi/yazi)
 
 Please refer to the scripts for detailed information.
 
