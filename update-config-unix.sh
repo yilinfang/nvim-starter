@@ -76,4 +76,3 @@ for choice in $choices; do
 done
 
 echo "Update process completed!"
-
