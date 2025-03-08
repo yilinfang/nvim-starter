@@ -38,3 +38,9 @@ However, I failed to rebuild the development environment on a server where the p
 Thus, I started building these scripts. I decided to open source them as I found them quite useful.
 
 _Git, C compiler curl and tmux are not provided because I find that they are usually either ready to use or up-to-date on most servers I use. :D_
+
+## Uninstallation
+
+1. Use `cleanup-config-unix.sh` to remove configurations.
+2. Remove directory `~/.nvim-starter`.
+3. Remove nvim-starter things in `~/.zshrc` or `~/.bashrc`.
