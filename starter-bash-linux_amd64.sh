@@ -324,9 +324,14 @@ if [ -f "$INSTALL_DIR/nvim" ]; then
   export VISUAL="nvim"
 fi
 
-# If nv is available, use it for Neovim
-if [[ -f "$INSTALL_DIR/nvim" && ! \$(command -v nv >/dev/null) ]]; then
-  alias nv="nvim"
+# If n is available, use it for Neovim
+if [[ -f "$INSTALL_DIR/nvim" && ! \$(command -v n >/dev/null) ]]; then
+  alias n="nvim"
+fi
+
+# If g is available, use it for Git
+if [ ! \$(command -v g >/dev/null) ]; then
+  alias g="git"
 fi
 
 # If ze is available, use it for Zellij
