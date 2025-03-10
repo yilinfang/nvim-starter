@@ -81,7 +81,7 @@ install_nvim() {
   tee "$INSTALL_DIR/nvim" <<EOF
 #!/bin/bash
 
-if [ ! \$(command -v node > /dev/null) ]; then
+if ! command -v node >/dev/null 2>&1; then
   export PATH=$NODEJS_DIR/bin:\$PATH
 fi
 
@@ -333,7 +333,7 @@ if [[ -f "$INSTALL_DIR/nvim" && ! \$(command -v n >/dev/null) ]]; then
 fi
 
 # If g is available, use it for Git
-if [ ! \$(command -v n > /dev/null) ]; then
+if ! command -v g >/dev/null 2>&1; then
   alias g="git"
 fi
 
