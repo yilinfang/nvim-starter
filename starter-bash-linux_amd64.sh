@@ -81,7 +81,10 @@ install_nvim() {
   tee "$INSTALL_DIR/nvim" <<EOF
 #!/bin/bash
 
-export PATH=$NODEJS_DIR/bin:\$PATH
+if [ ! \$(command -v node > /dev/null) ]; then
+  export PATH=$NODEJS_DIR/bin:\$PATH
+fi
+
 exec $NEOVIM_DIR/bin/nvim "\$@"
 EOF
 
