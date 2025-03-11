@@ -7,9 +7,9 @@ Scripts used for setting up [Neovim](https://neovim.io/) and [LazyVim](https://w
 The following tools will be installed:
 
 - [Neovim](https://neovim.io/)
-- [Node.js](https://nodejs.org/)
-- [Zellij](https://zellij.dev/) (optional)
-- [Oh my tmux!](https://github.com/gpakosz/.tmux) (optional)
+- [Node.js](https://nodejs.org/) (for a lot of lsps)
+- [Zellij](https://zellij.dev/)
+- [Oh my tmux!](https://github.com/gpakosz/.tmux)
 - [fd](https://github.com/sharkdp/fd)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [bat](https://github.com/sharkdp/bat)
