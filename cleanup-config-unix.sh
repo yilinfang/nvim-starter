@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Function to clean Neovim configuration
 clean_nvim() {
@@ -31,7 +31,7 @@ while true; do
   echo "2. tmux"
   echo "3. Zellij"
   echo "4. All"
-  read -p "Enter your choice(s) [1-5]: " choices
+  read -p "Enter your choice(s) [1-4]: " choices
 
   for choice in $choices; do
     case $choice in

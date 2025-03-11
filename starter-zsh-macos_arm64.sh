@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Set up directories
 PREFIX="$HOME/.nvim-starter"
@@ -79,7 +79,7 @@ install_nvim() {
 
   # Create a wrapper script to launch Neovim with the isolated Node.js environment
   tee "$INSTALL_DIR/nvim" <<EOF
-#!/bin/bash
+#!/usr/bin/env bash
 
 if ! command -v node >/dev/null 2>&1; then
   export PATH=$NODEJS_DIR/bin:\$PATH
