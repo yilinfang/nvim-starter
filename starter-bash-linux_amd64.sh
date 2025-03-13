@@ -437,7 +437,7 @@ main() {
     install_zoxide
     install_yazi
     install_sad
-    intall_lsd
+    install_lsd
     install_nvim_config
     install_zellij_config
   elif [[ "$CHOICE" == "i" ]]; then
