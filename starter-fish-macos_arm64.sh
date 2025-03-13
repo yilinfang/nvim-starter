@@ -247,7 +247,7 @@ install_yazi() {
   if [ -n "$YA_BINARY" ]; then
     # Create a symbolic link to the ya binary
     ln -s "$YA_BINARY" "$INSTALL_DIR/ya"
-    echo "Created link to Yazi at $INSTALL_DIR/ya"
+    echo "Created link to ya at $INSTALL_DIR/ya"
     UPDATE_SHELL_CONFIGURATION=1
   else
     echo "Error: ya binary not found in the extracted files."
