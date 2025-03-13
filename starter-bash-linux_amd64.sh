@@ -19,6 +19,8 @@ LAZYGIT_DIR="$PREFIX/lazygit"
 ZOXIDE_DIR="$PREFIX/zoxide"
 YAZI_DIR="$PREFIX/yazi"
 SAD_DIR="$PREFIX/sad"
+LSD_DIR="$PREFIX/lsd"
+
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 TMUX_CONFIG_DIR="$HOME/.config/tmux"
 ZELLIJ_CONFIG_DIR="$HOME/.config/zellij"
@@ -35,6 +37,7 @@ LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.48.0/
 ZOXIDE_URL="https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.7/zoxide-0.9.7-x86_64-unknown-linux-musl.tar.gz"
 YAZI_URL="https://github.com/sxyazi/yazi/releases/download/v25.3.2/yazi-x86_64-unknown-linux-musl.zip"
 SAD_URL="https://github.com/ms-jpq/sad/releases/download/v0.4.32/x86_64-unknown-linux-musl.zip"
+LSD_URL="https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-x86_64-unknown-linux-musl.tar.gz"
 
 # Configuration repositories
 NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
@@ -58,9 +61,10 @@ show_menu() {
   echo "9. zoxide"
   echo "10. Yazi"
   echo "11. sad"
-  echo "12. Neovim config"
-  echo "13. tmux config"
-  echo "14. Zellij config"
+  echo "12. lsd"
+  echo "13. Neovim config"
+  echo "14. tmux config"
+  echo "15. Zellij config"
   echo "t. Tool bundle with Oh my tmux!"
   echo "z. Tool bundle with Zellij"
   echo "a. Install all"
@@ -267,6 +271,23 @@ install_sad() {
   fi
 }
 
+install_lsd() {
+  echo "Installing lsd..."
+  rm -rf "$LSD_DIR"
+  mkdir -p "$LSD_DIR"
+  curl -L "$LSD_URL" -o "$TEMP_DIR/lsd.tar.gz"
+  tar -xzf "$TEMP_DIR/lsd.tar.gz" -C "$LSD_DIR"
+  LSD_BINARY=$(find "$LSD_DIR" -type f -name "lsd" | head -n 1)
+  if [ -n "$LSD_BINARY" ]; then
+    # Create a symbolic link to the lsd binary
+    ln -s "$LSD_BINARY" "$INSTALL_DIR/lsd"
+    echo "Created link to lsd at $INSTALL_DIR/lsd"
+    UPDATE_SHELL_CONFIGURATION=1
+  else
+    echo "Error: lsd binary not found in the extracted files."
+  fi
+}
+
 install_nvim_config() {
   echo "Installing Neovim configuration..."
   rm -rf "$NVIM_CONFIG_DIR"
@@ -346,6 +367,20 @@ fi
 if [[ -f "$INSTALL_DIR/lazygit" && ! \$(command -v lg >/dev/null) ]]; then
   alias lg="lazygit"
 fi
+
+# If lsd is installed, set it as the default ls
+if [ -f "$INSTALL_DIR/lsd" ]; then
+  alias ls="lsd"
+  alias ll="ls -l"
+  alias la="ls -a"
+  alias lla="ls -la"
+  alias lt="ls --tree"
+fi
+
+# If bat is installed, set it as the default cat
+if [ -f "$INSTALL_DIR/bat" ]; then
+  alias cat="bat -p"
+fi
 EOF
 
   echo "Bash shell initialization script created at $PREFIX/init.sh"
@@ -372,6 +407,7 @@ main() {
     install_zoxide
     install_yazi
     install_sad
+    install_lsd
     install_nvim_config
     install_tmux_config
     install_zellij_config
@@ -386,6 +422,7 @@ main() {
     install_zoxide
     install_yazi
     install_sad
+    install_lsd
     install_nvim_config
     install_tmux_config
   elif [[ "$CHOICE" == "z" ]]; then
@@ -400,6 +437,7 @@ main() {
     install_zoxide
     install_yazi
     install_sad
+    intall_lsd
     install_nvim_config
     install_zellij_config
   elif [[ "$CHOICE" == "i" ]]; then
@@ -418,9 +456,10 @@ main() {
       9) install_zoxide ;;
       10) install_yazi ;;
       11) install_sad ;;
-      12) install_nvim_config ;;
-      13) install_tmux_config ;;
-      14) install_zellij_config ;;
+      12) install_lsd ;;
+      13) install_nvim_config ;;
+      14) install_tmux_config ;;
+      15) install_zellij_config ;;
       *) echo "Invalid option: $num" ;;
       esac
     done

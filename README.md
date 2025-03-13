@@ -17,6 +17,7 @@ The following tools will be installed:
 - [Lazygit](https://github.com/jesseduffield/lazygit)
 - [Yazi](https://github.com/sxyazi/yazi)
 - [SAD!](https://github.com/ms-jpq/sad)
+- [lsd](https://github.com/lsd-rs/lsd)
 
 Please refer to the scripts for detailed information.
 
