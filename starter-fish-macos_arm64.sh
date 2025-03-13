@@ -375,10 +375,15 @@ end
 # If lsd is intalled, set it as the default ls
 if test -f "$INSTALL_DIR/lsd"
   alias ls="lsd"
-  alias ll="ls -l"
-  alias la="ls -a"
-  alias lla="ls -la"
-  alias lt="ls --tree"
+  alias ll="lsd -l"
+  alias la="lsd -a"
+  alias lla="lsd -la"
+  alias lt="lsd --tree"
+end
+
+# If bat is installed, set it as the default cat
+if test -f "$INSTALL_DIR/bat"
+  alias cat="bat -p"
 end
 EOF
 

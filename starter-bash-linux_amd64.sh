@@ -371,10 +371,10 @@ fi
 # If lsd is installed, set it as the default ls
 if [ -f "$INSTALL_DIR/lsd" ]; then
   alias ls="lsd"
-  alias ll="ls -l"
-  alias la="ls -a"
-  alias lla="ls -la"
-  alias lt="ls --tree"
+  alias ll="lsd -l"
+  alias la="lsd -a"
+  alias lla="lsd -la"
+  alias lt="lsd --tree"
 fi
 
 # If bat is installed, set it as the default cat
