@@ -33,10 +33,8 @@ RG_URL="https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-1
 BAT_URL="https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-x86_64-unknown-linux-musl.tar.gz"
 FZF_URL="https://github.com/junegunn/fzf/releases/download/v0.60.3/fzf-0.60.3-linux_amd64.tar.gz"
 LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.48.0/lazygit_0.48.0_Linux_x86_64.tar.gz"
-ZOXIDE_URL="https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.7/zoxide-0.9.7-x86_64-unknown-linux-musl.tar.gz"
 YAZI_URL="https://github.com/sxyazi/yazi/releases/download/v25.3.2/yazi-x86_64-unknown-linux-musl.zip"
 SAD_URL="https://github.com/ms-jpq/sad/releases/download/v0.4.32/x86_64-unknown-linux-musl.zip"
-LSD_URL="https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-x86_64-unknown-linux-musl.tar.gz"
 DIFFTASTIC_URL="https://github.com/Wilfred/difftastic/releases/download/0.63.0/difft-x86_64-unknown-linux-musl.tar.gz"
 
 # Configuration repositories
