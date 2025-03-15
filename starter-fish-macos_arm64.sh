@@ -336,6 +336,11 @@ if not command -v g > /dev/null
   alias g="git"
 end
 
+# If t is available, use it for tmux
+if command -v tmux > /dev/null; and not command -v t > /dev/null
+  alias t="tmux"
+end
+
 # If ze is available, use it for Zellij
 if test -f "$INSTALL_DIR/zellij"; and not command -v ze > /dev/null
   alias ze="zellij"

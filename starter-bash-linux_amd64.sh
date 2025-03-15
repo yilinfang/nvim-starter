@@ -330,6 +330,10 @@ fi
 # If g is available, use it for Git
 if ! command -v g >/dev/null 2>&1; then
   alias g="git"
+
+# If t is available, use it for tmux
+if [[\$(command -v tmux >/dev/null) && ! \$(command -v t >/dev/null) ]]; then
+  alias t="tmux"
 fi
 
 # If ze is available, use it for Zellij
