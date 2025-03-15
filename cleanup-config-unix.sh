@@ -14,6 +14,8 @@ clean_nvim() {
 clean_tmux() {
   echo "Cleaning up tmux configuration..."
   rm -rf ~/.config/tmux
+  rm -rf ~/.tmux.conf
+  rm -rf ~/.tmux.conf.local
   echo "Cleaning up tmux configuration...done"
 }
 
