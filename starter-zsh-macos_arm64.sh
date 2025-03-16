@@ -333,7 +333,7 @@ if ! command -v g >/dev/null 2>&1; then
 fi
 
 # If t is available, use it for tmux
-if [[ \$(command -v tmux >/dev/null) && ! \$(command -v t >/dev/null) ]]; then
+if ! command -v t >/dev/null 2>&1; then
   alias t="tmux"
 fi
 
