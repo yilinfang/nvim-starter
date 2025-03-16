@@ -59,9 +59,9 @@ show_menu() {
   echo "9. Yazi"
   echo "10. sad"
   echo "11. difftastic"
-  echo "13. Neovim config"
-  echo "14. tmux config"
-  echo "15. Zellij config"
+  echo "12. Neovim config"
+  echo "13. tmux config"
+  echo "14. Zellij config"
   echo "t. Tool bundle with Oh my tmux!"
   echo "z. Tool bundle with Zellij"
   echo "a. Install all"
@@ -422,9 +422,9 @@ main() {
       9) install_yazi ;;
       10) install_sad ;;
       11) install_diffastic ;;
-      13) install_nvim_config ;;
-      14) install_tmux_config ;;
-      15) install_zellij_config ;;
+      12) install_nvim_config ;;
+      13) install_tmux_config ;;
+      14) install_zellij_config ;;
       *) echo "Invalid option: $num" ;;
       esac
     done
