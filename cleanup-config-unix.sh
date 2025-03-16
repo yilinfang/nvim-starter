@@ -27,34 +27,31 @@ clean_zellij() {
 }
 
 # Menu to select which tools to clean
-while true; do
-  echo "Select the tools to clean (you can select multiple, e.g., '1 2'):"
-  echo "1. Neovim"
-  echo "2. tmux"
-  echo "3. Zellij"
-  echo "4. All"
-  read -p "Enter your choice(s) [1-4]: " choices
+echo "Select the tools to clean (you can select multiple, e.g., '1 2'):"
+echo "1. Neovim"
+echo "2. tmux"
+echo "3. Zellij"
+echo "4. All"
+read -p "Enter your choice(s) [1-4]: " choices
 
-  for choice in $choices; do
-    case $choice in
-    1)
-      clean_nvim
-      ;;
-    2)
-      clean_tmux
-      ;;
-    3)
-      clean_zellij
-      ;;
-    4)
-      clean_nvim
-      clean_tmux
-      clean_zellij
-      break 2
-      ;;
-    *)
-      echo "Invalid choice: $choice. Please enter a number between 1 and 5."
-      ;;
-    esac
-  done
+for choice in $choices; do
+  case $choice in
+  1)
+    clean_nvim
+    ;;
+  2)
+    clean_tmux
+    ;;
+  3)
+    clean_zellij
+    ;;
+  4)
+    clean_nvim
+    clean_tmux
+    clean_zellij
+    ;;
+  *)
+    echo "Invalid choice: $choice. Please enter a number between 1 and 5."
+    ;;
+  esac
 done
