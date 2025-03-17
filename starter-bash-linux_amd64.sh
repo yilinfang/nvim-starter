@@ -23,6 +23,7 @@ DIFFTASTIC_DIR="$PREFIX/difftastic"
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 TMUX_CONFIG_DIR="$HOME/.config/tmux"
 ZELLIJ_CONFIG_DIR="$HOME/.config/zellij"
+YAZI_CONFIG_DIR="$HOME/.config/yazi"
 
 # URLs for tools
 NEOVIM_URL="https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.tar.gz"
@@ -41,6 +42,7 @@ DIFFTASTIC_URL="https://github.com/Wilfred/difftastic/releases/download/0.63.0/d
 NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
 TMUX_CONFIG_REPO="https://github.com/yilinfang/tmux.git"
 ZELLIJ_CONFIG_REPO="https://github.com/yilinfang/zellij.git"
+YAZI_CONFIG_REPO="https://github.com/yilinfang/yazi.git"
 
 # Installation tracking variables
 UPDATE_SHELL_CONFIGURATION=0
@@ -62,6 +64,7 @@ show_menu() {
   echo "12. Neovim config"
   echo "13. tmux config"
   echo "14. Zellij config"
+  echo "15. Yazi config"
   echo "t. Tool bundle with Oh my tmux!"
   echo "z. Tool bundle with Zellij"
   echo "a. Install all"
@@ -288,6 +291,12 @@ install_zellij_config() {
   git clone "$ZELLIJ_CONFIG_REPO" "$ZELLIJ_CONFIG_DIR"
 }
 
+install_yazi_config() {
+  echo "Installing Yazi configuration..."
+  rm -rf "$YAZI_CONFIG_DIR"
+  git clone "$YAZI_CONFIG_REPO" "$YAZI_CONFIG_DIR"
+}
+
 create_shell_init_script() {
   echo "Creating bash shell initialization script..."
 
@@ -375,6 +384,7 @@ main() {
     install_nvim_config
     install_tmux_config
     install_zellij_config
+    install_yazi_config
   elif [[ "$CHOICE" == "t" ]]; then
     install_nvim
     install_nodejs
@@ -388,6 +398,7 @@ main() {
     install_diffastic
     install_nvim_config
     install_tmux_config
+    install_yazi_config
   elif [[ "$CHOICE" == "z" ]]; then
     install_nvim
     install_nodejs
@@ -402,6 +413,7 @@ main() {
     install_diffastic
     install_nvim_config
     install_zellij_config
+    install_yazi_config
   elif [[ "$CHOICE" == "i" ]]; then
     UPDATE_SHELL_CONFIGURATION=1
   else
@@ -421,6 +433,7 @@ main() {
       12) install_nvim_config ;;
       13) install_tmux_config ;;
       14) install_zellij_config ;;
+      15) install_yazi_config ;;
       *) echo "Invalid option: $num" ;;
       esac
     done
