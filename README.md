@@ -18,6 +18,7 @@ The following tools will be installed:
 - [Yazi](https://github.com/sxyazi/yazi)
 - [SAD!](https://github.com/ms-jpq/sad)
 - [difftastic](https://github.com/Wilfred/difftastic)
+- [delta](https://github.com/dandavison/delta)
 
 Please refer to the scripts for detailed information.
 

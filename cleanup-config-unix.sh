@@ -26,13 +26,21 @@ clean_zellij() {
   echo "Cleaning up Zellij configuration...done"
 }
 
+# Function to clean Yazi configuration
+clean_yazi() {
+  echo "Cleaning up Yazi configuration..."
+  rm -rf ~/.config/yazi
+  echo "Cleaning up Yazi configuration...done"
+}
+
 # Menu to select which tools to clean
 echo "Select the tools to clean (you can select multiple, e.g., '1 2'):"
 echo "1. Neovim"
 echo "2. tmux"
 echo "3. Zellij"
-echo "4. All"
-read -p "Enter your choice(s) [1-4]: " choices
+echo "4. Yazi"
+echo "5. All"
+read -p "Enter your choice(s) [1-5]: " choices
 
 for choice in $choices; do
   case $choice in
@@ -46,9 +54,13 @@ for choice in $choices; do
     clean_zellij
     ;;
   4)
+    clean_yazi
+    ;;
+  5)
     clean_nvim
     clean_tmux
     clean_zellij
+    clean_yazi
     ;;
   *)
     echo "Invalid choice: $choice. Please enter a number between 1 and 5."

@@ -43,14 +43,16 @@ update_config() {
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 TMUX_CONFIG_DIR="$HOME/.config/tmux"
 ZELLIJ_CONFIG_DIR="$HOME/.config/zellij"
+YAZI_CONFIG_DIR="$HOME/.config/yazi"
 
 # Menu to select which configs to update
 echo "Select the configurations to update (you can select multiple, e.g., '1 2'):"
 echo "1. Neovim"
 echo "2. tmux"
 echo "3. Zellij"
-echo "4. All"
-read -p "Enter your choice(s) [1-4]: " choices
+echo "4. Yazi"
+echo "5. All"
+read -p "Enter your choice(s) [1-5]: " choices
 
 for choice in $choices; do
   case $choice in
@@ -64,9 +66,13 @@ for choice in $choices; do
     update_config "Zellij" "$ZELLIJ_CONFIG_DIR"
     ;;
   4)
+    update_config "Yazi" "$YAZI_CONFIG_DIR"
+    ;;
+  5)
     update_config "Neovim" "$NVIM_CONFIG_DIR"
     update_config "tmux" "$TMUX_CONFIG_DIR"
     update_config "Zellij" "$ZELLIJ_CONFIG_DIR"
+    update_config "Yazi" "$YAZI_CONFIG_DIR"
     break
     ;;
   *)

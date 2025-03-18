@@ -19,6 +19,7 @@ LAZYGIT_DIR="$PREFIX/lazygit"
 YAZI_DIR="$PREFIX/yazi"
 SAD_DIR="$PREFIX/sad"
 DIFFTASTIC_DIR="$PREFIX/difftastic"
+DELTA_DIR="$PREFIX/delta"
 
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 TMUX_CONFIG_DIR="$HOME/.config/tmux"
@@ -37,6 +38,7 @@ LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.48.0/
 YAZI_URL="https://github.com/sxyazi/yazi/releases/download/v25.3.2/yazi-aarch64-apple-darwin.zip"
 SAD_URL="https://github.com/ms-jpq/sad/releases/download/v0.4.32/aarch64-apple-darwin.zip"
 DIFFTASTIC_URL="https://github.com/Wilfred/difftastic/releases/download/0.63.0/difft-aarch64-apple-darwin.tar.gz"
+DELTA_URL="https://github.com/dandavison/delta/releases/download/0.18.2/delta-0.18.2-aarch64-apple-darwin.tar.gz"
 
 # Configuration repositories
 NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
@@ -61,10 +63,11 @@ show_menu() {
   echo "9. Yazi"
   echo "10. sad"
   echo "11. difftastic"
-  echo "12. Neovim config"
-  echo "13. tmux config"
-  echo "14. Zellij config"
-  echo "15. Yazi config"
+  echo "12. delta"
+  echo "13. Neovim config"
+  echo "14. tmux config"
+  echo "15. Zellij config"
+  echo "16. Yazi config"
   echo "t. Tool bundle with Oh my tmux!"
   echo "z. Tool bundle with Zellij"
   echo "a. Install all"
@@ -271,6 +274,23 @@ install_diffastic() {
   fi
 }
 
+install_delta() {
+  echo "Installing delta..."
+  rm -rf "$DELTA_DIR"
+  mkdir -p "$DELTA_DIR"
+  curl -L "$DELTA_URL" -o "$TEMP_DIR/delta.tar.gz"
+  tar -xzf "$TEMP_DIR/delta.tar.gz" -C "$DELTA_DIR"
+  DELTA_BINARY=$(find "$DELTA_DIR" -type f -name "delta" | head -n 1)
+  if [ -n "$DELTA_BINARY" ]; then
+    # Create a symbolic link to the delta binary
+    ln -s "$DELTA_BINARY" "$INSTALL_DIR/delta"
+    echo "Created link to delta at $INSTALL_DIR/delta"
+    UPDATE_SHELL_CONFIGURATION=1
+  else
+    echo "Error: delta binary not found in the extracted files."
+  fi
+}
+
 install_nvim_config() {
   echo "Installing Neovim configuration..."
   rm -rf "$NVIM_CONFIG_DIR"
@@ -385,6 +405,7 @@ main() {
     install_yazi
     install_sad
     install_diffastic
+    install_delta
     install_nvim_config
     install_tmux_config
     install_zellij_config
@@ -400,6 +421,7 @@ main() {
     install_yazi
     install_sad
     install_diffastic
+    install_delta
     install_nvim_config
     install_tmux_config
     install_yazi_config
@@ -415,6 +437,7 @@ main() {
     install_yazi
     install_sad
     install_diffastic
+    install_delta
     install_nvim_config
     install_zellij_config
     install_yazi_config
@@ -434,10 +457,11 @@ main() {
       9) install_yazi ;;
       10) install_sad ;;
       11) install_diffastic ;;
-      12) install_nvim_config ;;
-      13) install_tmux_config ;;
-      14) install_zellij_config ;;
-      15) install_yazi_config ;;
+      12) install_delta ;;
+      13) install_nvim_config ;;
+      14) install_tmux_config ;;
+      15) install_zellij_config ;;
+      16) install_yazi_config ;;
       *) echo "Invalid option: $num" ;;
       esac
     done
