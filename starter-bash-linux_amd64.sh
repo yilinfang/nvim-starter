@@ -29,7 +29,7 @@ YAZI_CONFIG_DIR="$HOME/.config/yazi"
 # URLs for tools
 NEOVIM_URL="https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.tar.gz"
 NODEJS_URL="https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-x64.tar.xz"
-ZELLIJ_URL="https://github.com/zellij-org/zellij/releases/download/v0.42.0/zellij-x86_64-unknown-linux-musl.tar.gz"
+ZELLIJ_URL="https://github.com/zellij-org/zellij/releases/download/v0.42.1/zellij-x86_64-unknown-linux-musl.tar.gz"
 FD_URL="https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-unknown-linux-musl.tar.gz"
 RG_URL="https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-x86_64-unknown-linux-musl.tar.gz"
 BAT_URL="https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-x86_64-unknown-linux-musl.tar.gz"
