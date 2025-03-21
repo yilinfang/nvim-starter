@@ -473,7 +473,8 @@ main() {
 
     # Define fish config file path
     FISH_CONFIG_FILE="$HOME/.config/fish/config.fish"
-    BACKUP_FILE="$HOME/.config/fish/config.fish.bak"
+    TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+    BACKUP_FILE="$HOME/.config/fish/config.fish.bak_$TIMESTAMP"
 
     # Ensure the directory exists
     mkdir -p "$(dirname "$FISH_CONFIG_FILE")"

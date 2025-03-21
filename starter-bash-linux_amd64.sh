@@ -468,7 +468,8 @@ main() {
 
     # Define .bashrc file path
     BASH_CONFIG_FILE="$HOME/.bashrc"
-    BACKUP_FILE="$HOME/.bashrc.bak"
+    TIMESTAMP=$(date +%Y%m%d%H%M%S)
+    BACKUP_FILE="$HOME/.bashrc.bak_$TIMESTAMP"
 
     # Ensure the directory exists
     mkdir -p "$(dirname "$BASH_CONFIG_FILE")"
