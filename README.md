@@ -19,6 +19,7 @@ The following tools will be installed:
 - [SAD!](https://github.com/ms-jpq/sad)
 - [difftastic](https://github.com/Wilfred/difftastic)
 - [delta](https://github.com/dandavison/delta)
+- [fw](https://github.com/yilinfang/fw)
 
 Please refer to the scripts for detailed information.
 
