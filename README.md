@@ -40,7 +40,7 @@ However, I failed to rebuild the development environment on a server where the p
 
 Thus, I started building these scripts. I decided to open source them as I found them quite useful.
 
-_Git, C compiler curl and tmux are not provided because I find that they are usually either ready to use or up-to-date on most servers I use. :D_
+_Git, C compiler, curl and tmux are not provided because I find that they are usually either ready to use or up-to-date on most servers I use. :D_
 
 ## Uninstallation
 
