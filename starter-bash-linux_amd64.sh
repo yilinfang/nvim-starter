@@ -332,14 +332,14 @@ export PATH=$INSTALL_DIR:\$PATH
 
 # Set PATH for Neovim if installed
 if [ -f "$NEOVIM_DIR/bin/nvim" ]; then
-  export PATH="$NEOVIM_DIR:\$PATH"
+  export PATH="$NEOVIM_DIR/bin:\$PATH"
 
   # Set EDITOR and VISUAL to nvim
   export EDITOR="nvim"
   export VISUAL="nvim"
 
   # If n is available, use it for nvim
-  if [! \$(command -v n >/dev/null) ]; then
+  if [ ! \$(command -v n >/dev/null) ]; then
     alias n="nvim"
   fi
 fi
