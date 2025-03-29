@@ -331,28 +331,32 @@ create_shell_init_script() {
 # Add binaries to PATH using fish_add_path
 fish_add_path -g $INSTALL_DIR
 
-# Add Neovim to PATH if installed
-if test -d "$NEOVIM_DIR/bin"
-  fish_add_path -g "$NEOVIM_DIR/bin"
-end
-# Add Node.js to PATH if installed
-if test -d "$NODEJS_DIR/bin"
-  fish_add_path -g "$NODEJS_DIR/bin"
-end
-
-# Set EDITOR and VISUAL to nvim if installed
-if command -v nvim > /dev/null
+# Set PATH for Neovim if installed
+if test -f "$NEOVIM_DIR/bin/nvim"
+  fish_add_path -g $NEOVIM_DIR/bin
+  
+  # Set EDITOR and VISUAL to nvim
   set -gx EDITOR nvim
   set -gx VISUAL nvim
+
+  # If n is available, use it for nvim
+  if not command -v n > /dev/null
+    alias n="nvim"
+  end
+end
+
+# Set PATH for Node.js if installed
+if test -f "$NODEJS_DIR/bin/node"
+  fish_add_path -g $NODEJS_DIR/bin
 end
 
 # Initialize fzf if installed
-if command -v fzf > /dev/null
+if test -f "$INSTALL_DIR/fzf"
   fzf --fish | source
 end
 
 # Add yazi binding if yazi is installed and y is available
-if command -v yazi > /dev/null; and not command -v y > /dev/null
+if test -f "$INSTALL_DIR/yazi"; and not command -v y > /dev/null
   function y
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
     yazi \$argv --cwd-file="\$tmp"
@@ -366,11 +370,6 @@ if command -v yazi > /dev/null; and not command -v y > /dev/null
   end
 end
 
-# If n is available, use it for Neovim
-if command -v nvim > /dev/null; and not command -v n > /dev/null
-  alias n="nvim"
-end
-
 # If g is available, use it for Git
 if not command -v g > /dev/null
   alias g="git"
@@ -382,12 +381,12 @@ if command -v tmux > /dev/null; and not command -v t > /dev/null
 end
 
 # If ze is available, use it for Zellij
-if command -v zellij > /dev/null; and not command -v ze > /dev/null
+if test -f "$INSTALL_DIR/zellij"; and not command -v ze > /dev/null
   alias ze="zellij"
 end
 
 # If lg is available, use it for lazygit
-if command -v lazygit > /dev/null; and not command -v lg > /dev/null
+if test -f "$INSTALL_DIR/lazygit"; and not command -v lg > /dev/null
   alias lg="lazygit"
 end
 EOF

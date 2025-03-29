@@ -330,29 +330,32 @@ create_shell_init_script() {
 # Add binaries to PATH
 export PATH=$INSTALL_DIR:\$PATH
 
-# Add Neovim to PATH if installed
-if command -v nvim >/dev/null 2>&1; then
-  export PATH=$NEOVIM_DIR/bin:\$PATH
-fi
+# Set PATH for Neovim if installed
+if [ -f "$NEOVIM_DIR/bin/nvim" ]; then
+  export PATH="$NEOVIM_DIR:\$PATH"
 
-# Add Node.js to PATH if installed
-if command -v node >/dev/null 2>&1; then
-  export PATH=$NODEJS_DIR/bin:\$PATH
-fi
-
-# Set EDITOR and VISUAL to nvim if installed
-if command -v nvim >/dev/null 2>&1; then
+  # Set EDITOR and VISUAL to nvim
   export EDITOR="nvim"
   export VISUAL="nvim"
+
+  # If n is available, use it for nvim
+  if [! \$(command -v n >/dev/null) ]; then
+    alias n="nvim"
+  fi
+fi
+
+# Set PATH for Node.js if installed
+if [ -f "$NODEJS_DIR/bin/node" ]; then
+  export PATH="$NODEJS_DIR/bin:\$PATH"
 fi
 
 # Initialize fzf if installed
-if command -v fzf >/dev/null 2>&1; then
+if [ -f "$INSTALL_DIR/fzf" ]; then
   eval "\$(fzf --bash)"
 fi
 
 # Add yazi binding if yazi is installed and y is available
-if command -v yazi >/dev/null 2>&1 && ! command -v y >/dev/null 2>&1; then
+if [[ -f "$INSTALL_DIR/yazi" && ! \$(command -v y >/dev/null) ]]; then
   function y() {
     local tmp="\$(mktemp -t "yazi-cwd.XXXXXX")" cwd
     yazi "\$@" --cwd-file="\$tmp"
@@ -363,28 +366,23 @@ if command -v yazi >/dev/null 2>&1 && ! command -v y >/dev/null 2>&1; then
   }
 fi
 
-# If n is available, use it for Neovim
-if command -v nvim >/dev/null 2>&1 && ! command -v n >/dev/null 2>&1; then
-  alias n="nvim"
-fi
-
 # If g is available, use it for Git
 if ! command -v g >/dev/null 2>&1; then
   alias g="git"
 fi
 
 # If t is available, use it for tmux
-if command -v tmux >/dev/null 2>&1 && ! command -v t >/dev/null 2>&1; then
+if ! command -v t >/dev/null 2>&1; then
   alias t="tmux"
 fi
 
 # If ze is available, use it for Zellij
-if command -v zellij >/dev/null 2>&1 && ! command -v ze >/dev/null 2>&1; then
+if [[ -f "$INSTALL_DIR/zellij" && ! \$(command -v ze >/dev/null) ]]; then
   alias ze="zellij"
 fi
 
 # If lg is available, use it for lazygit
-if command -v lazygit >/dev/null 2>&1 && ! command -v lg >/dev/null 2>&1; then
+if [[ -f "$INSTALL_DIR/lazygit" && ! \$(command -v lg >/dev/null) ]]; then
   alias lg="lazygit"
 fi
 EOF
