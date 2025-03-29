@@ -86,20 +86,7 @@ install_nvim() {
   mkdir -p "$NEOVIM_DIR"
   curl -L "$NEOVIM_URL" -o "$TEMP_DIR/nvim.tar.gz"
   tar -xzf "$TEMP_DIR/nvim.tar.gz" -C "$NEOVIM_DIR" --strip-components=1
-
-  # Create a wrapper script to launch Neovim with the isolated Node.js environment
-  tee "$INSTALL_DIR/nvim" <<EOF
-#!/usr/bin/env bash
-
-if ! command -v node >/dev/null 2>&1; then
-  export PATH=$NODEJS_DIR/bin:\$PATH
-fi
-
-exec $NEOVIM_DIR/bin/nvim "\$@"
-EOF
-
-  chmod +x "$INSTALL_DIR/nvim"
-  echo "Created wrapper script for Neovim at $INSTALL_DIR/nvim"
+  echo "Neovim installed in $NEOVIM_DIR."
   UPDATE_SHELL_CONFIGURATION=1
 }
 
@@ -109,7 +96,7 @@ install_nodejs() {
   mkdir -p "$NODEJS_DIR"
   curl -L "$NODEJS_URL" -o "$TEMP_DIR/node.tar.gz"
   tar -xzf "$TEMP_DIR/node.tar.gz" -C "$NODEJS_DIR" --strip-components=1
-  echo "Node.js installed in $NODEJS_DIR. It will not be added to the system PATH. You have to do it yourself, if you needed."
+  echo "Node.js installed in $NODEJS_DIR."
   UPDATE_SHELL_CONFIGURATION=1
 }
 
@@ -344,19 +331,28 @@ create_shell_init_script() {
 # Add binaries to PATH using fish_add_path
 fish_add_path -g $INSTALL_DIR
 
+# Add Neovim to PATH if installed
+if test -d "$NEOVIM_DIR/bin"
+  fish_add_path -g "$NEOVIM_DIR/bin"
+end
+# Add Node.js to PATH if installed
+if test -d "$NODEJS_DIR/bin"
+  fish_add_path -g "$NODEJS_DIR/bin"
+end
+
 # Set EDITOR and VISUAL to nvim if installed
-if test -f "$INSTALL_DIR/nvim"
+if command -v nvim > /dev/null
   set -gx EDITOR nvim
   set -gx VISUAL nvim
 end
 
 # Initialize fzf if installed
-if test -f "$INSTALL_DIR/fzf"
+if command -v fzf > /dev/null
   fzf --fish | source
 end
 
 # Add yazi binding if yazi is installed and y is available
-if test -f "$INSTALL_DIR/yazi"; and not command -v y > /dev/null
+if command -v yazi > /dev/null; and not command -v y > /dev/null
   function y
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
     yazi \$argv --cwd-file="\$tmp"
@@ -371,7 +367,7 @@ if test -f "$INSTALL_DIR/yazi"; and not command -v y > /dev/null
 end
 
 # If n is available, use it for Neovim
-if test -f "$INSTALL_DIR/nvim"; and not command -v n > /dev/null
+if command -v nvim > /dev/null; and not command -v n > /dev/null
   alias n="nvim"
 end
 
@@ -386,12 +382,12 @@ if command -v tmux > /dev/null; and not command -v t > /dev/null
 end
 
 # If ze is available, use it for Zellij
-if test -f "$INSTALL_DIR/zellij"; and not command -v ze > /dev/null
+if command -v zellij > /dev/null; and not command -v ze > /dev/null
   alias ze="zellij"
 end
 
 # If lg is available, use it for lazygit
-if test -f "$INSTALL_DIR/lazygit"; and not command -v lg > /dev/null
+if command -v lazygit > /dev/null; and not command -v lg > /dev/null
   alias lg="lazygit"
 end
 EOF
