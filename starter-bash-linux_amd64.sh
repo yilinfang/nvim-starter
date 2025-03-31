@@ -343,12 +343,23 @@ if [ -f "$NEOVIM_DIR/bin/nvim" ]; then
     alias n="nvim"
   fi
 fi
+EOF
+
+  # Ask user for confirmation to add Node.js to PATH
+  read -p "Do you want to add Node.js to PATH? (y/n): " ADD_NODEJS
+
+  if [[ "$ADD_NODEJS" =~ ^[Yy]$ ]]; then
+    tee -a "$PREFIX/init.sh" <<EOF
 
 # Set PATH for Node.js if installed
 if [ -f "$NODEJS_DIR/bin/node" ]; then
   export PATH="$NODEJS_DIR/bin:\$PATH"
 fi
 
+EOF
+  fi
+
+  tee -a "$PREFIX/init.sh" <<EOF
 # Initialize fzf if installed
 if [ -f "$INSTALL_DIR/fzf" ]; then
   eval "\$(fzf --bash)"
