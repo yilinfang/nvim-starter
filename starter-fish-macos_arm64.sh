@@ -344,6 +344,7 @@ if test -f "$NEOVIM_DIR/bin/nvim"
     alias n="nvim"
   end
 end
+
 EOF
 
   # Ask user for confirmation to add Node.js to PATH
@@ -351,7 +352,6 @@ EOF
 
   if [[ "$ADD_NODEJS" == "y" || "$ADD_NODEJS" == "Y" ]]; then
     tee -a "$PREFIX/init.fish" <<EOF
-
 # Set PATH for Node.js if installed
 if test -f "$NODEJS_DIR/bin/node"
   fish_add_path -g $NODEJS_DIR/bin
@@ -400,6 +400,7 @@ end
 if test -f "$INSTALL_DIR/lazygit"; and not command -v lg > /dev/null
   alias lg="lazygit"
 end
+
 EOF
 
   echo "Fish shell initialization script created at $PREFIX/init.fish"

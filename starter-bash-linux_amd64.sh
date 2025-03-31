@@ -343,6 +343,7 @@ if [ -f "$NEOVIM_DIR/bin/nvim" ]; then
     alias n="nvim"
   fi
 fi
+
 EOF
 
   # Ask user for confirmation to add Node.js to PATH
@@ -350,7 +351,6 @@ EOF
 
   if [[ "$ADD_NODEJS" =~ ^[Yy]$ ]]; then
     tee -a "$PREFIX/init.sh" <<EOF
-
 # Set PATH for Node.js if installed
 if [ -f "$NODEJS_DIR/bin/node" ]; then
   export PATH="$NODEJS_DIR/bin:\$PATH"
@@ -396,6 +396,7 @@ fi
 if [[ -f "$INSTALL_DIR/lazygit" && ! \$(command -v lg >/dev/null) ]]; then
   alias lg="lazygit"
 fi
+
 EOF
 
   echo "Bash shell initialization script created at $PREFIX/init.sh"
