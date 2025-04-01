@@ -347,17 +347,21 @@ end
 
 EOF
 
-  # Ask user for confirmation to add Node.js to PATH
-  read -p "Do you want to add Node.js to PATH? (y/n): " ADD_NODEJS
+  # If Node.js is installed, ask user for confirmation to add to PATH
+  if [ -f "$NODEJS_DIR/bin/node" ]; then
 
-  if [[ "$ADD_NODEJS" == "y" || "$ADD_NODEJS" == "Y" ]]; then
-    tee -a "$PREFIX/init.fish" <<EOF
+    # Ask user for confirmation to add Node.js to PATH
+    read -p "Do you want to add Node.js to PATH? (y/n): " ADD_NODEJS
+
+    if [[ "$ADD_NODEJS" =~ ^[Yy]$ ]]; then
+      tee -a "$PREFIX/init.fish" <<EOF
 # Set PATH for Node.js if installed
 if test -f "$NODEJS_DIR/bin/node"
   fish_add_path -g $NODEJS_DIR/bin
 end
 
 EOF
+    fi
   fi
 
   tee -a "$PREFIX/init.fish" <<EOF
