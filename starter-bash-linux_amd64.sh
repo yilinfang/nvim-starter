@@ -22,11 +22,6 @@ DIFFTASTIC_DIR="$PREFIX/difftastic"
 DELTA_DIR="$PREFIX/delta"
 FW_DIR="$PREFIX/fw"
 
-NVIM_CONFIG_DIR="$HOME/.config/nvim"
-TMUX_CONFIG_DIR="$HOME/.config/tmux"
-ZELLIJ_CONFIG_DIR="$HOME/.config/zellij"
-YAZI_CONFIG_DIR="$HOME/.config/yazi"
-
 # URLs for tools
 NEOVIM_URL="https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.tar.gz"
 NODEJS_URL="https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-x64.tar.xz"
@@ -41,12 +36,6 @@ SAD_URL="https://github.com/ms-jpq/sad/releases/download/v0.4.32/x86_64-unknown-
 DIFFTASTIC_URL="https://github.com/Wilfred/difftastic/releases/download/0.63.0/difft-x86_64-unknown-linux-musl.tar.gz"
 DELTA_URL="https://github.com/dandavison/delta/releases/download/0.18.2/delta-0.18.2-x86_64-unknown-linux-musl.tar.gz"
 FW_URL="https://raw.githubusercontent.com/yilinfang/fw/main/fw"
-
-# Configuration repositories
-NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
-TMUX_CONFIG_REPO="https://github.com/yilinfang/tmux.git"
-ZELLIJ_CONFIG_REPO="https://github.com/yilinfang/zellij.git"
-YAZI_CONFIG_REPO="https://github.com/yilinfang/yazi.git"
 
 # Installation tracking variables
 UPDATE_SHELL_CONFIGURATION=0
@@ -67,12 +56,6 @@ show_menu() {
   echo "11. difftastic"
   echo "12. delta"
   echo "13. fw"
-  echo "14. Neovim config"
-  echo "15. tmux config"
-  echo "16. Zellij config"
-  echo "17. Yazi config"
-  echo "t. Tool bundle with Oh my tmux!"
-  echo "z. Tool bundle with Zellij"
   echo "a. Install all"
   echo "i. Initialize shell configuration"
 
@@ -293,32 +276,6 @@ install_fw() {
   UPDATE_SHELL_CONFIGURATION=1
 }
 
-install_nvim_config() {
-  echo "Installing Neovim configuration..."
-  rm -rf "$NVIM_CONFIG_DIR"
-  git clone "$NVIM_CONFIG_REPO" "$NVIM_CONFIG_DIR"
-}
-
-install_tmux_config() {
-  echo "Installing tmux configuration..."
-  rm -rf "$TMUX_CONFIG_DIR"
-  git clone "$TMUX_CONFIG_REPO" "$TMUX_CONFIG_DIR"
-  ln -s "$TMUX_CONFIG_DIR/.tmux.conf" "$TMUX_CONFIG_DIR/tmux.conf"
-  ln -s "$TMUX_CONFIG_DIR/.tmux.conf.local" "$TMUX_CONFIG_DIR/tmux.conf.local"
-}
-
-install_zellij_config() {
-  echo "Installing Zellij configuration..."
-  rm -rf "$ZELLIJ_CONFIG_DIR"
-  git clone "$ZELLIJ_CONFIG_REPO" "$ZELLIJ_CONFIG_DIR"
-}
-
-install_yazi_config() {
-  echo "Installing Yazi configuration..."
-  rm -rf "$YAZI_CONFIG_DIR"
-  git clone "$YAZI_CONFIG_REPO" "$YAZI_CONFIG_DIR"
-}
-
 create_shell_init_script() {
   echo "Creating bash shell initialization script..."
 
@@ -429,42 +386,6 @@ main() {
     install_diffastic
     install_delta
     install_fw
-    install_nvim_config
-    install_tmux_config
-    install_zellij_config
-    install_yazi_config
-  elif [[ "$CHOICE" == "t" ]]; then
-    install_nvim
-    install_nodejs
-    install_fd
-    install_ripgrep
-    install_bat
-    install_lazygit
-    install_yazi
-    install_sad
-    install_diffastic
-    install_delta
-    install_fw
-    install_nvim_config
-    install_tmux_config
-    install_yazi_config
-  elif [[ "$CHOICE" == "z" ]]; then
-    install_nvim
-    install_nodejs
-    install_zellij
-    install_fd
-    install_ripgrep
-    install_bat
-    install_fzf
-    install_lazygit
-    install_yazi
-    install_sad
-    install_diffastic
-    install_delta
-    install_fw
-    install_nvim_config
-    install_zellij_config
-    install_yazi_config
   elif [[ "$CHOICE" == "i" ]]; then
     UPDATE_SHELL_CONFIGURATION=1
   else
@@ -483,10 +404,6 @@ main() {
       11) install_diffastic ;;
       12) install_delta ;;
       13) install_fw ;;
-      14) install_nvim_config ;;
-      15) install_tmux_config ;;
-      16) install_zellij_config ;;
-      17) install_yazi_config ;;
       *) echo "Invalid option: $num" ;;
       esac
     done
