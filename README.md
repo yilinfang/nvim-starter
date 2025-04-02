@@ -15,11 +15,16 @@ The following tools will be installed:
 - [Lazygit](https://github.com/jesseduffield/lazygit)
 - [Neovim](https://neovim.io/)
 - [Node.js](https://nodejs.org/) (required for many language servers)
-- [Oh My Tmux!](https://github.com/gpakosz/.tmux)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [SAD!](https://github.com/ms-jpq/sad)
 - [Yazi](https://github.com/sxyazi/yazi)
 - [Zellij](https://zellij.dev/)
+
+The following configurations will be set up:
+
+- [Neovim](https://github.com/yilinfang/nvim)
+- [Zellij](https//github.com/yilinfang/zellij)
+- [Yazi](https://github.com/yilinfang/yazi)
 
 Please refer to the scripts for detailed installation instructions.
 
