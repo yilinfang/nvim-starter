@@ -42,7 +42,7 @@ UPDATE_SHELL_CONFIGURATION=0
 
 # Function to display menu and get user selection
 show_menu() {
-  echo "Select tools to install (enter numbers separated by space, or use letter 't', 'z', 'a' for tool bundle):"
+  echo "Select tools to install:"
   echo "1. Neovim"
   echo "2. Node.js"
   echo "3. Zellij"
