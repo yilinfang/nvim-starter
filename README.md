@@ -25,6 +25,7 @@ The following configurations will be set up:
 - [Neovim](https://github.com/yilinfang/nvim)
 - [Zellij](https//github.com/yilinfang/zellij)
 - [Yazi](https://github.com/yilinfang/yazi)
+- [Tmux](https://github.com/yilinfang/.tmux)
 
 Please refer to the scripts for detailed installation instructions.
 
