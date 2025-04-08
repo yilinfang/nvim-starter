@@ -40,16 +40,16 @@ Please refer to the scripts for detailed installation instructions.
 
 ## Motivation
 
-I enjoy coding with Neovim and other useful tools (such as Zellij, bat, and Lazygit) on my Mac. Using Homebrew, I can easily manage these dependencies.
+I enjoy coding with my PDE includes Neovim and other useful tools (such as Zellij, bat, and Lazygit) on my Mac. With homebrew, I can easily manage these dependencies.
 
-However, I struggled to recreate the same development environment on a server where the repository packages were either outdated or unavailable.
+However, I struggled to recreate the PDE on a server where the repository packages were either outdated or unavailable.
 
 This inspired me to create these scripts. I decided to open-source them because I found them to be quite useful.
 
-_**Note**: Git, a C compiler, curl, and tmux are not included in this setup because they are usually pre-installed or up-to-date on most servers I use._
+_**Note**: Git, C compiler, curl, and tmux are not included in this setup because they are usually pre-installed and up-to-date on most servers I use._
 
 ## Uninstallation
 
 1. Run `cleanup-config-unix.sh` to remove the configurations.
 2. Delete the `~/.pde` directory.
-3. Remove any nvim-starter related entries in `config.fish` or `.bashrc`.
+3. Remove any pde-starter related entries in `config.fish` or `.bashrc`.
