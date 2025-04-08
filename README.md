@@ -46,7 +46,7 @@ However, I struggled to recreate the same development environment on a server wh
 
 This inspired me to create these scripts. I decided to open-source them because I found them to be quite useful.
 
-_Note: Git, a C compiler, curl, and tmux are not included in this setup because they are usually pre-installed or up-to-date on most servers._
+_**Note**: Git, a C compiler, curl, and tmux are not included in this setup because they are usually pre-installed or up-to-date on most servers I use._
 
 ## Uninstallation
 
