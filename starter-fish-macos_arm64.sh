@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Set up directories
-PREFIX="$HOME/.nvim-starter"
+PREFIX="$HOME/.pde"
 
 # Create the prefix directory if it doesn't exist
 mkdir -p "$PREFIX"
@@ -439,7 +439,7 @@ main() {
     # Add source line if not already present
     if ! grep -q "source $PREFIX/init.fish" "$FISH_CONFIG_FILE"; then
       echo "" >>"$FISH_CONFIG_FILE"
-      echo "# nvim-starter configuration" >>"$FISH_CONFIG_FILE"
+      echo "# pde-starter configuration" >>"$FISH_CONFIG_FILE"
       echo "if test -f $PREFIX/init.fish" >>"$FISH_CONFIG_FILE"
       echo "    source $PREFIX/init.fish" >>"$FISH_CONFIG_FILE"
       echo "end" >>"$FISH_CONFIG_FILE"

@@ -1,6 +1,6 @@
-# nvim-starter
+# PDE-starter
 
-Scripts for setting up [Neovim](https://neovim.io/) ([LazyVim](https://www.lazyvim.org/)) develop environment.
+Bootstrap scripts for setting up [Neovim](https://neovim.io/) ([LazyVim](https://www.lazyvim.org/))-based PDE ([Personalized Development Environment](https://youtu.be/QMVIJhC9Veg?si=VgJQLBVTIYmNjVSD).
 
 **No root permissions are required, and the setup has minimal impact on local dependencies.**
 
@@ -51,5 +51,5 @@ _**Note**: Git, a C compiler, curl, and tmux are not included in this setup beca
 ## Uninstallation
 
 1. Run `cleanup-config-unix.sh` to remove the configurations.
-2. Delete the `~/.nvim-starter` directory.
-3. Remove any nvim-starter related entries in `~/.zshrc` or `~/.bashrc`.
+2. Delete the `~/.pde` directory.
+3. Remove any nvim-starter related entries in `config.fish` or `.bashrc`.

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Set up directories
-PREFIX="$HOME/.nvim-starter"
+PREFIX="$HOME/.pde"
 
 # Create the prefix directory if it doesn't exist
 mkdir -p "$PREFIX"
@@ -435,7 +435,7 @@ main() {
     # Add source line if not already present
     if ! grep -q "source $PREFIX/init.sh" "$BASH_CONFIG_FILE"; then
       echo "" >>"$BASH_CONFIG_FILE"
-      echo "# nvim-starter configuration" >>"$BASH_CONFIG_FILE"
+      echo "# pde-starter configuration" >>"$BASH_CONFIG_FILE"
       echo "if [ -f $PREFIX/init.sh ]; then" >>"$BASH_CONFIG_FILE"
       echo "    source $PREFIX/init.sh" >>"$BASH_CONFIG_FILE"
       echo "fi" >>"$BASH_CONFIG_FILE"
