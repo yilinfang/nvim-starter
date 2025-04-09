@@ -14,7 +14,7 @@ The following tools will be installed:
 - [fw](https://github.com/yilinfang/fw)
 - [Lazygit](https://github.com/jesseduffield/lazygit)
 - [Neovim](https://neovim.io/)
-- [Node.js](https://nodejs.org/) (required for many language servers)
+- [Node.js](https://nodejs.org/) (required for many plugins and language servers)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [SAD!](https://github.com/ms-jpq/sad)
 - [Yazi](https://github.com/sxyazi/yazi)
