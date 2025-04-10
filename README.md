@@ -1,6 +1,6 @@
 # PDE-starter
 
-Bootstrap scripts for setting up [Neovim](https://neovim.io/)([LazyVim](https://www.lazyvim.org/))-based PDE([Personalized Development Environment](https://youtu.be/QMVIJhC9Veg?si=VgJQLBVTIYmNjVSD)).
+Bootstrap scripts for setting up [Neovim](https://neovim.io/)-based PDE([Personalized Development Environment](https://youtu.be/QMVIJhC9Veg?si=VgJQLBVTIYmNjVSD)).
 
 **No root permissions are required, and the setup has minimal impact on local dependencies.**
 
