@@ -22,7 +22,7 @@ The following tools will be installed:
 
 The following configurations will be set up:
 
-- [Neovim](https://github.com/yilinfang/nvim)
+- [Neovim](https://github.com/yilinfang/nvim-ks)
 - [Zellij](https//github.com/yilinfang/zellij)
 - [Yazi](https://github.com/yilinfang/yazi)
 - [Tmux](https://github.com/yilinfang/.tmux)
