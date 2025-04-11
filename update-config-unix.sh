@@ -48,7 +48,7 @@ YAZI_CONFIG_DIR="$HOME/.config/yazi"
 # Menu to select which configs to update
 echo "Select the configurations to update (you can select multiple, e.g., '1 2'):"
 echo "1. Neovim"
-echo "2. tmux"
+echo "2. Tmux"
 echo "3. Zellij"
 echo "4. Yazi"
 echo "5. All"

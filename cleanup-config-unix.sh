@@ -36,7 +36,7 @@ clean_yazi() {
 # Menu to select which tools to clean
 echo "Select the tools to clean (you can select multiple, e.g., '1 2'):"
 echo "1. Neovim"
-echo "2. tmux"
+echo "2. Tmux"
 echo "3. Zellij"
 echo "4. Yazi"
 echo "5. All"

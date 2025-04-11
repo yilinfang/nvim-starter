@@ -43,7 +43,7 @@ YAZI_CONFIG_REPO="https://github.com/yilinfang/yazi.git"
 # Menu to select which configurations to install
 echo "Select the configurations to install (you can select multiple, e.g., '1 2'):"
 echo "1. Neovim"
-echo "2. tmux"
+echo "2. Tmux"
 echo "3. Zellij"
 echo "4. Yazi"
 echo "5. All"
@@ -56,7 +56,7 @@ for choice in $choices; do
     ;;
   2)
     install_config "tmux" "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_REPO"
-    bash "$TMUX_CONFIG_DIR/install.sh"
+    /usr/bin/env bash "$TMUX_CONFIG_DIR/install.sh"
     ;;
   3)
     install_config "Zellij" "$ZELLIJ_CONFIG_DIR" "$ZELLIJ_CONFIG_REPO"
