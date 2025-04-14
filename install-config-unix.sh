@@ -56,7 +56,6 @@ for choice in $choices; do
     ;;
   2)
     install_config "tmux" "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_REPO"
-    /usr/bin/env bash "$TMUX_CONFIG_DIR/install.sh"
     ;;
   3)
     install_config "Zellij" "$ZELLIJ_CONFIG_DIR" "$ZELLIJ_CONFIG_REPO"
