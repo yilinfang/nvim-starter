@@ -34,7 +34,6 @@ Please refer to the scripts for detailed installation instructions.
 ## Requirements
 
 - Git >= 2.19.0
-- A **C** compiler (required for _nvim-treesitter_)
 - curl
 - tmux (optional)
 
@@ -46,10 +45,10 @@ However, I struggled to recreate the PDE on a server where the repository packag
 
 This inspired me to create these scripts. I decided to open-source them because I found them to be quite useful.
 
-_**Note**: Git, C compiler, curl, and tmux are not included in this setup because they are usually pre-installed and up-to-date on most servers I use._
+_**Note**: Git, curl, and tmux are not included because they are usually pre-installed and ready to use on most servers I use.:D_
 
 ## Uninstallation
 
 1. Run `cleanup-config-unix.sh` to remove the configurations.
 2. Delete the `~/.pde` directory.
-3. Remove any pde-starter related entries in `config.fish` or `.bashrc`.
+3. Remove any `pde-starter` related entries in `config.fish` or `.bashrc`.
