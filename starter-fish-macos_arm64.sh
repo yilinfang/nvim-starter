@@ -56,6 +56,7 @@ show_menu() {
   echo "11. difftastic"
   echo "12. delta"
   echo "13. fw"
+  echo "14. tmux"
   echo "a. Install all"
   echo "i. Initialize shell configuration"
 
@@ -264,7 +265,6 @@ install_delta() {
   fi
 }
 
-# Installation functions
 install_fw() {
   echo "Installing fw..."
   rm -rf "$FW_DIR"
@@ -274,6 +274,23 @@ install_fw() {
   chmod +x "$INSTALL_DIR/fw"
   echo "fw installed at $FW_DIR/fw and linked to $INSTALL_DIR/fw"
   UPDATE_SHELL_CONFIGURATION=1
+}
+
+install_tmux() {
+  echo "Installing tmux..."
+  # Check availability of tmux
+  if command -v tmux >/dev/null; then
+    echo "tmux is already installed."
+  else
+    # Check if Homebrew is installed
+    if command -v brew >/dev/null; then
+      echo "Installing tmux using Homebrew..."
+      brew install tmux
+    else
+      echo "Homebrew is not installed. Please install Homebrew first."
+      exit 1
+    fi
+  fi
 }
 
 # Create fish shell initialization script
@@ -390,6 +407,7 @@ main() {
     install_diffastic
     install_delta
     install_fw
+    install_tmux
   elif [[ "$CHOICE" == "i" ]]; then
     UPDATE_SHELL_CONFIGURATION=1
   else
@@ -408,6 +426,7 @@ main() {
       11) install_diffastic ;;
       12) install_delta ;;
       13) install_fw ;;
+      14) install_tmux ;;
       *) echo "Invalid option: $num" ;;
       esac
     done

@@ -17,6 +17,7 @@ The following tools will be installed:
 - [Node.js](https://nodejs.org/) (required for many plugins and language servers)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [SAD!](https://github.com/ms-jpq/sad)
+- [Tmux](https://github.com/tmux/tmux)
 - [Yazi](https://github.com/sxyazi/yazi)
 - [Zellij](https://zellij.dev/)
 
@@ -35,7 +36,7 @@ Please refer to the scripts for detailed installation instructions.
 
 - Git >= 2.19.0
 - curl
-- tmux (optional)
+- Homebrew (MacOS only, for installing tmux)
 
 ## Motivation
 
@@ -45,7 +46,7 @@ However, I struggled to recreate the PDE on a server where the repository packag
 
 This inspired me to create these scripts. I decided to open-source them because I found them to be quite useful.
 
-_**Note**: Git, curl, and tmux are not included because they are usually pre-installed and ready to use on most servers I use.:D_
+_**Note**: Git and curl are not included because they are usually pre-installed and ready to use on most servers I use.:D_
 
 ## Uninstallation
 
