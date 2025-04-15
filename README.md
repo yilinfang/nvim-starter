@@ -44,7 +44,7 @@ However, I struggled to recreate the PDE on a server where the repository packag
 
 This inspired me to create these scripts. I decided to open-source them because I found them to be quite useful.
 
-_**Note**: Git and curl are not included because they are usually pre-installed and ready to use on most servers I use.:D_
+_**Note**: Git and curl are not included because they are usually pre-installed and ready-to-use on most servers I use.:D_
 
 ## Uninstallation
 
