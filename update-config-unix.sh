@@ -49,10 +49,8 @@ YAZI_CONFIG_DIR="$HOME/.config/yazi"
 echo "Select the configurations to update (you can select multiple, e.g., '1 2'):"
 echo "1. Neovim"
 echo "2. Tmux"
-echo "3. Zellij"
-echo "4. Yazi"
-echo "5. All"
-read -p "Enter your choice(s) [1-5]: " choices
+echo "a. All"
+read -p "Enter your choice(s): " choices
 
 for choice in $choices; do
   case $choice in
@@ -62,21 +60,13 @@ for choice in $choices; do
   2)
     update_config "tmux" "$TMUX_CONFIG_DIR"
     ;;
-  3)
-    update_config "Zellij" "$ZELLIJ_CONFIG_DIR"
-    ;;
-  4)
-    update_config "Yazi" "$YAZI_CONFIG_DIR"
-    ;;
-  5)
+  a)
     update_config "Neovim" "$NVIM_CONFIG_DIR"
-    update_config "tmux" "$TMUX_CONFIG_DIR"
-    update_config "Zellij" "$ZELLIJ_CONFIG_DIR"
-    update_config "Yazi" "$YAZI_CONFIG_DIR"
+    update_config "Tmux" "$TMUX_CONFIG_DIR"
     break
     ;;
   *)
-    echo "Invalid choice: $choice. Please enter a number between 1 and 4."
+    echo "Invalid choice: $choice."
     ;;
   esac
 done

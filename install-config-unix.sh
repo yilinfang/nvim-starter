@@ -44,10 +44,8 @@ YAZI_CONFIG_REPO="https://github.com/yilinfang/yazi.git"
 echo "Select the configurations to install (you can select multiple, e.g., '1 2'):"
 echo "1. Neovim"
 echo "2. Tmux"
-echo "3. Zellij"
-echo "4. Yazi"
-echo "5. All"
-read -p "Enter your choice(s) [1-5]: " choices
+echo "a. All"
+read -p "Enter your choice(s): " choices
 
 for choice in $choices; do
   case $choice in
@@ -55,23 +53,15 @@ for choice in $choices; do
     install_config "Neovim" "$NVIM_CONFIG_DIR" "$NVIM_CONFIG_REPO"
     ;;
   2)
-    install_config "tmux" "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_REPO"
+    install_config "Tmux" "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_REPO"
     ;;
-  3)
-    install_config "Zellij" "$ZELLIJ_CONFIG_DIR" "$ZELLIJ_CONFIG_REPO"
-    ;;
-  4)
-    install_config "Yazi" "$YAZI_CONFIG_DIR" "$YAZI_CONFIG_REPO"
-    ;;
-  5)
+  a)
     install_config "Neovim" "$NVIM_CONFIG_DIR" "$NVIM_CONFIG_REPO"
-    install_config "tmux" "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_REPO"
-    install_config "Zellij" "$ZELLIJ_CONFIG_DIR" "$ZELLIJ_CONFIG_REPO"
-    install_config "Yazi" "$YAZI_CONFIG_DIR" "$YAZI_CONFIG_REPO"
+    install_config "Tmux" "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_REPO"
     break
     ;;
   *)
-    echo "Invalid choice: $choice. Please enter a number between 1 and 5."
+    echo "Invalid choice: $choice."
     ;;
   esac
 done
