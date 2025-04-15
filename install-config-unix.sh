@@ -32,13 +32,9 @@ install_config() {
 # Configuration directories and repositories
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 TMUX_CONFIG_DIR="$HOME/.config/tmux"
-ZELLIJ_CONFIG_DIR="$HOME/.config/zellij"
-YAZI_CONFIG_DIR="$HOME/.config/yazi"
 
 NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
 TMUX_CONFIG_REPO="https://github.com/yilinfang/tmux.git"
-ZELLIJ_CONFIG_REPO="https://github.com/yilinfang/zellij.git"
-YAZI_CONFIG_REPO="https://github.com/yilinfang/yazi.git"
 
 # Menu to select which configurations to install
 echo "Select the configurations to install (you can select multiple, e.g., '1 2'):"
