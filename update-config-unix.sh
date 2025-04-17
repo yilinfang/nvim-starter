@@ -42,8 +42,6 @@ update_config() {
 # Configuration directories (matching the ones used in starter scripts)
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 TMUX_CONFIG_DIR="$HOME/.config/tmux"
-ZELLIJ_CONFIG_DIR="$HOME/.config/zellij"
-YAZI_CONFIG_DIR="$HOME/.config/yazi"
 
 # Menu to select which configs to update
 echo "Select the configurations to update (you can select multiple, e.g., '1 2'):"
