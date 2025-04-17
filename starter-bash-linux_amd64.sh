@@ -318,7 +318,7 @@ install_zoxide() {
   fi
 }
 
-insatll_tmux() {
+install_tmux() {
   echo "Installing tmux..."
   rm -rf "$TMUX_DIR"
   mkdir -p "$TMUX_DIR"
@@ -461,7 +461,7 @@ main() {
     install_diffastic
     install_delta
     install_fw
-    insatll_tmux
+    install_tmux
     install_lsd
     install_zoxide
   elif [[ "$CHOICE" == "i" ]]; then
@@ -482,7 +482,7 @@ main() {
       11) install_diffastic ;;
       12) install_delta ;;
       13) install_fw ;;
-      14) insatll_tmux ;;
+      14) install_tmux ;;
       15) install_lsd ;;
       16) install_zoxide ;;
       *) echo "Invalid option: $num" ;;
