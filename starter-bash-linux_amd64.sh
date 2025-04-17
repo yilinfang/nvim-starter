@@ -462,6 +462,8 @@ main() {
     install_delta
     install_fw
     insatll_tmux
+    install_lsd
+    install_zoxide
   elif [[ "$CHOICE" == "i" ]]; then
     UPDATE_SHELL_CONFIGURATION=1
   else
@@ -481,6 +483,8 @@ main() {
       12) install_delta ;;
       13) install_fw ;;
       14) insatll_tmux ;;
+      15) install_lsd ;;
+      16) install_zoxide ;;
       *) echo "Invalid option: $num" ;;
       esac
     done
