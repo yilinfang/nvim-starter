@@ -38,13 +38,18 @@ Please refer to the scripts for detailed installation instructions.
 
 ## Motivation
 
-I enjoy coding with my PDE includes Neovim and other useful tools (such as Zellij, bat, and Lazygit) on my Mac. With homebrew, I can easily manage these dependencies.
+I enjoy coding with my PDE includes Neovim and other useful tools (such as ripgrep, fd, bat and Lazygit) on my Mac. With Homebrew, I can easily manage these dependencies.
 
-However, I struggled to recreate the PDE on a server where the repository packages were either outdated or unavailable.
+However, I came across following issues:
 
-This inspired me to create these scripts. I decided to open-source them because I found them to be quite useful.
+1. I do a lot of development on remote servers, and I often need to set up my PDE from scratch. I do not have root permission on some of these servers, and some package in the repositories are outdated or unavailable.
+2. On my local Mac, I used to use Homebrew to manage my PDE's dependencies. However, I find that Homebrew does not allowed me to install a specific version of a package which may caused breaks, as many of the tools are not in stable stage and they are developed rapidly.
 
-_**Note**: Git and curl are not included because they are usually pre-installed and ready-to-use on most servers I use.:D_
+To solve these issues, I decided to create a set of scripts that can help me set up my PDE quickly and easily. The scripts will install the dependencies in a local directory, and they will not interfere with the system's package manager.
+
+_**Note #1**: Tmux does not provide a pre-built binary, and it needs a lot of dependencies to built in MacOS, thus I decided to use Homebrew to install it. For linux, I provide a static built binary, you can check how it is built or build on you own [there](https://github.com/yilinfang/static-tmux-builder)._
+
+_**Note #2**: Git and curl are not included because they are usually pre-installed and ready-to-use on most servers I use.:D_
 
 ## Uninstallation
 
