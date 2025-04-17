@@ -21,6 +21,8 @@ SAD_DIR="$PREFIX/sad"
 DIFFTASTIC_DIR="$PREFIX/difftastic"
 DELTA_DIR="$PREFIX/delta"
 TMUX_DIR="$PREFIX/tmux"
+LSD_DIR="$PREFIX/lsd"
+ZOXIDE_DIR="$PREFIX/zoxide"
 FW_DIR="$PREFIX/fw"
 
 # URLs for tools
@@ -37,6 +39,8 @@ SAD_URL="https://github.com/ms-jpq/sad/releases/download/v0.4.32/x86_64-unknown-
 DIFFTASTIC_URL="https://github.com/Wilfred/difftastic/releases/download/0.63.0/difft-x86_64-unknown-linux-musl.tar.gz"
 DELTA_URL="https://github.com/dandavison/delta/releases/download/0.18.2/delta-0.18.2-x86_64-unknown-linux-musl.tar.gz"
 TMUX_URL="https://github.com/yilinfang/static-tmux-builder/releases/download/3.5a/tmux-static-musl.tar.gz"
+LSD_URL="https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-x86_64-unknown-linux-musl.tar.gz"
+ZOXIDE_URL="https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.7/zoxide-0.9.7-x86_64-unknown-linux-musl.tar.gz"
 FW_URL="https://raw.githubusercontent.com/yilinfang/fw/main/fw"
 
 # Installation tracking variables
@@ -59,6 +63,8 @@ show_menu() {
   echo "12. delta"
   echo "13. fw"
   echo "14. tmux"
+  echo "15. lsd"
+  echo "16. zoxide"
   echo "a. Install all"
   echo "i. Initialize shell configuration"
 
@@ -278,6 +284,40 @@ install_fw() {
   UPDATE_SHELL_CONFIGURATION=1
 }
 
+install_lsd() {
+  echo "Installing lsd..."
+  rm -rf "$LSD_DIR"
+  mkdir -p "$LSD_DIR"
+  curl -L "$LSD_URL" -o "$TEMP_DIR/lsd.tar.gz"
+  tar -xzf "$TEMP_DIR/lsd.tar.gz" -C "$LSD_DIR"
+  LSD_BINARY=$(find "$LSD_DIR" -type f -name "lsd" | head -n 1)
+  if [ -n "$LSD_BINARY" ]; then
+    # Create a symbolic link to the lsd binary
+    ln -s "$LSD_BINARY" "$INSTALL_DIR/lsd"
+    echo "Created link to lsd at $INSTALL_DIR/lsd"
+    UPDATE_SHELL_CONFIGURATION=1
+  else
+    echo "Error: lsd binary not found in the extracted files."
+  fi
+}
+
+install_zoxide() {
+  echo "Installing zoxide..."
+  rm -rf "$ZOXIDE_DIR"
+  mkdir -p "$ZOXIDE_DIR"
+  curl -L "$ZOXIDE_URL" -o "$TEMP_DIR/zoxide.tar.gz"
+  tar -xzf "$TEMP_DIR/zoxide.tar.gz" -C "$ZOXIDE_DIR"
+  ZOXIDE_BINARY=$(find "$ZOXIDE_DIR" -type f -name "zoxide" | head -n 1)
+  if [ -n "$ZOXIDE_BINARY" ]; then
+    # Create a symbolic link to the zoxide binary
+    ln -s "$ZOXIDE_BINARY" "$INSTALL_DIR/zoxide"
+    echo "Created link to zoxide at $INSTALL_DIR/zoxide"
+    UPDATE_SHELL_CONFIGURATION=1
+  else
+    echo "Error: zoxide binary not found in the extracted files."
+  fi
+}
+
 insatll_tmux() {
   echo "Installing tmux..."
   rm -rf "$TMUX_DIR"
@@ -343,6 +383,22 @@ EOF
 # Initialize fzf if installed
 if [ -f "$INSTALL_DIR/fzf" ]; then
   eval "\$(fzf --bash)"
+fi
+
+# Initialize zoxide if installed
+if [ -f "$INSTALL_DIR/zoxide" ]; then
+  eval "\$(zoxide init bash)"
+fi
+
+# Create alias for lsd if installed
+if [ -f "$INSTALL_DIR/lsd" ]; then
+  alias ls='lsd --color=always --icon=always --group-directories-first'
+  alias l='ls'
+  alias la='ls -A'
+  alias ll='ls -l --total-size'
+  alias lla='ll -A'
+  alias lt='ls -l --tree --depth=3 --total-size'
+  alias lta='lt -A'
 fi
 
 # Add yazi binding if yazi is installed and y is available
