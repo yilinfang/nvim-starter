@@ -380,6 +380,11 @@ EOF
   fi
 
   tee -a "$PREFIX/init.sh" <<EOF
+# Set BAT_THEME for bat if installed
+if [ -f "$INSTALL_DIR/bat" ]; then
+  export BAT_THEME="Solarized (dark)"
+fi
+
 # Initialize fzf if installed
 if [ -f "$INSTALL_DIR/fzf" ]; then
   eval "\$(fzf --bash)"
