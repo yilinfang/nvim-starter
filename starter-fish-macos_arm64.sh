@@ -20,6 +20,7 @@ YAZI_DIR="$PREFIX/yazi"
 SAD_DIR="$PREFIX/sad"
 DIFFTASTIC_DIR="$PREFIX/difftastic"
 DELTA_DIR="$PREFIX/delta"
+TMUX_DIR="$PREFIX/tmux"
 LSD_DIR="$PREFIX/lsd"
 ZOXIDE_DIR="$PREFIX/zoxide"
 FW_DIR="$PREFIX/fw"
@@ -40,6 +41,7 @@ DELTA_URL="https://github.com/dandavison/delta/releases/download/0.18.2/delta-0.
 LSD_URL="https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-aarch64-apple-darwin.tar.gz"
 ZOXIDE_URL="https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.7/zoxide-0.9.7-aarch64-apple-darwin.tar.gz"
 FW_URL="https://raw.githubusercontent.com/yilinfang/fw/main/fw"
+TMUX_MACOS_BUILDER_URL="https://raw.githubusercontent.com/yilinfang/tmux-macos-builder/refs/heads/main/build.sh"
 
 # Installation tracking variables
 UPDATE_SHELL_CONFIGURATION=0
@@ -318,18 +320,20 @@ install_fw() {
 
 install_tmux() {
   echo "Installing tmux..."
-  # Check availability of tmux
-  if command -v tmux >/dev/null; then
-    echo "tmux is already installed."
+  rm -rf "$TMUX_DIR"
+  mkdir -p "$TMUX_DIR"
+  curl -L "$TMUX_MACOS_BUILDER_URL" -o "$TEMP_DIR/tmux-builder.sh"
+  chmod +x "$TEMP_DIR/tmux-builder.sh"
+  mkdir -p "$TEMP_DIR/tmux"
+  echo y | "$TEMP_DIR/tmux-builder.sh" "$TMUX_DIR" "$TEMP_DIR/tmux" "3.5a"
+  TMUX_BINARY=$(find "$TMUX_DIR/bin" -type f -name "tmux" | head -n 1)
+  if [ -n "$TMUX_BINARY" ]; then
+    # Create a symbolic link to the tmux binary
+    ln -s "$TMUX_BINARY" "$INSTALL_DIR/tmux"
+    echo "Created link to tmux at $INSTALL_DIR/tmux"
+    UPDATE_SHELL_CONFIGURATION=1
   else
-    # Check if Homebrew is installed
-    if command -v brew >/dev/null; then
-      echo "Installing tmux using Homebrew..."
-      brew install tmux
-    else
-      echo "Homebrew is not installed. Please install Homebrew first."
-      exit 1
-    fi
+    echo "Error: tmux binary not found in the extracted files."
   fi
 }
 
@@ -348,7 +352,7 @@ fish_add_path -g $INSTALL_DIR
 # Set PATH for Neovim if installed
 if test -f "$NEOVIM_DIR/bin/nvim"
   fish_add_path -g $NEOVIM_DIR/bin
-  
+
   # Set EDITOR and VISUAL to nvim
   set -gx EDITOR nvim
   set -gx VISUAL nvim
@@ -358,7 +362,6 @@ if test -f "$NEOVIM_DIR/bin/nvim"
     alias n="nvim"
   end
 end
-
 EOF
 
   # If Node.js is installed, ask user for confirmation to add to PATH
@@ -379,6 +382,11 @@ EOF
   fi
 
   tee -a "$PREFIX/init.fish" <<EOF
+# Set BAT_THEME if bat is installed
+if test -f "$INSTALL_DIR/bat"
+  set -gx BAT_THEME "Solarized (dark)"
+end
+
 # Initialize fzf if installed
 if test -f "$INSTALL_DIR/fzf"
   fzf --fish | source
