@@ -233,7 +233,7 @@ install_sad() {
   fi
 }
 
-install_diffastic() {
+install_difftastic() {
   echo "Installing difftastic..."
   rm -rf "$DIFFTASTIC_DIR"
   mkdir -p "$DIFFTASTIC_DIR"
