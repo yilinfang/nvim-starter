@@ -1,5 +1,24 @@
 #!/usr/bin/env bash
 
+# Tool registry: name|install_function
+TOOLS=(
+  "bat|install_bat"
+  "delta|install_delta"
+  "difftastic|install_difftastic"
+  "fd|install_fd"
+  "fw|install_fw"
+  "fzf|install_fzf"
+  "lazygit|install_lazygit"
+  "lsd|install_lsd"
+  "Neovim|install_nvim"
+  "Node.js|install_nodejs"
+  "ripgrep|install_ripgrep"
+  "sad|install_sad"
+  "tmux|install_tmux"
+  "Yazi|install_yazi"
+  "zoxide|install_zoxide"
+)
+
 # Set up directories
 PREFIX="$HOME/.pde"
 
@@ -10,7 +29,6 @@ INSTALL_DIR="$PREFIX/bin"
 TEMP_DIR="$PREFIX/tmp"
 NEOVIM_DIR="$PREFIX/neovim"
 NODEJS_DIR="$PREFIX/nodejs"
-ZELLIJ_DIR="$PREFIX/zellij"
 FD_DIR="$PREFIX/fd"
 RG_DIR="$PREFIX/rg"
 BAT_DIR="$PREFIX/bat"
@@ -28,7 +46,6 @@ FW_DIR="$PREFIX/fw"
 # URLs for tools
 NEOVIM_URL="https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-macos-arm64.tar.gz"
 NODEJS_URL="https://nodejs.org/dist/v22.14.0/node-v22.14.0-darwin-arm64.tar.gz"
-ZELLIJ_URL="https://github.com/zellij-org/zellij/releases/download/v0.42.1/zellij-aarch64-apple-darwin.tar.gz"
 FD_URL="https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-aarch64-apple-darwin.tar.gz"
 RG_URL="https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-aarch64-apple-darwin.tar.gz"
 BAT_URL="https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-aarch64-apple-darwin.tar.gz"
@@ -46,31 +63,6 @@ TMUX_MACOS_BUILDER_URL="https://raw.githubusercontent.com/yilinfang/tmux-macos-b
 # Installation tracking variables
 UPDATE_SHELL_CONFIGURATION=0
 
-# Function to display menu and get user selection
-show_menu() {
-  echo "Select tools to install:"
-  echo "1. Neovim"
-  echo "2. Node.js"
-  echo "3. Zellij"
-  echo "4. fd"
-  echo "5. ripgrep"
-  echo "6. bat"
-  echo "7. fzf"
-  echo "8. lazygit"
-  echo "9. Yazi"
-  echo "10. sad"
-  echo "11. difftastic"
-  echo "12. delta"
-  echo "13. fw"
-  echo "14. tmux"
-  echo "15. lsd"
-  echo "16. zoxide"
-  echo "a. Install all"
-  echo "i. Initialize shell configuration"
-
-  read -p "Your choice: " CHOICE
-}
-
 # Installation functions
 install_nvim() {
   echo "Installing Neovim..."
@@ -78,8 +70,15 @@ install_nvim() {
   mkdir -p "$NEOVIM_DIR"
   curl -L "$NEOVIM_URL" -o "$TEMP_DIR/nvim.tar.gz"
   tar -xzf "$TEMP_DIR/nvim.tar.gz" -C "$NEOVIM_DIR" --strip-components=1
-  echo "Neovim installed in $NEOVIM_DIR."
-  UPDATE_SHELL_CONFIGURATION=1
+  NVIM_BINARY=$(find "$NEOVIM_DIR" -type f -name "nvim" | head -n 1)
+  if [ -n "$NVIM_BINARY" ]; then
+    # Create a symbolic link to the nvim binary
+    ln -s "$NVIM_BINARY" "$INSTALL_DIR/nvim"
+    echo "Created link to nvim at $INSTALL_DIR/nvim"
+    UPDATE_SHELL_CONFIGURATION=1
+  else
+    echo "Error: nvim binary not found in the extracted files."
+  fi
 }
 
 install_nodejs() {
@@ -90,24 +89,6 @@ install_nodejs() {
   tar -xzf "$TEMP_DIR/node.tar.gz" -C "$NODEJS_DIR" --strip-components=1
   echo "Node.js installed in $NODEJS_DIR."
   UPDATE_SHELL_CONFIGURATION=1
-}
-
-install_zellij() {
-  echo "Installing Zellij..."
-  rm -rf "$ZELLIJ_DIR"
-  mkdir -p "$ZELLIJ_DIR"
-  curl -L "$ZELLIJ_URL" -o "$TEMP_DIR/zellij.tar.gz"
-  tar -xzf "$TEMP_DIR/zellij.tar.gz" -C "$ZELLIJ_DIR"
-  ZELLIJ_BINARY=$(find "$ZELLIJ_DIR" -type f -name "zellij" | head -n 1)
-  if [ -n "$ZELLIJ_BINARY" ]; then
-    # Create a symbolic link to the Zellij binary
-    ln -s "$ZELLIJ_DIR/zellij" "$INSTALL_DIR/zellij"
-    echo "Created link to Zellij at $INSTALL_DIR/zellij"
-    UPDATE_SHELL_CONFIGURATION=1
-  else
-    echo "Error: Zellij binary not found in the extracted files."
-    return
-  fi
 }
 
 install_fd() {
@@ -351,8 +332,6 @@ fish_add_path -g $INSTALL_DIR
 
 # Set PATH for Neovim if installed
 if test -f "$NEOVIM_DIR/bin/nvim"
-  fish_add_path -g $NEOVIM_DIR/bin
-
   # Set EDITOR and VISUAL to nvim
   set -gx EDITOR nvim
   set -gx VISUAL nvim
@@ -433,11 +412,6 @@ if command -v tmux > /dev/null; and not command -v t > /dev/null
   alias t="tmux"
 end
 
-# If ze is available, use it for Zellij
-if test -f "$INSTALL_DIR/zellij"; and not command -v ze > /dev/null
-  alias ze="zellij"
-end
-
 # If lg is available, use it for lazygit
 if test -f "$INSTALL_DIR/lazygit"; and not command -v lg > /dev/null
   alias lg="lazygit"
@@ -446,6 +420,20 @@ end
 EOF
 
   echo "Fish shell initialization script created at $PREFIX/init.fish"
+}
+
+# Show menu for tool selection
+show_menu() {
+  echo "Select tools to install:"
+  local idx=1
+  for entry in "${TOOLS[@]}"; do
+    IFS='|' read -r name _ <<<"$entry"
+    printf "%2d. %s\n" "$idx" "$name"
+    ((idx++))
+  done
+  echo " a. Install all"
+  echo " i. Initialize shell configuration"
+  read -p "Your choice: " CHOICE
 }
 
 main() {
@@ -458,45 +446,20 @@ main() {
 
   # Process user selection
   if [[ "$CHOICE" == "a" ]]; then
-    install_nvim
-    install_nodejs
-    install_zellij
-    install_fd
-    install_ripgrep
-    install_bat
-    install_fzf
-    install_lazygit
-    install_yazi
-    install_sad
-    install_diffastic
-    install_delta
-    install_fw
-    install_tmux
-    install_lsd
-    install_zoxide
+    for entry in "${TOOLS[@]}"; do
+      IFS='|' read -r name func <<<"$entry"
+      "$func"
+    done
   elif [[ "$CHOICE" == "i" ]]; then
     UPDATE_SHELL_CONFIGURATION=1
   else
     for num in $CHOICE; do
-      case $num in
-      1) install_nvim ;;
-      2) install_nodejs ;;
-      3) install_zellij ;;
-      4) install_fd ;;
-      5) install_ripgrep ;;
-      6) install_bat ;;
-      7) install_fzf ;;
-      8) install_lazygit ;;
-      9) install_yazi ;;
-      10) install_sad ;;
-      11) install_diffastic ;;
-      12) install_delta ;;
-      13) install_fw ;;
-      14) install_tmux ;;
-      15) install_lsd ;;
-      16) install_zoxide ;;
-      *) echo "Invalid option: $num" ;;
-      esac
+      if [[ "$num" =~ ^[0-9]+$ ]] && ((num >= 1 && num <= ${#TOOLS[@]})); then
+        IFS='|' read -r name func <<<"${TOOLS[$((num - 1))]}"
+        "$func"
+      else
+        echo "Invalid option: $num"
+      fi
     done
   fi
 
