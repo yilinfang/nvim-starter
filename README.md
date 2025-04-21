@@ -20,7 +20,6 @@ The following tools will be installed:
 - [SAD!](https://github.com/ms-jpq/sad)
 - [Tmux](https://github.com/tmux/tmux)
 - [Yazi](https://github.com/sxyazi/yazi)
-- [Zellij](https://zellij.dev/)
 - [Zoxide](https://github.com/ajeetdsouza/zoxide)
 
 The following configurations will be set up:
