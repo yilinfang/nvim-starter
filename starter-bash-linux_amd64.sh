@@ -1,5 +1,24 @@
 #!/usr/bin/env bash
 
+# Tool registry: name|install_function
+TOOLS=(
+  "bat|install_bat"
+  "delta|install_delta"
+  "difftastic|install_difftastic"
+  "fd|install_fd"
+  "fw|install_fw"
+  "fzf|install_fzf"
+  "lazygit|install_lazygit"
+  "lsd|install_lsd"
+  "Neovim|install_nvim"
+  "Node.js|install_nodejs"
+  "ripgrep|install_ripgrep"
+  "sad|install_sad"
+  "tmux|install_tmux"
+  "Yazi|install_yazi"
+  "zoxide|install_zoxide"
+)
+
 # Set up directories
 PREFIX="$HOME/.pde"
 
@@ -45,31 +64,6 @@ FW_URL="https://raw.githubusercontent.com/yilinfang/fw/main/fw"
 
 # Installation tracking variables
 UPDATE_SHELL_CONFIGURATION=0
-
-# Function to display menu and get user selection
-show_menu() {
-  echo "Select tools to install:"
-  echo "1. Neovim"
-  echo "2. Node.js"
-  echo "3. Zellij"
-  echo "4. fd"
-  echo "5. ripgrep"
-  echo "6. bat"
-  echo "7. fzf"
-  echo "8. lazygit"
-  echo "9. Yazi"
-  echo "10. sad"
-  echo "11. difftastic"
-  echo "12. delta"
-  echo "13. fw"
-  echo "14. tmux"
-  echo "15. lsd"
-  echo "16. zoxide"
-  echo "a. Install all"
-  echo "i. Initialize shell configuration"
-
-  read -p "Your choice: " CHOICE
-}
 
 # Installation functions
 install_nvim() {
@@ -428,11 +422,6 @@ if ! command -v t >/dev/null 2>&1; then
   alias t="tmux"
 fi
 
-# If ze is available, use it for Zellij
-if [[ -f "$INSTALL_DIR/zellij" && ! \$(command -v ze >/dev/null) ]]; then
-  alias ze="zellij"
-fi
-
 # If lg is available, use it for lazygit
 if [[ -f "$INSTALL_DIR/lazygit" && ! \$(command -v lg >/dev/null) ]]; then
   alias lg="lazygit"
@@ -441,6 +430,20 @@ fi
 EOF
 
   echo "Bash shell initialization script created at $PREFIX/init.sh"
+}
+
+# Show menu for tool selection
+show_menu() {
+  echo "Select tools to install:"
+  local idx=1
+  for entry in "${TOOLS[@]}"; do
+    IFS='|' read -r name _ <<<"$entry"
+    printf "%2d. %s\n" "$idx" "$name"
+    ((idx++))
+  done
+  echo " a. Install all"
+  echo " i. Initialize shell configuration"
+  read -p "Your choice: " CHOICE
 }
 
 main() {
@@ -453,45 +456,20 @@ main() {
 
   # Process user selection
   if [[ "$CHOICE" == "a" ]]; then
-    install_nvim
-    install_nodejs
-    install_zellij
-    install_fd
-    install_ripgrep
-    install_bat
-    install_fzf
-    install_lazygit
-    install_yazi
-    install_sad
-    install_diffastic
-    install_delta
-    install_fw
-    install_tmux
-    install_lsd
-    install_zoxide
+    for entry in "${TOOLS[@]}"; do
+      IFS='|' read -r name func <<<"$entry"
+      "$func"
+    done
   elif [[ "$CHOICE" == "i" ]]; then
     UPDATE_SHELL_CONFIGURATION=1
   else
     for num in $CHOICE; do
-      case $num in
-      1) install_nvim ;;
-      2) install_nodejs ;;
-      3) install_zellij ;;
-      4) install_fd ;;
-      5) install_ripgrep ;;
-      6) install_bat ;;
-      7) install_fzf ;;
-      8) install_lazygit ;;
-      9) install_yazi ;;
-      10) install_sad ;;
-      11) install_diffastic ;;
-      12) install_delta ;;
-      13) install_fw ;;
-      14) install_tmux ;;
-      15) install_lsd ;;
-      16) install_zoxide ;;
-      *) echo "Invalid option: $num" ;;
-      esac
+      if [[ "$num" =~ ^[0-9]+$ ]] && ((num >= 1 && num <= ${#TOOLS[@]})); then
+        IFS='|' read -r name func <<<"${TOOLS[$((num - 1))]}"
+        "$func"
+      else
+        echo "Invalid option: $num"
+      fi
     done
   fi
 

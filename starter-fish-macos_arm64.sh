@@ -70,15 +70,8 @@ install_nvim() {
   mkdir -p "$NEOVIM_DIR"
   curl -L "$NEOVIM_URL" -o "$TEMP_DIR/nvim.tar.gz"
   tar -xzf "$TEMP_DIR/nvim.tar.gz" -C "$NEOVIM_DIR" --strip-components=1
-  NVIM_BINARY=$(find "$NEOVIM_DIR" -type f -name "nvim" | head -n 1)
-  if [ -n "$NVIM_BINARY" ]; then
-    # Create a symbolic link to the nvim binary
-    ln -s "$NVIM_BINARY" "$INSTALL_DIR/nvim"
-    echo "Created link to nvim at $INSTALL_DIR/nvim"
-    UPDATE_SHELL_CONFIGURATION=1
-  else
-    echo "Error: nvim binary not found in the extracted files."
-  fi
+  echo "Neovim installed in $NEOVIM_DIR."
+  UPDATE_SHELL_CONFIGURATION=1
 }
 
 install_nodejs() {
@@ -332,6 +325,8 @@ fish_add_path -g $INSTALL_DIR
 
 # Set PATH for Neovim if installed
 if test -f "$NEOVIM_DIR/bin/nvim"
+  fish_add_path -g $NEOVIM_DIR/bin
+
   # Set EDITOR and VISUAL to nvim
   set -gx EDITOR nvim
   set -gx VISUAL nvim
