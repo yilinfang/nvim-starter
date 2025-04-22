@@ -33,7 +33,7 @@ install_config() {
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 TMUX_CONFIG_DIR="$HOME/.config/tmux"
 
-NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
+NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim-ks.git"
 TMUX_CONFIG_REPO="https://github.com/yilinfang/tmux.git"
 
 # Menu to select which configurations to install

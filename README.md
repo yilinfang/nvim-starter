@@ -24,7 +24,7 @@ The following tools will be installed:
 
 The following configurations will be set up:
 
-- [Neovim](https://github.com/yilinfang/nvim)
+- [Neovim](https://github.com/yilinfang/nvim-ks)
 - [Tmux](https://github.com/yilinfang/tmux)
 
 Please refer to the scripts for detailed installation instructions.
