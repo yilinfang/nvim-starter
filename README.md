@@ -35,7 +35,7 @@ Please refer to the scripts for detailed installation instructions.
 
 - Git >= 2.19.0
 - curl
-- Xcode Command Line Tools (MacOS only, for building tmux)
+- Xcode Command Line Tools (MacOS only)
 
 ## Motivation
 
@@ -48,8 +48,7 @@ However, I came across following issues:
 
 To solve these issues, I decided to create a set of scripts that can help me set up my PDE quickly and easily. The scripts will install the dependencies in a local directory, and they will not interfere with the system's package manager.
 
-_**Note #1**: Tmux does not provide a pre-built binary. For linux, I provide a static built binary, you can check how it is built or build on you own [there](https://github.com/yilinfang/static-tmux-builder). For MacOS, static builds are not supported, I use a script to build tmux, you can check the script [there](https://github.com/yilinfang/tmux-macos-builder)._
-
+_**Note #1**: Tmux does not provide a pre-built binary officially. The binaries are downloaded from [static-tmux-builder](https://github.com/yilinfang/static-tmux-builder) (Linux) or [tmux-macos-builder](https://github.com/yilinfang/tmux-macos-builder) (MacOS). You can review or build them yourself._
 _**Note #2**: Git and curl are not included because they are usually pre-installed and ready-to-use on most servers I use.:D_
 
 ## Uninstallation
