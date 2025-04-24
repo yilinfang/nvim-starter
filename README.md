@@ -13,14 +13,12 @@ The following tools will be installed:
 - [fzf](https://github.com/junegunn/fzf)
 - [fw](https://github.com/yilinfang/fw)
 - [Lazygit](https://github.com/jesseduffield/lazygit)
-- [Lsd](https://github.com/lsd-rs/lsd)
 - [Neovim](https://neovim.io/)
 - [Node.js](https://nodejs.org/) (required for many plugins and language servers)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [SAD!](https://github.com/ms-jpq/sad)
 - [Tmux](https://github.com/tmux/tmux)
 - [Yazi](https://github.com/sxyazi/yazi)
-- [Zoxide](https://github.com/ajeetdsouza/zoxide)
 
 The following configurations will be set up:
 
