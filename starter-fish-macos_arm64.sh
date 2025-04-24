@@ -57,8 +57,8 @@ DIFFTASTIC_URL="https://github.com/Wilfred/difftastic/releases/download/0.63.0/d
 DELTA_URL="https://github.com/dandavison/delta/releases/download/0.18.2/delta-0.18.2-aarch64-apple-darwin.tar.gz"
 LSD_URL="https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-aarch64-apple-darwin.tar.gz"
 ZOXIDE_URL="https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.7/zoxide-0.9.7-aarch64-apple-darwin.tar.gz"
+TMUX_URL="https://github.com/yilinfang/tmux-macos-builder/releases/download/3.5a/tmux-macos-arm64-3.5a.zip"
 FW_URL="https://raw.githubusercontent.com/yilinfang/fw/main/fw"
-TMUX_MACOS_BUILDER_URL="https://raw.githubusercontent.com/yilinfang/tmux-macos-builder/refs/heads/main/build.sh"
 
 # Installation tracking variables
 UPDATE_SHELL_CONFIGURATION=0
@@ -296,11 +296,9 @@ install_tmux() {
   echo "Installing tmux..."
   rm -rf "$TMUX_DIR"
   mkdir -p "$TMUX_DIR"
-  curl -L "$TMUX_MACOS_BUILDER_URL" -o "$TEMP_DIR/tmux-builder.sh"
-  chmod +x "$TEMP_DIR/tmux-builder.sh"
-  mkdir -p "$TEMP_DIR/tmux"
-  echo y | "$TEMP_DIR/tmux-builder.sh" "$TMUX_DIR" "$TEMP_DIR/tmux" "3.5a"
-  TMUX_BINARY=$(find "$TMUX_DIR/bin" -type f -name "tmux" | head -n 1)
+  curl -L "$TMUX_URL" -o "$TEMP_DIR/tmux.zip"
+  unzip "$TEMP_DIR/tmux.zip" -d "$TMUX_DIR"
+  TMUX_BINARY=$(find "$TMUX_DIR" -type f -name "tmux" | head -n 1)
   if [ -n "$TMUX_BINARY" ]; then
     # Create a symbolic link to the tmux binary
     ln -s "$TMUX_BINARY" "$INSTALL_DIR/tmux"
