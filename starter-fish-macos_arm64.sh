@@ -368,7 +368,8 @@ show_menu() {
     printf "%2d. %s\n" "$idx" "$name"
     ((idx++))
   done
-  echo " a. Install all"
+  echo " t. Install all tools (except Node.js)"
+  echo " a. Install all (including Node.js)"
   echo " i. Initialize shell configuration"
   read -p "Your choice: " CHOICE
 }
@@ -382,7 +383,14 @@ main() {
   show_menu
 
   # Process user selection
-  if [[ "$CHOICE" == "a" ]]; then
+  if [[ "$CHOICE" == "t" ]]; then
+    for entry in "${TOOLS[@]}"; do
+      IFS='|' read -r name func <<<"$entry"
+      if [[ "$name" != "Node.js" ]]; then
+        "$func"
+      fi
+    done
+  elif [[ "$CHOICE" == "a" ]]; then
     for entry in "${TOOLS[@]}"; do
       IFS='|' read -r name func <<<"$entry"
       "$func"
