@@ -40,7 +40,7 @@ TMUX_DIR="$PREFIX/tmux"
 FW_DIR="$PREFIX/fw"
 
 # URLs for tools
-NEOVIM_URL="https://github.com/neovim/neovim/releases/download/v0.11.0/nvim-macos-arm64.tar.gz"
+NEOVIM_URL="https://github.com/neovim/neovim/releases/download/v0.11.1/nvim-macos-arm64.tar.gz"
 NODEJS_URL="https://nodejs.org/dist/v22.14.0/node-v22.14.0-darwin-arm64.tar.gz"
 FD_URL="https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-aarch64-apple-darwin.tar.gz"
 RG_URL="https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-aarch64-apple-darwin.tar.gz"
