@@ -275,7 +275,7 @@ create_shell_init_script() {
   rm -f "$PREFIX/init.sh"
 
   tee "$PREFIX/init.sh" <<EOF
-# nvim-starter environment initialization
+# pde-starter environment initialization
 
 # Add binaries to PATH
 export PATH=$INSTALL_DIR:\$PATH

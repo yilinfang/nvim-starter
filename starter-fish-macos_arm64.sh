@@ -276,7 +276,7 @@ create_shell_init_script() {
   rm -f "$PREFIX/init.fish"
 
   tee "$PREFIX/init.fish" <<EOF
-# nvim-starter environment initialization
+# pde-starter environment initialization
 
 # Add binaries to PATH using fish_add_path
 fish_add_path -g $INSTALL_DIR
