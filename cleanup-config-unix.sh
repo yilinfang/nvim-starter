@@ -19,10 +19,18 @@ clean_tmux() {
   echo "Cleaning up tmux configuration...done"
 }
 
+# Function to clean lazygit configuration
+clean_lazygit() {
+  echo "Cleaning up lazygit configuration..."
+  rm -rf ~/.config/lazygit
+  echo "Cleaning up lazygit configuration...done"
+}
+
 # Menu to select which tools to clean
 echo "Select the tools to clean (you can select multiple, e.g., '1 2'):"
 echo "1. Neovim"
 echo "2. Tmux"
+echo "3. Lazygit"
 echo "a. All"
 read -p "Enter your choice(s): " choices
 
@@ -34,9 +42,13 @@ for choice in $choices; do
   2)
     clean_tmux
     ;;
+  3)
+    clean_lazygit
+    ;;
   a)
     clean_nvim
     clean_tmux
+    clean_lazygit
     ;;
   *)
     echo "Invalid choice: $choice."

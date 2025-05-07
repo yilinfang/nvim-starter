@@ -32,14 +32,17 @@ install_config() {
 # Configuration directories and repositories
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 TMUX_CONFIG_DIR="$HOME/.config/tmux"
+LAZYGIT_CONFIG_DIR="$HOME/.config/lazygit"
 
 NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim-ks.git"
 TMUX_CONFIG_REPO="https://github.com/yilinfang/tmux.git"
+LAZYGIT_CONFIG_REPO="https://github.com/yilinfang/lazygit.git"
 
 # Menu to select which configurations to install
 echo "Select the configurations to install (you can select multiple, e.g., '1 2'):"
 echo "1. Neovim"
 echo "2. Tmux"
+echo "3. Lazygit"
 echo "a. All"
 read -p "Enter your choice(s): " choices
 
@@ -51,9 +54,13 @@ for choice in $choices; do
   2)
     install_config "Tmux" "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_REPO"
     ;;
+  3)
+    install_config "Lazygit" "$LAZYGIT_CONFIG_DIR" "$LAZYGIT_CONFIG_REPO"
+    ;;
   a)
     install_config "Neovim" "$NVIM_CONFIG_DIR" "$NVIM_CONFIG_REPO"
     install_config "Tmux" "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_REPO"
+    install_config "Lazygit" "$LAZYGIT_CONFIG_DIR" "$LAZYGIT_CONFIG_REPO"
     break
     ;;
   *)

@@ -42,11 +42,13 @@ update_config() {
 # Configuration directories (matching the ones used in starter scripts)
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 TMUX_CONFIG_DIR="$HOME/.config/tmux"
+LAZYGIT_CONFIG_DIR="$HOME/.config/lazygit"
 
 # Menu to select which configs to update
 echo "Select the configurations to update (you can select multiple, e.g., '1 2'):"
 echo "1. Neovim"
 echo "2. Tmux"
+echo "3. Lazygit"
 echo "a. All"
 read -p "Enter your choice(s): " choices
 
@@ -58,9 +60,13 @@ for choice in $choices; do
   2)
     update_config "tmux" "$TMUX_CONFIG_DIR"
     ;;
+  3)
+    update_config "Lazygit" "$LAZYGIT_CONFIG_DIR"
+    ;;
   a)
     update_config "Neovim" "$NVIM_CONFIG_DIR"
     update_config "Tmux" "$TMUX_CONFIG_DIR"
+    update_config "Lazygit" "$LAZYGIT_CONFIG_DIR"
     break
     ;;
   *)
