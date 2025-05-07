@@ -314,6 +314,12 @@ EOF
   fi
 
   tee -a "$PREFIX/init.sh" <<EOF
+# Set DFT_BACKGROUND to light if difft is installed
+# Fix color issue with difft when using the solarized-dark-based theme
+if [ -f "$INSTALL_DIR/difft" ]; then
+  export DFT_BACKGROUND="light"
+fi
+
 # Set BAT_THEME for bat if installed
 if [ -f "$INSTALL_DIR/bat" ]; then
   export BAT_THEME="Solarized (dark)"
