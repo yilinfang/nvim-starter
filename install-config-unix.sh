@@ -34,7 +34,7 @@ NVIM_CONFIG_DIR="$HOME/.config/nvim"
 TMUX_CONFIG_DIR="$HOME/.config/tmux"
 LAZYGIT_CONFIG_DIR="$HOME/.config/lazygit"
 
-NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim-ks.git"
+NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
 TMUX_CONFIG_REPO="https://github.com/yilinfang/tmux.git"
 LAZYGIT_CONFIG_REPO="https://github.com/yilinfang/lazygit.git"
 
