@@ -13,6 +13,7 @@ TOOLS=(
   "Node.js|install_nodejs"
   "ripgrep|install_ripgrep"
   "sad|install_sad"
+  "sd|install_sd"
   "tmux|install_tmux"
   "Yazi|install_yazi"
 )
@@ -34,6 +35,7 @@ FZF_DIR="$PREFIX/fzf"
 LAZYGIT_DIR="$PREFIX/lazygit"
 YAZI_DIR="$PREFIX/yazi"
 SAD_DIR="$PREFIX/sad"
+SD_DIR="$PREFIX/sd"
 DIFFTASTIC_DIR="$PREFIX/difftastic"
 DELTA_DIR="$PREFIX/delta"
 TMUX_DIR="$PREFIX/tmux"
@@ -49,6 +51,7 @@ FZF_URL="https://github.com/junegunn/fzf/releases/download/v0.62.0/fzf-0.62.0-da
 LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.50.0/lazygit_0.50.0_Darwin_arm64.tar.gz"
 YAZI_URL="https://github.com/sxyazi/yazi/releases/download/v25.4.8/yazi-aarch64-apple-darwin.zip"
 SAD_URL="https://github.com/ms-jpq/sad/releases/download/v0.4.32/aarch64-apple-darwin.zip"
+SD_URL="https://github.com/chmln/sd/releases/download/v1.0.0/sd-v1.0.0-aarch64-apple-darwin.tar.gz"
 DIFFTASTIC_URL="https://github.com/Wilfred/difftastic/releases/download/0.63.0/difft-aarch64-apple-darwin.tar.gz"
 DELTA_URL="https://github.com/dandavison/delta/releases/download/0.18.2/delta-0.18.2-aarch64-apple-darwin.tar.gz"
 TMUX_URL="https://github.com/yilinfang/tmux-macos-builder/releases/download/3.5a/tmux-macos-arm64-3.5a.zip"
@@ -204,6 +207,23 @@ install_sad() {
     UPDATE_SHELL_CONFIGURATION=1
   else
     echo "Error: sad binary not found in the extracted files."
+  fi
+}
+
+install_sd() {
+  echo "Installing sd..."
+  rm -rf "$SD_DIR"
+  mkdir -p "$SD_DIR"
+  curl -L "$SD_URL" -o "$TEMP_DIR/sd.tar.gz"
+  tar -xzf "$TEMP_DIR/sd.tar.gz" -C "$SD_DIR"
+  SD_BINARY=$(find "$SD_DIR" -type f -name "sd" | head -n 1)
+  if [ -n "$SD_BINARY" ]; then
+    # Create a symbolic link to the sd binary
+    ln -s "$SD_BINARY" "$INSTALL_DIR/sd"
+    echo "Created link to sd at $INSTALL_DIR/sd"
+    UPDATE_SHELL_CONFIGURATION=1
+  else
+    echo "Error: sd binary not found in the extracted files."
   fi
 }
 

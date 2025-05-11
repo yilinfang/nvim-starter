@@ -17,6 +17,7 @@ The following tools will be installed:
 - [Node.js](https://nodejs.org/) (required for many plugins and language servers)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [SAD!](https://github.com/ms-jpq/sad)
+- [sd](https://github.com/chmln/sd)
 - [Tmux](https://github.com/tmux/tmux)
 - [Yazi](https://github.com/sxyazi/yazi)
 
