@@ -26,11 +26,27 @@ clean_lazygit() {
   echo "Cleaning up lazygit configuration...done"
 }
 
+# Function to clean yazi configuration
+clean_yazi() {
+  echo "Cleaning up yazi configuration..."
+  rm -rf ~/.config/yazi
+  echo "Cleaning up yazi configuration...done"
+}
+
+# Function to clean zellij configuration
+clean_zellij() {
+  echo "Cleaning up zellij configuration..."
+  rm -rf ~/.config/zellij
+  echo "Cleaning up zellij configuration...done"
+}
+
 # Menu to select which tools to clean
 echo "Select the tools to clean (you can select multiple, e.g., '1 2'):"
 echo "1. Neovim"
 echo "2. Tmux"
 echo "3. Lazygit"
+echo "4. Yazi"
+echo "5. Zellij"
 echo "a. All"
 read -p "Enter your choice(s): " choices
 
@@ -45,10 +61,18 @@ for choice in $choices; do
   3)
     clean_lazygit
     ;;
+  4)
+    clean_yazi
+    ;;
+  5)
+    clean_zellij
+    ;;
   a)
     clean_nvim
     clean_tmux
     clean_lazygit
+    clean_yazi
+    clean_zellij
     ;;
   *)
     echo "Invalid choice: $choice."

@@ -19,12 +19,15 @@ The following tools will be installed:
 - [SAD!](https://github.com/ms-jpq/sad)
 - [sd](https://github.com/chmln/sd)
 - [Yazi](https://github.com/sxyazi/yazi)
+- [Zellij](https://zellij.dev/)
 
 The following configurations will be set up:
 
 - [Neovim](https://github.com/yilinfang/nvim)
 - [Tmux](https://github.com/yilinfang/tmux)
 - [Lazygit](https://github.com/yilinfang/lazygit)
+- [Yazi](https://github.com/yilinfang/yazi)
+- [Zellij](https://github.com/yilinfang/zellij)
 
 Please refer to the scripts for detailed installation instructions.
 

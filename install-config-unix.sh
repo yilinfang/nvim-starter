@@ -33,16 +33,22 @@ install_config() {
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 TMUX_CONFIG_DIR="$HOME/.config/tmux"
 LAZYGIT_CONFIG_DIR="$HOME/.config/lazygit"
+YAZI_CONFIG_DIR="$HOME/.config/yazi"
+ZELLIj_CONFIG_DIR="$HOME/.config/zellij"
 
 NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
 TMUX_CONFIG_REPO="https://github.com/yilinfang/tmux.git"
 LAZYGIT_CONFIG_REPO="https://github.com/yilinfang/lazygit.git"
+YAZI_CONFIG_REPO="https://github.com/yilinfang/yazi.git"
+ZELLIj_CONFIG_REPO="https://github.com/yilinfang/zellij.git"
 
 # Menu to select which configurations to install
 echo "Select the configurations to install (you can select multiple, e.g., '1 2'):"
 echo "1. Neovim"
 echo "2. Tmux"
 echo "3. Lazygit"
+echo "4. Yazi"
+echo "5. Zellij"
 echo "a. All"
 read -p "Enter your choice(s): " choices
 
@@ -57,10 +63,18 @@ for choice in $choices; do
   3)
     install_config "Lazygit" "$LAZYGIT_CONFIG_DIR" "$LAZYGIT_CONFIG_REPO"
     ;;
+  4)
+    install_config "Yazi" "$YAZI_CONFIG_DIR" "$YAZI_CONFIG_REPO"
+    ;;
+  5)
+    install_config "Zellij" "$ZELLIj_CONFIG_DIR" "$ZELLIj_CONFIG_REPO"
+    ;;
   a)
     install_config "Neovim" "$NVIM_CONFIG_DIR" "$NVIM_CONFIG_REPO"
     install_config "Tmux" "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_REPO"
     install_config "Lazygit" "$LAZYGIT_CONFIG_DIR" "$LAZYGIT_CONFIG_REPO"
+    install_config "Yazi" "$YAZI_CONFIG_DIR" "$YAZI_CONFIG_REPO"
+    install_config "Zellij" "$ZELLIj_CONFIG_DIR" "$ZELLIj_CONFIG_REPO"
     break
     ;;
   *)

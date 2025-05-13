@@ -15,6 +15,7 @@ TOOLS=(
   "sad|install_sad"
   "sd|install_sd"
   "Yazi|install_yazi"
+  "Zellij|install_zellij"
 )
 
 # Set up directories
@@ -33,6 +34,7 @@ BAT_DIR="$PREFIX/bat"
 FZF_DIR="$PREFIX/fzf"
 LAZYGIT_DIR="$PREFIX/lazygit"
 YAZI_DIR="$PREFIX/yazi"
+ZELLIJ_DIR="$PREFIX/zellij"
 SAD_DIR="$PREFIX/sad"
 SD_DIR="$PREFIX/sd"
 DIFFTASTIC_DIR="$PREFIX/difftastic"
@@ -48,6 +50,7 @@ BAT_URL="https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-x8
 FZF_URL="https://github.com/junegunn/fzf/releases/download/v0.62.0/fzf-0.62.0-linux_amd64.tar.gz"
 LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.50.0/lazygit_0.50.0_Linux_x86_64.tar.gz"
 YAZI_URL="https://github.com/sxyazi/yazi/releases/download/v25.4.8/yazi-x86_64-unknown-linux-musl.zip"
+ZELLIJ_URL="https://github.com/zellij-org/zellij/releases/download/v0.42.2/zellij-x86_64-unknown-linux-musl.tar.gz"
 SAD_URL="https://github.com/ms-jpq/sad/releases/download/v0.4.32/x86_64-unknown-linux-musl.zip"
 SD_URL="https://github.com/chmln/sd/releases/download/v1.0.0/sd-v1.0.0-x86_64-unknown-linux-musl.tar.gz"
 DIFFTASTIC_URL="https://github.com/Wilfred/difftastic/releases/download/0.63.0/difft-x86_64-unknown-linux-musl.tar.gz"
@@ -187,6 +190,23 @@ install_yazi() {
     UPDATE_SHELL_CONFIGURATION=1
   else
     echo "Error: ya binary not found in the extracted files."
+  fi
+}
+
+install_zellij() {
+  echo "Installing Zellij..."
+  rm -rf "$ZELLIJ_DIR"
+  mkdir -p "$ZELLIJ_DIR"
+  curl -L "$ZELLIJ_URL" -o "$TEMP_DIR/zellij.tar.gz"
+  tar -xzf "$TEMP_DIR/zellij.tar.gz" -C "$ZELLIJ_DIR"
+  ZELLIJ_BINARY=$(find "$ZELLIJ_DIR" -type f -name "zellij" | head -n 1)
+  if [ -n "$ZELLIJ_BINARY" ]; then
+    # Create a symbolic link to the zellij binary
+    ln -s "$ZELLIJ_BINARY" "$INSTALL_DIR/zellij"
+    echo "Created link to zellij at $INSTALL_DIR/zellij"
+    UPDATE_SHELL_CONFIGURATION=1
+  else
+    echo "Error: zellij binary not found in the extracted files."
   fi
 }
 
@@ -355,6 +375,11 @@ fi
 # If lg is available, use it for lazygit
 if [[ -f "$INSTALL_DIR/lazygit" && ! \$(command -v lg >/dev/null) ]]; then
   alias lg="lazygit"
+fi
+
+# If zj is available, use it for zellij
+if [[ -f "$INSTALL_DIR/zellij" && ! \$(command -v zj >/dev/null) ]]; then
+  alias zj="zellij"
 fi
 
 EOF
