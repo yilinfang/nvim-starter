@@ -18,7 +18,6 @@ The following tools will be installed:
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [SAD!](https://github.com/ms-jpq/sad)
 - [sd](https://github.com/chmln/sd)
-- [Tmux](https://github.com/tmux/tmux)
 - [Yazi](https://github.com/sxyazi/yazi)
 
 The following configurations will be set up:
@@ -48,8 +47,7 @@ However, I came across following issues:
 
 To solve these issues, I decided to create a set of scripts that can help me set up my PDE quickly and easily. The scripts will install the dependencies in a local directory, and they will not interfere with the system's package manager.
 
-_**Note #1**: Tmux does not provide a pre-built binary officially. The binaries are downloaded from [static-tmux-builder](https://github.com/yilinfang/static-tmux-builder) (Linux) or [tmux-macos-builder](https://github.com/yilinfang/tmux-macos-builder) (MacOS). You can review or build them yourself._
-_**Note #2**: Git and curl are not included because they are usually pre-installed and ready-to-use on most servers I use.:D_
+_**Note**: Git, curl and tmux are not included because they are usually pre-installed and ready-to-use on most servers I use.:D_
 
 ## Uninstallation
 

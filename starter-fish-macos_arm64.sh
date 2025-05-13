@@ -14,7 +14,6 @@ TOOLS=(
   "ripgrep|install_ripgrep"
   "sad|install_sad"
   "sd|install_sd"
-  "tmux|install_tmux"
   "Yazi|install_yazi"
 )
 
@@ -38,7 +37,6 @@ SAD_DIR="$PREFIX/sad"
 SD_DIR="$PREFIX/sd"
 DIFFTASTIC_DIR="$PREFIX/difftastic"
 DELTA_DIR="$PREFIX/delta"
-TMUX_DIR="$PREFIX/tmux"
 FW_DIR="$PREFIX/fw"
 
 # URLs for tools
@@ -54,7 +52,6 @@ SAD_URL="https://github.com/ms-jpq/sad/releases/download/v0.4.32/aarch64-apple-d
 SD_URL="https://github.com/chmln/sd/releases/download/v1.0.0/sd-v1.0.0-aarch64-apple-darwin.tar.gz"
 DIFFTASTIC_URL="https://github.com/Wilfred/difftastic/releases/download/0.63.0/difft-aarch64-apple-darwin.tar.gz"
 DELTA_URL="https://github.com/dandavison/delta/releases/download/0.18.2/delta-0.18.2-aarch64-apple-darwin.tar.gz"
-TMUX_URL="https://github.com/yilinfang/tmux-macos-builder/releases/download/3.5a/tmux-macos-arm64-3.5a.zip"
 FW_URL="https://raw.githubusercontent.com/yilinfang/fw/main/fw"
 
 # Installation tracking variables
@@ -270,23 +267,6 @@ install_fw() {
   chmod +x "$INSTALL_DIR/fw"
   echo "fw installed at $FW_DIR/fw and linked to $INSTALL_DIR/fw"
   UPDATE_SHELL_CONFIGURATION=1
-}
-
-install_tmux() {
-  echo "Installing tmux..."
-  rm -rf "$TMUX_DIR"
-  mkdir -p "$TMUX_DIR"
-  curl -L "$TMUX_URL" -o "$TEMP_DIR/tmux.zip"
-  unzip "$TEMP_DIR/tmux.zip" -d "$TMUX_DIR"
-  TMUX_BINARY=$(find "$TMUX_DIR" -type f -name "tmux" | head -n 1)
-  if [ -n "$TMUX_BINARY" ]; then
-    # Create a symbolic link to the tmux binary
-    ln -s "$TMUX_BINARY" "$INSTALL_DIR/tmux"
-    echo "Created link to tmux at $INSTALL_DIR/tmux"
-    UPDATE_SHELL_CONFIGURATION=1
-  else
-    echo "Error: tmux binary not found in the extracted files."
-  fi
 }
 
 # Create fish shell initialization script
