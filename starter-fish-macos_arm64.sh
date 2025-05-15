@@ -330,21 +330,6 @@ if test -f "$INSTALL_DIR/fzf"
   fzf --fish | source
 end
 
-# Add yazi binding if yazi is installed and y is available
-if test -f "$INSTALL_DIR/yazi"; and not command -v y > /dev/null
-  function y
-    set tmp (mktemp -t "yazi-cwd.XXXXXX")
-    yazi \$argv --cwd-file="\$tmp"
-    if test -f "\$tmp"
-      set cwd (cat "\$tmp")
-      if test -n "\$cwd"; and test "\$cwd" != (pwd)
-        cd "\$cwd"
-      end
-    end
-    rm -f "\$tmp"
-  end
-end
-
 # If g is available, use it for Git
 if not command -v g > /dev/null
   alias g="git"
@@ -358,6 +343,11 @@ end
 # If lg is available, use it for lazygit
 if test -f "$INSTALL_DIR/lazygit"; and not command -v lg > /dev/null
   alias lg="lazygit"
+end
+
+# If y is available, use it for yazi
+if test -f "$INSTALL_DIR/yazi"; and not command -v y > /dev/null
+  alias y="yazi"
 end
 
 EOF
