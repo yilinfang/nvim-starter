@@ -345,9 +345,9 @@ if test -f "$INSTALL_DIR/lazygit"; and not command -v lg > /dev/null
   alias lg="lazygit"
 end
 
-# If y is available, use it for yazi
-if test -f "$INSTALL_DIR/yazi"; and not command -v y > /dev/null
-  alias y="yazi"
+# If yz is available, use it for yazi
+if test -f "$INSTALL_DIR/yazi"; and not command -v yz > /dev/null
+  alias yz="yazi"
 end
 
 EOF

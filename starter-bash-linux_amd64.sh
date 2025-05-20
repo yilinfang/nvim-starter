@@ -345,9 +345,9 @@ if [[ -f "$INSTALL_DIR/lazygit" && ! \$(command -v lg >/dev/null) ]]; then
   alias lg="lazygit"
 fi
 
-# If y is available, use it for yazi
-if [[ -f "$INSTALL_DIR/yazi" && ! \$(command -v y >/dev/null) ]]; then
-  alias y="yazi"
+# If yz is available, use it for yazi
+if [[ -f "$INSTALL_DIR/yazi" && ! \$(command -v yz >/dev/null) ]]; then
+  alias yz="yazi"
 fi
 
 EOF
