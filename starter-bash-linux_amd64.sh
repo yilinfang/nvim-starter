@@ -367,7 +367,6 @@ show_menu() {
   echo " t. Install all tools (except Node.js)"
   echo " a. Install all (including Node.js)"
   echo " i. Initialize shell configuration"
-  read -p "Your choice: " CHOICE
 }
 
 main() {
@@ -377,6 +376,9 @@ main() {
 
   # Show menu and process selection
   show_menu
+
+  # Read user input
+  read -p "Your choice: " CHOICE
 
   # Process user selection
   if [[ "$CHOICE" == "t" ]]; then

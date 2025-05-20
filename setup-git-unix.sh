@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Add [user] section
+git config --global user.name "Yilin Fang"
+git config --global user.email "qzfyl98@outlook.com"
+
 # Add [alias] section
 git config --global alias.a "add"
 git config --global alias.c "checkout"

@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# Configuration registry: name|clean_function
+CONFIGS=(
+  "Lazygit|clean_lazygit"
+  "Neovim|clean_nvim"
+  "Tmux|clean_tmux"
+  "Yazi|clean_yazi"
+)
+
 # Function to clean Neovim configuration
 clean_nvim() {
   echo "Cleaning up Neovim configuration..."
@@ -14,6 +22,7 @@ clean_nvim() {
 clean_tmux() {
   echo "Cleaning up tmux configuration..."
   rm -rf ~/.config/tmux
+  rm -rf ~/.tmux
   rm -rf ~/.tmux.conf
   rm -rf ~/.tmux.conf.local
   echo "Cleaning up tmux configuration...done"
@@ -33,37 +42,43 @@ clean_yazi() {
   echo "Cleaning up yazi configuration...done"
 }
 
-# Menu to select which tools to clean
-echo "Select the tools to clean (you can select multiple, e.g., '1 2'):"
-echo "1. Neovim"
-echo "2. Tmux"
-echo "3. Lazygit"
-echo "4. Yazi"
-echo "a. All"
-read -p "Enter your choice(s): " choices
+# Show menu for config selection
+show_menu() {
+  echo "Select configurations to cleanup:"
+  local idx=1
+  for entry in "${CONFIGS[@]}"; do
+    IFS='|' read -r name _ <<<"$entry"
+    printf "%2d. %s\n" "$idx" "$name"
+    ((idx++))
+  done
+  echo " a. Cleanup all configurations"
+}
 
-for choice in $choices; do
-  case $choice in
-  1)
-    clean_nvim
-    ;;
-  2)
-    clean_tmux
-    ;;
-  3)
-    clean_lazygit
-    ;;
-  4)
-    clean_yazi
-    ;;
-  a)
-    clean_nvim
-    clean_tmux
-    clean_lazygit
-    clean_yazi
-    ;;
-  *)
-    echo "Invalid choice: $choice."
-    ;;
-  esac
-done
+main() {
+  # Show menu
+  show_menu
+
+  # Read user choice
+  read -p "Your choice: " CHOICE
+
+  # Process user choice
+  if [[ "$CHOICE" == "a" ]]; then
+    for entry in "${CONFIGS[@]}"; do
+      IFS='|' read -r name func <<<"$entry"
+      "$func"
+    done
+  else
+    for num in $CHOICE; do
+      if [[ "$num" =~ ^[0-9]+$ ]] && ((num >= 1 && num <= ${#CONFIGS[@]})); then
+        IFS='|' read -r name func <<<"${CONFIGS[$((num - 1))]}"
+        "$func"
+      else
+        echo "Invalid option: $num"
+      fi
+    done
+  fi
+
+  echo "Cleanup process completed!"
+}
+
+main "$@"

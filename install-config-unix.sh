@@ -1,6 +1,25 @@
 #!/usr/bin/env bash
 
-# Function to install a git repository
+# Configuration registry: name|install_function
+CONFIGS=(
+  "Lazygit|install_lazygit"
+  "Neovim|install_nvim"
+  "Tmux|install_tmux"
+  "Yazi|install_yazi"
+)
+
+# Configuration directories and repositories
+NVIM_CONFIG_DIR="$HOME/.config/nvim"
+TMUX_CONFIG_DIR="$HOME/.config/tmux"
+LAZYGIT_CONFIG_DIR="$HOME/.config/lazygit"
+YAZI_CONFIG_DIR="$HOME/.config/yazi"
+
+NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
+TMUX_CONFIG_REPO="https://github.com/yilinfang/tmux.git"
+LAZYGIT_CONFIG_REPO="https://github.com/yilinfang/lazygit.git"
+YAZI_CONFIG_REPO="https://github.com/yilinfang/yazi.git"
+
+# Helper function to install a git repository
 install_config() {
   local config_name="$1"
   local config_dir="$2"
@@ -29,51 +48,59 @@ install_config() {
   fi
 }
 
-# Configuration directories and repositories
-NVIM_CONFIG_DIR="$HOME/.config/nvim"
-TMUX_CONFIG_DIR="$HOME/.config/tmux"
-LAZYGIT_CONFIG_DIR="$HOME/.config/lazygit"
-YAZI_CONFIG_DIR="$HOME/.config/yazi"
+install_lazygit() {
+  install_config "Lazygit" "$LAZYGIT_CONFIG_DIR" "$LAZYGIT_CONFIG_REPO"
+}
 
-NVIM_CONFIG_REPO="https://github.com/yilinfang/nvim.git"
-TMUX_CONFIG_REPO="https://github.com/yilinfang/tmux.git"
-LAZYGIT_CONFIG_REPO="https://github.com/yilinfang/lazygit.git"
-YAZI_CONFIG_REPO="https://github.com/yilinfang/yazi.git"
+install_nvim() {
+  install_config "Neovim" "$NVIM_CONFIG_DIR" "$NVIM_CONFIG_REPO"
+}
 
-# Menu to select which configurations to install
-echo "Select the configurations to install (you can select multiple, e.g., '1 2'):"
-echo "1. Neovim"
-echo "2. Tmux"
-echo "3. Lazygit"
-echo "4. Yazi"
-echo "a. All"
-read -p "Enter your choice(s): " choices
+install_yazi() {
+  install_config "Yazi" "$YAZI_CONFIG_DIR" "$YAZI_CONFIG_REPO"
+}
 
-for choice in $choices; do
-  case $choice in
-  1)
-    install_config "Neovim" "$NVIM_CONFIG_DIR" "$NVIM_CONFIG_REPO"
-    ;;
-  2)
-    install_config "Tmux" "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_REPO"
-    ;;
-  3)
-    install_config "Lazygit" "$LAZYGIT_CONFIG_DIR" "$LAZYGIT_CONFIG_REPO"
-    ;;
-  4)
-    install_config "Yazi" "$YAZI_CONFIG_DIR" "$YAZI_CONFIG_REPO"
-    ;;
-  a)
-    install_config "Neovim" "$NVIM_CONFIG_DIR" "$NVIM_CONFIG_REPO"
-    install_config "Tmux" "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_REPO"
-    install_config "Lazygit" "$LAZYGIT_CONFIG_DIR" "$LAZYGIT_CONFIG_REPO"
-    install_config "Yazi" "$YAZI_CONFIG_DIR" "$YAZI_CONFIG_REPO"
-    break
-    ;;
-  *)
-    echo "Invalid choice: $choice."
-    ;;
-  esac
-done
+install_tmux() {
+  install_config "Tmux" "$TMUX_CONFIG_DIR" "$TMUX_CONFIG_REPO"
+}
 
-echo "Installation process completed!"
+# Show menu for config selection
+show_menu() {
+  echo "Select configurations to install:"
+  local idx=1
+  for entry in "${CONFIGS[@]}"; do
+    IFS='|' read -r name _ <<<"$entry"
+    printf "%2d. %s\n" "$idx" "$name"
+    ((idx++))
+  done
+  echo " a. Install all configurations"
+}
+
+main() {
+  # Show menu
+  show_menu
+
+  # Read user choice
+  read -p "Your choice: " CHOICE
+
+  # Process user choice
+  if [[ "$CHOICE" == "a" ]]; then
+    for entry in "${CONFIGS[@]}"; do
+      IFS='|' read -r name func <<<"$entry"
+      "$func"
+    done
+  else
+    for num in $CHOICE; do
+      if [[ "$num" =~ ^[0-9]+$ ]] && ((num >= 1 && num <= ${#CONFIGS[@]})); then
+        IFS='|' read -r name func <<<"${CONFIGS[$((num - 1))]}"
+        "$func"
+      else
+        echo "Invalid option: $num"
+      fi
+    done
+  fi
+
+  echo "Installation process completed!"
+}
+
+main "$@"
