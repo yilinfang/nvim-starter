@@ -13,10 +13,6 @@ if ! command -v age &>/dev/null; then
 	exit 1
 fi
 
-# Target repository containing the dotfiles
-TARGET_REPO="https://github.com/yilinfang/dotfiles.git"
-SOURCE_DIR="$HOME/.chezmoi/dotfiles"
-
 # Get current script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -28,21 +24,6 @@ if [ ! -f "$CONFIG_FILE" ]; then
 	echo "Configuration file not found: $CONFIG_FILE"
 	exit 1
 fi
-
-# Cleanup any existing chezmoi configuration
-if [ -d "$HOME/.config/chezmoi" ]; then
-	echo "Removing existing chezmoi config files..."
-	rm -rf "$HOME/.config/chezmoi"
-fi
-
-if [ -d "$HOME/.local/share/chezmoi" ]; then
-	echo "Removing existing chezmoi configuration..."
-	rm -rf "$HOME/.local/share/chezmoi"
-fi
-
-# Initialize chezmoi with the target repository
-echo "Initializing chezmoi with the repository: $TARGET_REPO"
-chezmoi init "$TARGET_REPO" -S "$SOURCE_DIR"
 
 # Apply selected dotfiles from configuration file
 while IFS= read -r path || [ -n "$path" ]; do
@@ -58,5 +39,5 @@ while IFS= read -r path || [ -n "$path" ]; do
 	chezmoi apply -v -r "$path"
 done <"$CONFIG_FILE"
 
-# Finish setup
-echo "Setup complete!"
+# Finish update
+echo "Update complete!"

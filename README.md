@@ -6,8 +6,6 @@ Bootstrap scripts for setting up [Neovim](https://neovim.io/)-based PDE([Persona
 
 The following tools will be installed:
 
-- [age](https://github.com/FiloSottile/age)
-- [chezmoi](https://www.chezmoi.io/)
 - [bat](https://github.com/sharkdp/bat)
 - [delta](https://github.com/dandavison/delta)
 - [difftastic](https://github.com/Wilfred/difftastic)

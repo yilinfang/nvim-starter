@@ -2,6 +2,9 @@
 
 # This script sets up a new machine with a configuration managed by chezmoi.
 
+# Target repository containing the dotfiles
+TARGET_REPO="https://github.com/yilinfang/dotfiles.git"
+
 # Ensure chezmoi and age are installed
 if ! command -v chezmoi &>/dev/null; then
 	echo "chezmoi is not installed. Please install it first."
@@ -10,22 +13,6 @@ fi
 
 if ! command -v age &>/dev/null; then
 	echo "age is not installed. Please install it first."
-	exit 1
-fi
-
-# Target repository containing the dotfiles
-TARGET_REPO="https://github.com/yilinfang/dotfiles.git"
-SOURCE_DIR="$HOME/.chezmoi/dotfiles"
-
-# Get current script directory
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# Configuration file containing paths to apply
-CONFIG_FILE="$SCRIPT_DIR/config.txt"
-
-# Check if config file exists
-if [ ! -f "$CONFIG_FILE" ]; then
-	echo "Configuration file not found: $CONFIG_FILE"
 	exit 1
 fi
 
@@ -42,21 +29,33 @@ fi
 
 # Initialize chezmoi with the target repository
 echo "Initializing chezmoi with the repository: $TARGET_REPO"
-chezmoi init "$TARGET_REPO" -S "$SOURCE_DIR"
+chezmoi init "$TARGET_REPO"
 
-# Apply selected dotfiles from configuration file
-while IFS= read -r path || [ -n "$path" ]; do
-	# Skip empty lines
-	if [[ -z "$path" ]]; then
-		continue
-	fi
+# Apply selected dotfiles
 
-	# Trim whitespace
-	path=$(echo "$path" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+# age keys
+echo "Applying age keys..."
+chezmoi apply ~/.age
 
-	echo "Applying $path..."
-	chezmoi apply -v -r "$path"
-done <"$CONFIG_FILE"
+# neovim
+echo "Applying neovim configuration..."
+chezmoi apply ~/.config/nvim
+
+# tmux
+echo "Applying tmux configuration..."
+chezmoi apply ~/.tmux.conf
+
+# LazyGit
+echo "Applying LazyGit configuration..."
+chezmoi apply ~/.config/lazygit
+
+# Yazi
+echo "Applying Yazi configuration..."
+chezmoi apply ~/.config/yazi
+
+# github-copilot
+echo "Applying GitHub Copilot configuration..."
+chezmoi apply ~/.config/github-copilot
 
 # Finish setup
 echo "Setup complete!"
