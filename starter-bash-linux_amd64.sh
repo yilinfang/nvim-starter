@@ -2,6 +2,8 @@
 
 # Tool registry: name|install_function
 TOOLS=(
+  "age|install_age"
+  "chezmoi|install_chezmoi"
   "bat|install_bat"
   "delta|install_delta"
   "difftastic|install_difftastic"
@@ -38,6 +40,8 @@ SD_DIR="$PREFIX/sd"
 DIFFTASTIC_DIR="$PREFIX/difftastic"
 DELTA_DIR="$PREFIX/delta"
 FW_DIR="$PREFIX/fw"
+CHEZMOI_DIR="$PREFIX/chezmoi"
+AGE_DIR="$PREFIX/age"
 
 # URLs for tools
 NEOVIM_URL="https://github.com/neovim/neovim/releases/download/v0.11.1/nvim-linux-x86_64.tar.gz"
@@ -53,6 +57,8 @@ SD_URL="https://github.com/chmln/sd/releases/download/v1.0.0/sd-v1.0.0-x86_64-un
 DIFFTASTIC_URL="https://github.com/Wilfred/difftastic/releases/download/0.63.0/difft-x86_64-unknown-linux-musl.tar.gz"
 DELTA_URL="https://github.com/dandavison/delta/releases/download/0.18.2/delta-0.18.2-x86_64-unknown-linux-musl.tar.gz"
 FW_URL="https://raw.githubusercontent.com/yilinfang/fw/main/fw"
+CHEZMOI_URL="https://github.com/twpayne/chezmoi/releases/download/v2.62.5/chezmoi_2.62.5_linux-musl_amd64.tar.gz"
+AGE_URL="https://github.com/FiloSottile/age/releases/download/v1.2.1/age-v1.2.1-linux-amd64.tar.gz"
 
 # Installation tracking variables
 UPDATE_SHELL_CONFIGURATION=0
@@ -267,6 +273,48 @@ install_fw() {
   ln -s "$FW_DIR/fw" "$INSTALL_DIR/fw"
   echo "fw installed at $FW_DIR/fw and linked to $INSTALL_DIR/fw"
   UPDATE_SHELL_CONFIGURATION=1
+}
+
+install_chezmoi() {
+  echo "Installing chezmoi..."
+  rm -rf "$CHEZMOI_DIR"
+  mkdir -p "$CHEZMOI_DIR"
+  curl -L "$CHEZMOI_URL" -o "$TEMP_DIR/chezmoi.tar.gz"
+  tar -xzf "$TEMP_DIR/chezmoi.tar.gz" -C "$CHEZMOI_DIR"
+  CHEZMOI_BINARY=$(find "$CHEZMOI_DIR" -type f -name "chezmoi" | head -n 1)
+  if [ -n "$CHEZMOI_BINARY" ]; then
+    # Create a symbolic link to the chezmoi binary
+    ln -s "$CHEZMOI_BINARY" "$INSTALL_DIR/chezmoi"
+    echo "Created link to chezmoi at $INSTALL_DIR/chezmoi"
+    UPDATE_SHELL_CONFIGURATION=1
+  else
+    echo "Error: chezmoi binary not found in the extracted files."
+  fi
+}
+
+install_age() {
+  echo "Installing age..."
+  rm -rf "$AGE_DIR"
+  mkdir -p "$AGE_DIR"
+  curl -L "$AGE_URL" -o "$TEMP_DIR/age.tar.gz"
+  tar -xzf "$TEMP_DIR/age.tar.gz" -C "$AGE_DIR"
+  AGE_BINARY=$(find "$AGE_DIR" -type f -name "age" | head -n 1)
+  if [ -n "$AGE_BINARY" ]; then
+    # Create a symbolic link to the age binary
+    ln -s "$AGE_BINARY" "$INSTALL_DIR/age"
+    echo "Created link to age at $INSTALL_DIR/age"
+    UPDATE_SHELL_CONFIGURATION=1
+  else
+    echo "Error: age binary not found in the extracted files."
+  fi
+  AGE_KEYGEN_BINARY=$(find "$AGE_DIR" -type f -name "age-keygen" | head -n 1)
+  if [ -n "$AGE_KEYGEN_BINARY" ]; then
+    # Create a symbolic link to the age-keygen binary
+    ln -s "$AGE_KEYGEN_BINARY" "$INSTALL_DIR/age-keygen"
+    echo "Created link to age-keygen at $INSTALL_DIR/age-keygen"
+  else
+    echo "Error: age-keygen binary not found in the extracted files."
+  fi
 }
 
 create_shell_init_script() {

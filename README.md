@@ -6,6 +6,8 @@ Bootstrap scripts for setting up [Neovim](https://neovim.io/)-based PDE([Persona
 
 The following tools will be installed:
 
+- [age](https://github.com/FiloSottile/age)
+- [chezmoi](https://www.chezmoi.io/)
 - [bat](https://github.com/sharkdp/bat)
 - [delta](https://github.com/dandavison/delta)
 - [difftastic](https://github.com/Wilfred/difftastic)
@@ -19,17 +21,6 @@ The following tools will be installed:
 - [SAD!](https://github.com/ms-jpq/sad)
 - [sd](https://github.com/chmln/sd)
 - [Yazi](https://github.com/sxyazi/yazi)
-
-The following configurations will be set up:
-
-- [Lazygit](https://github.com/yilinfang/lazygit)
-- [Neovim](https://github.com/yilinfang/nvim)
-- [Tmux](https://github.com/yilinfang/tmux)
-- [Yazi](https://github.com/yilinfang/yazi)
-
-Please refer to the scripts for detailed installation instructions.
-
-**Important:** Make sure to back up your existing configurations for Neovim, tmux, and other tools before running the scripts.
 
 ## Requirements
 
