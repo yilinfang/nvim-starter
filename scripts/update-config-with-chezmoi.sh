@@ -13,6 +13,9 @@ if ! command -v age &>/dev/null; then
 	exit 1
 fi
 
+# Update chezmoi source dir
+chezmoi update --apply=false
+
 # Get current script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
