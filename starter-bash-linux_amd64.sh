@@ -330,6 +330,17 @@ if [ -f "$INSTALL_DIR/fzf" ]; then
   eval "\$(fzf --bash)"
 fi
 
+# If y is available, initialize Yazi
+if [[ -f "$INSTALL_DIR/yazi" && ! \$(command -v y >/dev/null) ]]; then
+function y() {
+	local tmp="\$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "\$@" --cwd-file="\$tmp"
+	IFS= read -r -d '' cwd < "\$tmp"
+	[ -n "\$cwd" ] && [ "\$cwd" != "\$PWD" ] && builtin cd -- "\$cwd"
+	rm -f -- "\$tmp"
+}
+fi
+
 # If g is available, use it for Git
 if ! command -v g >/dev/null 2>&1; then
   alias g="git"
@@ -343,11 +354,6 @@ fi
 # If lg is available, use it for lazygit
 if [[ -f "$INSTALL_DIR/lazygit" && ! \$(command -v lg >/dev/null) ]]; then
   alias lg="lazygit"
-fi
-
-# If yz is available, use it for yazi
-if [[ -f "$INSTALL_DIR/yazi" && ! \$(command -v yz >/dev/null) ]]; then
-  alias yz="yazi"
 fi
 
 EOF
