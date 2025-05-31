@@ -16,6 +16,9 @@ fi
 # Update chezmoi source dir
 chezmoi update --apply=false
 
+# Initialize chezmoi if there are some updates in chezmoi configuration
+chezmoi init --apply=false
+
 # Get current script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
