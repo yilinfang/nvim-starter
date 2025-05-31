@@ -1,4 +1,3 @@
-~/.gitconfig
 ~/.age
 ~/.tmux.conf
 ~/.config/nvim
