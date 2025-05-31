@@ -314,17 +314,6 @@ EOF
   fi
 
   tee -a "$PREFIX/init.fish" <<EOF
-# Set DFT_BACKGROUND to light if difft is installed
-# Fix color issue with difft when using the solarized-dark-based theme
-if test -f "$INSTALL_DIR/difft"
-  set -gx DFT_BACKGROUND light
-end
-
-# Set BAT_THEME if bat is installed
-if test -f "$INSTALL_DIR/bat"
-  set -gx BAT_THEME "Solarized (dark)"
-end
-
 # Initialize fzf if installed
 if test -f "$INSTALL_DIR/fzf"
   fzf --fish | source
