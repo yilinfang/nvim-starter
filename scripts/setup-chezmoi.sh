@@ -12,7 +12,7 @@ mkdir -p "$INSTALL_DIR"
 mkdir -p "$CHEZMOI_DIR"
 
 export INSTALL_TARGET_DIR="$CHEZMOI_DIR"
-bash -c "curl -fsSL https://raw.githubusercontent.com/yilinfang/dotfiles/master/scripts/install.sh" | bash
+bash -c "curl -fsSL https://raw.githubusercontent.com/yilinfang/dotfiles/main/scripts/install.sh" | bash
 
 ln -s "$CHEZMOI_DIR/chezmoi" "$INSTALL_DIR/chezmoi"
 ln -s "$CHEZMOI_DIR/age" "$INSTALL_DIR/age"
