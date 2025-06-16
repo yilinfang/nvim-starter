@@ -1,6 +1,4 @@
-~/.age
 ~/.tmux.conf
 ~/.config/nvim
 ~/.config/lazygit
 ~/.config/yazi
-~/.config/github-copilot
