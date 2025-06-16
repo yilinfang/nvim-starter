@@ -41,6 +41,5 @@ _**Note**: Git, curl and tmux are not included because they are usually pre-inst
 
 ## Uninstallation
 
-1. Run `cleanup-config-unix.sh` to remove the configurations.
-2. Delete the `~/.pde` directory.
-3. Remove any `pde-starter` related entries in `config.fish` or `.bashrc`.
+1. Delete the `~/.pde` directory.
+2. Remove any `pde-starter` related entries in `config.fish` or `.bashrc`.
