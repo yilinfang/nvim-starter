@@ -50,7 +50,7 @@ LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.52.0/
 YAZI_URL="https://github.com/sxyazi/yazi/releases/download/v25.5.31/yazi-x86_64-unknown-linux-musl.zip"
 SAD_URL="https://github.com/ms-jpq/sad/releases/download/v0.4.32/x86_64-unknown-linux-musl.zip"
 SD_URL="https://github.com/chmln/sd/releases/download/v1.0.0/sd-v1.0.0-x86_64-unknown-linux-musl.tar.gz"
-DIFFTASTIC_URL="https://github.com/Wilfred/difftastic/releases/download/0.63.0/difft-x86_64-unknown-linux-musl.tar.gz"
+DIFFTASTIC_URL="https://github.com/Wilfred/difftastic/releases/download/0.64.0/difft-x86_64-unknown-linux-musl.tar.gz"
 DELTA_URL="https://github.com/dandavison/delta/releases/download/0.18.2/delta-0.18.2-x86_64-unknown-linux-musl.tar.gz"
 FW_URL="https://raw.githubusercontent.com/yilinfang/fw/main/fw"
 
